@@ -1,4 +1,4 @@
-# Custom Admin scaffolding for freash Laravel Apps
+# Custom Admin scaffolding for fresh Laravel Apps
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/awcodes/trov.svg?style=flat-square)](https://packagist.org/packages/awcodes/trov)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/awcodes/trov/run-tests?label=tests)](https://github.com/awcodes/trov/actions?query=workflow%3Arun-tests+branch%3Amaster)
@@ -43,7 +43,6 @@ php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 ## Credits
 
 - [awcodes](https://github.com/awcodes)
-- [All Contributors](../../contributors)
 
 ## License
 
