@@ -1,0 +1,1 @@
+<a {{ $attributes }} target="_blank" aria-describedby="Opens in a new window" rel="noopener nofollow">{{$slot}}</a>

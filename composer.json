@@ -1,0 +1,33 @@
+{
+    "name": "awcodes/trov",
+    "description": "A Laravel admin boilerplate.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "awcodes",
+            "email": "awcodes1@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Trov\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "laravel/fortify": "^2.0@dev",
+        "livewire/livewire": "dev-master",
+        "spatie/laravel-menu": "dev-master",
+        "spatie/laravel-permission": "dev-master",
+        "mxschll/laravel-meta-tags": "dev-master",
+        "cviebrock/eloquent-sluggable": "dev-master"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Trov\\TrovServiceProvider"
+            ]
+        }
+    }
+}

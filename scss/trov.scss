@@ -1,0 +1,91 @@
+/* purgecss start ignore */
+@tailwind base;
+@tailwind components;
+/* purgecss end ignore */
+@tailwind utilities;
+
+.primary-navigation {
+    padding-top: 0.75rem;
+}
+
+.primary-navigation li {
+    padding-right: 1.5rem;
+    margin-top: 0.25rem;
+}
+
+.primary-navigation li .separator {
+    display: block;
+    padding: 0 1.5rem;
+    margin-top: 1.5rem;
+    font-size: theme("fontSize.xs");
+    text-transform: uppercase;
+    font-weight: 700;
+    color: theme("colors.gray.600");
+    letter-spacing: 0.025em;
+}
+
+.primary-navigation li a {
+    display: block;
+    padding: 0.5rem 1.5rem;
+    border-left: solid 4px transparent;
+    border-radius: 0px 0.375rem 0.375rem 0px;
+    color: theme("colors.gray.400");
+
+    @screen lg {
+        padding: 0.375rem 1.5rem;
+    }
+}
+
+.primary-navigation li a .svg-inline--fa {
+    color: theme("colors.gray.600");
+    width: 1.5rem;
+}
+
+.primary-navigation li a:hover,
+.primary-navigation li a:focus,
+.primary-navigation li a:active {
+    background-color: theme("colors.gray.800");
+    border-left: solid 4px theme("colors.gray.500");
+    text-decoration: none;
+}
+
+.primary-navigation li a:hover .svg-inline--fa,
+.primary-navigation li a:focus .svg-inline--fa,
+.primary-navigation li a:active .svg-inline--fa {
+    color: theme("colors.gray.400");
+}
+
+.primary-navigation li.active a,
+.primary-navigation li.exact-active a {
+    background-color: theme("colors.pink.800");
+    border-left: solid 4px theme("colors.pink.500");
+    color: theme("colors.pink.200");
+}
+
+.primary-navigation li.active a .svg-inline--fa,
+.primary-navigation li.exact-active a .svg-inline--fa {
+    color: theme("colors.pink.400");
+}
+
+.new-item-navigation {
+    padding: 0.375rem;
+}
+
+.new-item-navigation li a {
+    display: block;
+    padding: 0.5rem 0.5rem;
+    border-radius: 0px 0.375rem 0.375rem 0px;
+    color: theme("colors.gray.400");
+    font-size: 0.875rem;
+
+    @screen lg {
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+.new-item-navigation li a:hover,
+.new-item-navigation li a:focus,
+.new-item-navigation li a:active {
+    color: theme("colors.pink.500");
+    text-decoration: none;
+}
