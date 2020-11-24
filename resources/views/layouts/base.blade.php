@@ -41,16 +41,16 @@
 
     <nav x-data="{menuOpen: false}" class="relative w-full antialiased bg-gray-900 lg:w-64">
 
-        <div class="flex items-center justify-between h-16 px-6 py-3 text-xl font-bold text-white bg-gray-900 bg-no-repeat border-b border-gray-800" style="background: url({{ asset('vendor/trov/images/cms-geometric.png') }});">
+        <div class="flex items-center justify-between w-full h-16 px-6 py-3 text-xl font-bold text-white bg-gray-900 bg-no-repeat border-b border-gray-800" style="background: url({{ asset('vendor/trov/images/cms-geometric.png') }});">
 
-            <div>
+            <div class="w-full">
                 <a href="{{ route('trov.dashboard') }}" class="flex items-center space-x-3 text-white hover:text-gray-100 focus:text-gray-100">
                     <img src="{{ config('brand.images.icon.url') ?: asset('/vendor/trov/images/apple-touch-icon.png') }}" class="flex-shrink-0 w-8 h-8 overflow-hidden border border-gray-800 rounded" alt="{{ config()->has('brand.images.icon.alt') ?: 'trov icon'}}" />
-                    <span class="truncate">{{ config('app.name') }}</span>
+                    <span class="flex-1 w-0 truncate">{{ config('app.name') }}</span>
                 </a>
             </div>
 
-            <div class="flex items-center flex-shrink-0 space-x-3">
+            <div class="flex items-center flex-shrink-0 ml-3 space-x-3">
                 @if (app('menu.newitems')->count() > 0)
                 <div x-data="{open:false}" class="relative h-6">
                     <button x-on:click="open = !open" x-on:keydown.escape.window="open = false" x-on:click.away="open = false">
