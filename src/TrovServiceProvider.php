@@ -118,11 +118,7 @@ class TrovServiceProvider extends ServiceProvider
         });
 
         Gate::after(function ($user, $ability) {
-            return in_array($user->email, [
-                'adam.weston@titlemax.com',
-                'scott.kublin@titlemax.com',
-                'carly.hallman@titlemax.com',
-            ]) ? true : null;
+            return in_array($user->email, config('trov.titans')) ? true : null;
         });
 
         Gate::define('manage-profile', function ($user, $profile) {

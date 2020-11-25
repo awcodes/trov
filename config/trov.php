@@ -10,4 +10,9 @@ return [
             ]
         ],
     ],
+    'titans' => [
+        'adam.weston@titlemax.com',
+        'scott.kublin@titlemax.com',
+        'carly.hallman@titlemax.com',
+    ],
 ];

@@ -40,6 +40,11 @@ You can publish the Fortify config with:
 php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 ```
 
+You can publish the Spatie Laravel Permission migrations and config with:
+```bash
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+```
+
 ## Credits
 
 - [awcodes](https://github.com/awcodes)
