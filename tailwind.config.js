@@ -37,7 +37,7 @@ module.exports = {
         borderRadius: [],
         borderStyle: [],
         borderWidth: [],
-        boxShadow: [],
+        boxShadow: ["responsive"],
         container: ["responsive"],
         cursor: [],
         display: ["responsive"],
