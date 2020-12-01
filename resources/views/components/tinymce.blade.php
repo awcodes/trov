@@ -30,6 +30,9 @@ $toolbar = $toolbar . ' addMedia';
 </div>
 
 @push('scripts')
+@once
+<script src="https://cdn.tiny.cloud/1/jz7xyc3oqboxeu2do3jekht8y8tq762vdrpmvt4yd1eq89bo/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+@endonce
 <script>
     tinymce.init({
         selector: '#{{ $name }}',

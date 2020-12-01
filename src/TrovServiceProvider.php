@@ -92,7 +92,7 @@ class TrovServiceProvider extends ServiceProvider
         Menu::macro('main', function () {
             return Menu::new()
                 ->withoutWrapperTag()
-                ->route('trov.dashboard', '<i class="mr-2 fas fa-fw fa-home"></i> Dashboard')
+                ->url(config('trov.home'), '<i class="mr-2 fas fa-fw fa-home"></i> Dashboard')
                 ->setActiveFromRequest();
         });
 

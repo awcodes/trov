@@ -27,9 +27,8 @@
     @livewireStyles()
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
-    <link rel="stylesheet" href="{{ asset('vendor/trov/css/trov.css') }}">
     @stack('styles')
+    <link rel="stylesheet" href="{{ asset('vendor/trov/css/trov.css') }}">
 
     <!-- Scripts -->
     <script type="module" src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
@@ -44,8 +43,8 @@
         <div class="flex items-center justify-between w-full h-16 px-6 py-3 text-xl font-bold text-white bg-gray-900 bg-no-repeat border-b border-gray-800" style="background: url({{ asset('vendor/trov/images/cms-geometric.png') }});">
 
             <div class="w-full">
-                <a href="{{ route('trov.dashboard') }}" class="flex items-center space-x-3 text-white hover:text-gray-100 focus:text-gray-100">
-                    <img src="{{ config('brand.images.icon.url') ?: asset('/vendor/trov/images/apple-touch-icon.png') }}" class="flex-shrink-0 w-8 h-8 overflow-hidden border border-gray-800 rounded" alt="{{ config()->has('brand.images.icon.alt') ?: 'trov icon'}}" />
+                <a href="{{ config('trov.home') }}" class="flex items-center space-x-3 text-white hover:text-gray-100 focus:text-gray-100">
+                    <img src="{{ config('brand.images.icon.url') ?: asset('/vendor/trov/images/icon.svg') }}" class="flex-shrink-0 w-8 h-8 overflow-hidden border border-gray-800 rounded" alt="{{ config()->has('brand.images.icon.alt') ?: 'trov icon'}}" />
                     <span class="flex-1 w-0 truncate">{{ config('app.name') }}</span>
                 </a>
             </div>
@@ -113,13 +112,10 @@
     <!-- Scripts -->
     @livewireScripts()
     <script src="https://media-library.cloudinary.com/global/all.js" defer></script>
-    <script src="https://unpkg.com/moment" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js" defer></script>
-    <script src="https://cdn.tiny.cloud/1/jz7xyc3oqboxeu2do3jekht8y8tq762vdrpmvt4yd1eq89bo/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    @stack('scripts')
     <script src="{{ asset('vendor/trov/js/solid.min.js') }}" defer></script>
     <script src="{{ asset('vendor/trov/js/fontawesome.min.js') }}" defer></script>
     <script src="{{ asset('vendor/trov/js/trov.js') }}" defer></script>
-    @stack('scripts')
 </body>
 
 </html>

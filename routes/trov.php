@@ -12,12 +12,8 @@ Route::get('/home', function () {
 Route::prefix('trov')->middleware(['web', 'auth'])->group(function () {
 
     Route::get('/', function () {
-        return redirect()->route('trov.dashboard');
+        return redirect(config('trov.home'));
     });
-
-    Route::get('/dashboard', function () {
-        return view('trov::dashboard');
-    })->name('trov.dashboard');
 
     Route::get('/users', UserIndex::class)->name('trov.users.index');
     Route::get('/users/create', CreateUser::class)->name('trov.users.create');
