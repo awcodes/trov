@@ -1,0 +1,136 @@
+<?php
+
+namespace App\Resources;
+
+use Illuminate\Support\Str;
+use Filament\Resources\Form;
+use Filament\Resources\Table;
+use App\Forms\Components\Meta;
+use App\Models\DiscoveryTopic;
+use App\Traits\HasSoftDeletes;
+use Filament\Resources\Resource;
+use App\Forms\Fields\SlugInput;
+use App\Forms\Fields\MediaPicker;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Select;
+use App\Forms\Components\Timestamps;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use App\Forms\Components\BlockContent;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\BadgeColumn;
+use App\Forms\Components\FeaturedImage;
+use App\Forms\Components\TitleWithSlug;
+use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Filters\SelectFilter;
+use App\Tables\Filters\SoftDeleteFilter;
+use Filament\Forms\Components\Placeholder;
+use App\Tables\Columns\CustomTitleColumn;
+use App\Tables\Columns\FeaturedImageColumn;
+use App\Resources\RelationManagers\LinkSetsRelationManager;
+use App\Resources\DiscoveryTopicResource\Pages\EditDiscoveryTopic;
+use App\Resources\DiscoveryTopicResource\Pages\ListDiscoveryTopics;
+use App\Resources\DiscoveryTopicResource\Pages\CreateDiscoveryTopic;
+
+class DiscoveryTopicResource extends Resource
+{
+    use HasSoftDeletes;
+
+    protected static ?string $model = DiscoveryTopic::class;
+
+    protected static ?string $label = 'Topic';
+
+    protected static ?string $navigationLabel = 'Topics';
+
+    protected static ?string $navigationGroup = 'Discovery Center';
+
+    protected static ?string $navigationIcon = 'heroicon-o-light-bulb';
+
+    protected static ?string $recordTitleAttribute = 'title';
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Group::make()
+                    ->schema([
+                        TitleWithSlug::make(),
+                        FeaturedImage::make(),
+                        Section::make('Page Content')
+                            ->schema([
+                                BlockContent::make('content')
+                            ])
+                    ])
+                    ->columnSpan([
+                        'lg' => 'full',
+                        'xl' => 2,
+                    ]),
+                Group::make()
+                    ->schema([
+                        Section::make('Details')
+                            ->schema([
+                                Select::make('status')
+                                    ->default('draft')
+                                    ->options(config('trov.publishable.status'))
+                                    ->required()
+                                    ->columnSpan(2),
+                                DatePicker::make('published_at')
+                                    ->label('Publish Date')
+                                    ->columnSpan(2),
+                                Timestamps::make()
+                            ]),
+                        Meta::make(),
+                    ])
+                    ->columnSpan([
+                        'lg' => 'full',
+                        'xl' => 1,
+                    ]),
+            ])
+            ->columns([
+                'lg' => 3,
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                FeaturedImageColumn::make('featured_image')->label('Thumb'),
+                CustomTitleColumn::make('title')
+                    ->searchable()
+                    ->sortable(),
+                BadgeColumn::make('status')->enum(config('trov.publishable.status'))->colors(config('trov.publishable.colors')),
+                BadgeColumn::make('meta.indexable')
+                    ->label('SEO')
+                    ->enum([
+                        true => 'Index',
+                        false => '—',
+                    ])
+                    ->colors([
+                        'success' => true,
+                        'secondary' => false,
+                    ]),
+                TextColumn::make('published_at')->label('Published At')->date()->sortable(),
+            ])
+            ->filters([
+                SelectFilter::make('status')->options(config('trov.publishable.status')),
+                SoftDeleteFilter::make(),
+            ])->defaultSort('published_at', 'desc');
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            LinkSetsRelationManager::class,
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListDiscoveryTopics::route('/'),
+            'create' => CreateDiscoveryTopic::route('/create'),
+            'edit' => EditDiscoveryTopic::route('/{record}/edit'),
+        ];
+    }
+}

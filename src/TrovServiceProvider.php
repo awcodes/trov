@@ -32,7 +32,7 @@ class TrovServiceProvider extends PluginServiceProvider
             ->hasAssets()
             ->hasViews()
             ->hasRoute("web")
-            ->hasCommand(RegenerateThumbnails::class)
+            ->hasCommand($this->getCommands())
             ->hasMigrations([
                 'create_trov_tables',
             ]);
@@ -84,5 +84,12 @@ class TrovServiceProvider extends PluginServiceProvider
         }
 
         return array_merge($core, $features);
+    }
+
+    protected function getCommands(): array
+    {
+        return [
+            RegenerateThumbnails::class,
+        ];
     }
 }
