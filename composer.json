@@ -1,0 +1,65 @@
+{
+    "name": "awcodes/trov",
+    "type": "project",
+    "description": "A Laravel Filament starter kit.",
+    "keywords": [
+        "framework",
+        "laravel",
+        "filament"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adam Weston",
+            "email": "awcodes1@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0.2",
+        "bezhansalleh/filament-shield": "^1.1",
+        "cloudinary-labs/cloudinary-laravel": "^1.0",
+        "filament/filament": "^2.0",
+        "filament/spatie-laravel-tags-plugin": "^2.0",
+        "intervention/image": "^2.7",
+        "jeffgreco13/filament-breezy": "^1.25",
+        "mohamedsabil83/filament-forms-tinyeditor": "^1.5",
+        "spatie/laravel-package-tools": "^1.9.2",
+        "spatie/laravel-sluggable": "^3.3",
+        "spatie/laravel-tags": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Trov\\": "src/",
+            "Trov\\Database\\Factories\\": "database/factories/",
+            "Trov\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Trov\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php artisan vendor:publish --tag=\"filament-config\"",
+            "@php artisan vendor:publish --tag=\"filament-breezy-config\"",
+            "@php artisan vendor:publish --tag=\"filament-breezy-config\"",
+            "@php artisan vendor:publish --tag=\"filament-shield-config\""
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Trov\\TrovServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

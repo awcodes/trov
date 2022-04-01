@@ -1,0 +1,27 @@
+{
+  "name": "trov",
+  "version": "1.0.0",
+  "description": "TODO: write description",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.0",
+    "@tailwindcss/typography": "^0.5.2",
+    "@tiptap/core": "^2.0.0-beta.174",
+    "@tiptap/starter-kit": "^2.0.0-beta.183",
+    "alpinejs": "^3.9.5",
+    "tailwindcss": "^3.0.23",
+    "tippy.js": "^6.3.7"
+  }
+}

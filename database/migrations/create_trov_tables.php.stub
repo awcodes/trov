@@ -1,0 +1,187 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateTrovTables extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('media', function (Blueprint $table) {
+            $table->id();
+            $table->string('public_id')->nullable();
+            $table->string('filename');
+            $table->string('ext')->nullable();
+            $table->string('type')->nullable();
+            $table->string('alt')->nullable();
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->text('caption')->nullable();
+            $table->unsignedInteger('width')->nullable();
+            $table->unsignedInteger('height')->nullable();
+            $table->string('disk')->default('public');
+            $table->string('directory')->nullable();
+            $table->unsignedBigInteger('size')->nullable();
+            $table->nullableTimestamps();
+        });
+
+        Schema::create('metas', function (Blueprint $table) {
+            $table->id();
+            $table->unique(['metaable_id', 'metaable_type']);
+            $table->string('title');
+            $table->text('description');
+            $table->boolean('indexable')->default(true);
+            $table->foreignId('og_image')->nullable();
+            $table->integer('metaable_id');
+            $table->string('metaable_type');
+            $table->timestamps();
+        });
+
+        Schema::create('pages', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->string('status')->default('draft');
+            $table->longText('content')->nullable();
+            $table->boolean('has_chat')->default(true);
+            $table->string('layout')->default('default');
+            $table->boolean('front_page')->default(false);
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        if (config('trov.features.authors.active')) {
+            Schema::create('authors', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('slug')->unique();
+                $table->longText('bio')->nullable();
+                $table->string('facebook_handle')->nullable();
+                $table->string('twitter_handle')->nullable();
+                $table->string('instagram_handle')->nullable();
+                $table->string('linkedin_handle')->nullable();
+                $table->string('youtube_handle')->nullable();
+                $table->string('pinterest_handle')->nullable();
+                $table->string('avatar')->nullable();
+                $table->timestamps();
+            });
+        }
+
+        if (config('trov.features.discovery_center.active')) {
+            Schema::create('discovery_articles', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->string('status')->default('draft');
+                $table->foreignId('discovery_topic_id');
+                $table->foreignId('author_id');
+                $table->longText('content')->nullable();
+                $table->date('published_at')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+            });
+
+            Schema::create('discovery_topics', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->string('status')->default('draft');
+                $table->longText('content')->nullable();
+                $table->date('published_at')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+        if (config('trov.features.faqs.active')) {
+            Schema::create('faqs', function (Blueprint $table) {
+                $table->id();
+                $table->string('question');
+                $table->string('slug')->unique();
+                $table->string('status')->default('draft');
+                $table->longText('answer')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+        if (config('trov.features.airport.active')) {
+            Schema::create('landing_pages', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->string('status')->default('draft');
+                $table->longText('content')->nullable();
+                $table->boolean('has_chat')->default(true);
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+        if (config('trov.features.link_sets.active')) {
+            Schema::create('link_sets', function (Blueprint $table) {
+                $table->id();
+                $table->string('section');
+                $table->longText('links');
+                $table->integer('linkable_id');
+                $table->string('linkable_type');
+                $table->timestamps();
+            });
+        }
+
+        if (config('trov.features.posts.active')) {
+            Schema::create('posts', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->string('status')->default('draft');
+                $table->foreignId('author_id');
+                $table->longText('content')->nullable();
+                $table->date('published_at')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+
+        if (config('trov.features.white_pages.active')) {
+            Schema::create('white_pages', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->string('status')->default('draft');
+                $table->foreignId('author_id');
+                $table->string('type')->default('article');
+                $table->longText('content')->nullable();
+                $table->date('published_at')->nullable();
+                $table->softDeletes();
+                $table->timestamps();
+            });
+        }
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('authors');
+        Schema::dropIfExists('discovery_articles');
+        Schema::dropIfExists('discovery_topics');
+        Schema::dropIfExists('faqs');
+        Schema::dropIfExists('landing_pages');
+        Schema::dropIfExists('link_sets');
+        Schema::dropIfExists('media');
+        Schema::dropIfExists('metas');
+        Schema::dropIfExists('pages');
+        Schema::dropIfExists('posts');
+        Schema::dropIfExists('white_pages');
+    }
+}

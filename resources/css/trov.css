@@ -1,0 +1,42 @@
+@import "../../../../vendor/filament/forms/dist/module.esm.css";
+
+@import "~tippy.js/dist/tippy.css";
+@import "~tippy.js/themes/light.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button[disabled] {
+    opacity: 0.5;
+}
+
+.filepond--root[data-style-panel-aspect-ratio] .filepond--drop-label {
+    transform: translateY(-50%) !important;
+    position: absolute;
+    top: 50%;
+}
+
+.filament-forms-builder-component .block-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    text-orientation: mixed;
+    writing-mode: vertical-lr;
+    background-color: theme("colors.gray.200");
+    font-size: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    border-radius: 0.5rem 0 0 0.5rem;
+    overflow: hidden;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.dark .filament-forms-builder-component .block-title {
+    background-color: theme("colors.gray.900");
+    font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
