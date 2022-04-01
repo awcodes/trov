@@ -1,7 +1,7 @@
 {
   "name": "trov",
   "version": "1.0.0",
-  "description": "TODO: write description",
+  "description": "A Laravel / Filament starter kit for CMS functionality on websites.",
   "main": "index.js",
   "scripts": {
     "dev": "npm run development",
@@ -13,13 +13,15 @@
     "production": "mix --production"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Adam Weston",
+    "email": "awcodes1@gmail.com",
+    "url": "https://www.awcodes.com"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
-    "@tiptap/core": "^2.0.0-beta.174",
-    "@tiptap/starter-kit": "^2.0.0-beta.183",
     "alpinejs": "^3.9.5",
     "tailwindcss": "^3.0.23",
     "tippy.js": "^6.3.7"

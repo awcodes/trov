@@ -1,11 +1,13 @@
 {
     "name": "awcodes/trov",
     "type": "project",
-    "description": "A Laravel Filament starter kit.",
+    "description": "A Laravel / Filament starter kit for CMS functionality on websites.",
     "keywords": [
         "framework",
         "laravel",
-        "filament"
+        "filament",
+        "trov",
+        "cms"
     ],
     "license": "MIT",
     "authors": [
