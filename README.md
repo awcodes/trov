@@ -1,15 +1,15 @@
 ## About Trov
 
-TODO: write description
+A Laravel / Filament starter kit for CMS functionality on websites.
 
 Please star these awesome repos and/or sponsors all of these peoples hard work:
 
--   [Filament](https://github.com/laravel-filament/filament)
--   [Filament Breezy](https://github.com/jeffgreco13/filament-breezy)
--   [Filament Shield](https://github.com/bezhanSalleh/filament-shield)
--   [Spatie Laravel Package Tools](https://github.com/spatie/laravel-package-tools)
--   [Spatie Laravel Sluggable](https://github.com/spatie/laravel-sluggable)
--   [Spatie Laravel Tags](https://github.com/spatie/laravel-tags)
+- [Filament](https://github.com/laravel-filament/filament)
+- [Filament Breezy](https://github.com/jeffgreco13/filament-breezy)
+- [Filament Shield](https://github.com/bezhanSalleh/filament-shield)
+- [Spatie Laravel Package Tools](https://github.com/spatie/laravel-package-tools)
+- [Spatie Laravel Sluggable](https://github.com/spatie/laravel-sluggable)
+- [Spatie Laravel Tags](https://github.com/spatie/laravel-tags)
 
 ## Installation
 
