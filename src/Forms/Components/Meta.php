@@ -4,19 +4,20 @@ namespace Trov\Forms\Components;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Trov\Forms\Components\Panel;
+use Trov\Forms\Fields\MediaPicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
-use Trov\Forms\Fields\MediaPicker;
 
 class Meta
 {
-    public static function make(array $only = ['title', 'description', 'indexable', 'og_image']): Section
+    public static function make(array $only = ['title', 'description', 'indexable', 'og_image']): Panel
     {
-        return Section::make('SEO')
+        return Panel::make('SEO')
+            ->collapsible()
             ->schema([
                 Group::make(
                     Arr::only([

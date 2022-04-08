@@ -30,6 +30,8 @@ use Trov\Tables\Columns\CustomTitleColumn;
 use Trov\Tables\Columns\FeaturedImageColumn;
 use Filament\Forms\Components\BelongsToSelect;
 use Filament\Forms\Components\SpatieTagsInput;
+use FilamentBardEditor\BardEditor;
+use Trov\Forms\Components\Panel;
 use Trov\Resources\PostResource\Pages\EditPost;
 use Trov\Resources\PostResource\Pages\ListPosts;
 use Trov\Resources\PostResource\Pages\CreatePost;
@@ -69,7 +71,8 @@ class PostResource extends Resource
                     ]),
                 Group::make()
                     ->schema([
-                        Section::make('Details')
+                        Panel::make('Details')
+                            ->collapsible()
                             ->schema([
                                 Select::make('status')
                                     ->default('draft')

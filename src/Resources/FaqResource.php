@@ -10,6 +10,7 @@ use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
 use Trov\Forms\Fields\SlugInput;
+use FilamentBardEditor\BardEditor;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Trov\Forms\Components\Timestamps;
@@ -57,11 +58,8 @@ class FaqResource extends Resource
                         TitleWithSlug::make('question'),
                         Section::make('Answer')
                             ->schema([
-                                TinyEditor::make('answer')
-                                    ->label('Rich Text')
-                                    ->profile('custom')
-                                    ->showMenuBar()
-                                    ->required(),
+                                BardEditor::make('answer')
+                                    ->dehydrateStateUsing(fn ($state) => dd($state)),
                             ]),
                     ])
                     ->columnSpan([
