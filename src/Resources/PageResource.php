@@ -24,6 +24,7 @@ use Trov\Forms\Components\TitleWithSlug;
 use Filament\Tables\Filters\SelectFilter;
 use Trov\Tables\Filters\SoftDeleteFilter;
 use Filament\Forms\Components\Placeholder;
+use Trov\Forms\Components\Panel;
 use Trov\Tables\Columns\CustomTitleColumn;
 use Trov\Tables\Columns\FeaturedImageColumn;
 use Trov\Resources\PageResource\Pages\EditPage;
@@ -63,7 +64,8 @@ class PageResource extends Resource
                     ]),
                 Group::make()
                     ->schema([
-                        Section::make('Details')
+                        Panel::make('Details')
+                            ->collapsible()
                             ->schema([
                                 Select::make('status')
                                     ->hidden(fn ($get) => $get('front_page') ?: false)

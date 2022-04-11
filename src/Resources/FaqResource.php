@@ -30,6 +30,7 @@ use Trov\Resources\FaqResource\Pages\ListFaqs;
 use Trov\Resources\FaqResource\Pages\CreateFaq;
 use Trov\Resources\RelationManagers\LinkSetsRelationManager;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
+use Trov\Forms\Components\Panel;
 
 class FaqResource extends Resource
 {
@@ -58,8 +59,7 @@ class FaqResource extends Resource
                         TitleWithSlug::make('question'),
                         Section::make('Answer')
                             ->schema([
-                                BardEditor::make('answer')
-                                    ->dehydrateStateUsing(fn ($state) => dd($state)),
+                                BardEditor::make('answer'),
                             ]),
                     ])
                     ->columnSpan([
@@ -68,7 +68,8 @@ class FaqResource extends Resource
                     ]),
                 Group::make()
                     ->schema([
-                        Section::make('Details')
+                        Panel::make('Details')
+                            ->collapsible()
                             ->schema([
                                 Select::make('status')
                                     ->default('draft')

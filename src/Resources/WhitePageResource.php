@@ -24,6 +24,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Trov\Tables\Filters\SoftDeleteFilter;
 use Trov\Tables\Columns\CustomTitleColumn;
 use Filament\Forms\Components\BelongsToSelect;
+use Trov\Forms\Components\Panel;
 use Trov\Resources\WhitePageResource\Pages\EditWhitePage;
 use Trov\Resources\WhitePageResource\Pages\ListWhitePages;
 use Trov\Resources\WhitePageResource\Pages\CreateWhitePage;
@@ -63,7 +64,8 @@ class WhitePageResource extends Resource
                     ]),
                 Group::make()
                     ->schema([
-                        Section::make('Details')
+                        Panel::make('Details')
+                            ->collapsible()
                             ->schema([
                                 Select::make('status')
                                     ->default('draft')

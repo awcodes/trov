@@ -28,6 +28,7 @@ use Filament\Forms\Components\Placeholder;
 use Trov\Tables\Columns\CustomTitleColumn;
 use Trov\Tables\Columns\FeaturedImageColumn;
 use Filament\Forms\Components\BelongsToSelect;
+use Trov\Forms\Components\Panel;
 use Trov\Resources\RelationManagers\LinkSetsRelationManager;
 use Trov\Resources\DiscoveryArticleResource\Pages\EditDiscoveryArticle;
 use Trov\Resources\DiscoveryArticleResource\Pages\ListDiscoveryArticles;
@@ -68,7 +69,8 @@ class DiscoveryArticleResource extends Resource
                     ]),
                 Group::make()
                     ->schema([
-                        Section::make('Details')
+                        Panel::make('Details')
+                            ->collapsible()
                             ->schema([
                                 Select::make('status')
                                     ->default('draft')
