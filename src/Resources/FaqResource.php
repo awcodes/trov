@@ -9,12 +9,14 @@ use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
+use Trov\Forms\Components\Panel;
 use Trov\Forms\Fields\SlugInput;
 use FilamentBardEditor\BardEditor;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Trov\Forms\Components\Timestamps;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\BadgeColumn;
@@ -24,13 +26,15 @@ use Filament\Tables\Filters\SelectFilter;
 use Trov\Tables\Filters\SoftDeleteFilter;
 use Filament\Forms\Components\Placeholder;
 use Trov\Tables\Columns\CustomTitleColumn;
+use Filament\Forms\Components\Builder\Block;
+use Filament\Forms\Components\Repeater;
+use FilamentBardEditor\Components\TestBlock;
 use Trov\Resources\FaqResource\Pages\EditFaq;
 use Filament\Forms\Components\SpatieTagsInput;
 use Trov\Resources\FaqResource\Pages\ListFaqs;
 use Trov\Resources\FaqResource\Pages\CreateFaq;
 use Trov\Resources\RelationManagers\LinkSetsRelationManager;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
-use Trov\Forms\Components\Panel;
 
 class FaqResource extends Resource
 {
@@ -59,7 +63,22 @@ class FaqResource extends Resource
                         TitleWithSlug::make('question'),
                         Section::make('Answer')
                             ->schema([
-                                BardEditor::make('answer'),
+                                BardEditor::make('answer')
+                                    ->excludes(['blockquote', 'subscript'])
+                                    ->blocks([
+                                        Block::make('infographic')
+                                            ->schema([
+                                                TextInput::make('name')->required(),
+                                                Textarea::make('transcript'),
+                                            ]),
+                                        Block::make('social_media')
+                                            ->schema([
+                                                TextInput::make('facebook'),
+                                                TextInput::make('twitter'),
+                                                TextInput::make('instagram'),
+                                                TextInput::make('linkedin'),
+                                            ]),
+                                    ]),
                             ]),
                     ])
                     ->columnSpan([
