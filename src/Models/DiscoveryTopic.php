@@ -2,7 +2,6 @@
 
 namespace Trov\Models;
 
-use Trov\Models\Media;
 use Trov\Models\Author;
 use Trov\Traits\HasMeta;
 use Trov\Traits\HasLinkSet;

@@ -2,7 +2,7 @@
 
 namespace Trov\Forms\Blocks;
 
-use Trov\Forms\Fields\MediaPicker;
+use FilamentCurator\Forms\Components\MediaPicker;
 use Filament\Forms\Components\Textarea;
 use Trov\Forms\Components\BlockHeading;
 use Filament\Forms\Components\Builder\Block;

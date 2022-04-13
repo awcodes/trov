@@ -2,7 +2,6 @@
 
 namespace Trov\Models;
 
-use Trov\Models\Media;
 use Trov\Models\Author;
 use Spatie\Tags\HasTags;
 use Trov\Traits\HasMeta;

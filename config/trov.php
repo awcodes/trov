@@ -59,25 +59,15 @@ return [
             'success' => 'published'
         ],
     ],
-    'media' => [
-        'disk' => 'public',
-        'directory' => 'trov',
-        'preserve_file_names' => true,
-        'default_featured_image' => [
-            'url' => 'https://res.cloudinary.com/tmxfoc/image/upload/v1600976413/tmxfinancefamily/opengraph.jpg',
-            'thumbnail_url' => 'https://res.cloudinary.com/tmxfoc/image/upload/f_auto,q_auto,c_fill,w_200,h_200/tmxfinancefamily/opengraph.jpg',
-            'medium_url' => 'https://res.cloudinary.com/tmxfoc/image/upload/f_auto,q_auto,c_fill,w_640/tmxfinancefamily/opengraph.jpg',
-            'large_url' => 'https://res.cloudinary.com/tmxfoc/image/upload/f_auto,q_auto,c_fill,w_1024/tmxfinancefamily/opengraph.jpg',
-        ],
-        'sizes' => [
-            'thumbnail' => ['width' => 200, 'height' => 200, 'quality' => 60],
-            'medium' => ['width' => 640, 'height' => null, 'quality' => 60],
-            'large' => ['width' => 1024, 'height' => null, 'quality' => 60],
-        ],
-    ],
     'linkable_sets_sections' => [
         'Types of Services' => 'Types of Services',
         'How to Get Cash' => 'How to Get Cash',
         'Near Me' => 'Near Me'
+    ],
+    'default_featured_image' => [
+        'url' => 'https://res.cloudinary.com/tmxfoc/image/upload/v1600976413/tmxfinancefamily/opengraph.jpg',
+        'thumbnail_url' => 'https://res.cloudinary.com/tmxfoc/image/upload/f_auto,q_auto,c_fill,w_200,h_200/tmxfinancefamily/opengraph.jpg',
+        'medium_url' => 'https://res.cloudinary.com/tmxfoc/image/upload/f_auto,q_auto,c_fill,w_640/tmxfinancefamily/opengraph.jpg',
+        'large_url' => 'https://res.cloudinary.com/tmxfoc/image/upload/f_auto,q_auto,c_fill,w_1024/tmxfinancefamily/opengraph.jpg',
     ],
 ];

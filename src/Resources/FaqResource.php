@@ -35,6 +35,8 @@ use Trov\Resources\FaqResource\Pages\ListFaqs;
 use Trov\Resources\FaqResource\Pages\CreateFaq;
 use Trov\Resources\RelationManagers\LinkSetsRelationManager;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
+use Trov\Forms\Components\FixedSidebar;
+use Trov\Forms\Components\Separator;
 
 class FaqResource extends Resource
 {
@@ -56,59 +58,43 @@ class FaqResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
+        return FixedSidebar::make($form)
             ->schema([
-                Group::make()
+                TitleWithSlug::make('question')->columnSpan('full'),
+                Section::make('Answer')
                     ->schema([
-                        TitleWithSlug::make('question'),
-                        Section::make('Answer')
-                            ->schema([
-                                BardEditor::make('answer')
-                                    ->excludes(['blockquote', 'subscript'])
-                                    ->blocks([
-                                        Block::make('infographic')
-                                            ->schema([
-                                                TextInput::make('name')->required(),
-                                                Textarea::make('transcript'),
-                                            ]),
-                                        Block::make('social_media')
-                                            ->schema([
-                                                TextInput::make('facebook'),
-                                                TextInput::make('twitter'),
-                                                TextInput::make('instagram'),
-                                                TextInput::make('linkedin'),
-                                            ]),
+                        BardEditor::make('answer')
+                            ->excludes(['blockquote', 'subscript'])
+                            ->blocks([
+                                Block::make('infographic')
+                                    ->schema([
+                                        TextInput::make('name')->required(),
+                                        Textarea::make('transcript'),
+                                    ]),
+                                Block::make('social_media')
+                                    ->schema([
+                                        TextInput::make('facebook'),
+                                        TextInput::make('twitter'),
+                                        TextInput::make('instagram'),
+                                        TextInput::make('linkedin'),
                                     ]),
                             ]),
-                    ])
-                    ->columnSpan([
-                        'lg' => 'full',
-                        'xl' => 2
                     ]),
-                Group::make()
+            ], [
+                Panel::make('Details')
+                    ->collapsible()
                     ->schema([
-                        Panel::make('Details')
-                            ->collapsible()
-                            ->schema([
-                                Select::make('status')
-                                    ->default('draft')
-                                    ->options(config('trov.publishable.status'))
-                                    ->required()
-                                    ->columnSpan(2),
-                                SpatieTagsInput::make('tags')
-                                    ->type('faqTag')
-                                    ->columnspan(2),
-                                Timestamps::make()
-                            ]),
-                        Meta::make(),
-                    ])
-                    ->columnSpan([
-                        'lg' => 'full',
-                        'xl' => 1,
+                        Select::make('status')
+                            ->default('draft')
+                            ->options(config('trov.publishable.status'))
+                            ->required()
+                            ->columnSpan(2),
+                        SpatieTagsInput::make('tags')
+                            ->type('faqTag')
+                            ->columnspan(2),
+                        Timestamps::make()
                     ]),
-            ])
-            ->columns([
-                'lg' => 3,
+                Meta::make(),
             ]);
     }
 

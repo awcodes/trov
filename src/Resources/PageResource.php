@@ -8,6 +8,7 @@ use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
+use Trov\Forms\Components\Panel;
 use Trov\Forms\Fields\BardEditor;
 use Illuminate\Support\HtmlString;
 use Filament\Forms\Components\Group;
@@ -19,12 +20,12 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Trov\Forms\Components\BlockContent;
+use Trov\Forms\Components\FixedSidebar;
 use Filament\Tables\Columns\BadgeColumn;
 use Trov\Forms\Components\TitleWithSlug;
 use Filament\Tables\Filters\SelectFilter;
 use Trov\Tables\Filters\SoftDeleteFilter;
 use Filament\Forms\Components\Placeholder;
-use Trov\Forms\Components\Panel;
 use Trov\Tables\Columns\CustomTitleColumn;
 use Trov\Tables\Columns\FeaturedImageColumn;
 use Trov\Resources\PageResource\Pages\EditPage;
@@ -48,56 +49,40 @@ class PageResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
+        return FixedSidebar::make()
             ->schema([
-                Group::make()
+                TitleWithSlug::make()->columnSpan('full'),
+                Section::make('Page Content')
                     ->schema([
-                        TitleWithSlug::make(),
-                        Section::make('Page Content')
-                            ->schema([
-                                BlockContent::make('content')
-                            ])
+                        BlockContent::make('content')
                     ])
-                    ->columnSpan([
-                        'lg' => 'full',
-                        'xl' => 2,
-                    ]),
-                Group::make()
+            ], [
+                Panel::make('Details')
+                    ->collapsible()
                     ->schema([
-                        Panel::make('Details')
-                            ->collapsible()
-                            ->schema([
-                                Select::make('status')
-                                    ->hidden(fn ($get) => $get('front_page') ?: false)
-                                    ->default('draft')
-                                    ->options(config('trov.publishable.status'))
-                                    ->required()
-                                    ->columnSpan('full'),
-                                Select::make('layout')
-                                    ->hidden(fn ($get) => $get('front_page') ?: false)
-                                    ->default('default')
-                                    ->options([
-                                        'default' => 'Default',
-                                        'full' => 'Full Width'
-                                    ])
-                                    ->required()
-                                    ->columnSpan('full'),
-                                Toggle::make('has_chat'),
-                                Toggle::make('front_page')
-                                    ->hidden(fn (?Model $record) => $record ? $record->front_page : false)
-                                    ->reactive(),
-                                Timestamps::make()
+                        Select::make('status')
+                            ->hidden(fn ($get) => $get('front_page') ?: false)
+                            ->default('draft')
+                            ->options(config('trov.publishable.status'))
+                            ->required()
+                            ->columnSpan('full'),
+                        Select::make('layout')
+                            ->hidden(fn ($get) => $get('front_page') ?: false)
+                            ->default('default')
+                            ->options([
+                                'default' => 'Default',
+                                'full' => 'Full Width'
                             ])
-                            ->columns(2),
-                        Meta::make(),
+                            ->required()
+                            ->columnSpan('full'),
+                        Toggle::make('has_chat'),
+                        Toggle::make('front_page')
+                            ->hidden(fn (?Model $record) => $record ? $record->front_page : false)
+                            ->reactive(),
+                        Timestamps::make()
                     ])
-                    ->columnSpan([
-                        'lg' => 'full',
-                        'xl' => 1,
-                    ]),
-            ])
-            ->columns([
-                'lg' => 3,
+                    ->columns(2),
+                Meta::make(),
             ]);
     }
 

@@ -5,7 +5,7 @@ namespace Trov\Forms\Components;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Trov\Forms\Components\Panel;
-use Trov\Forms\Fields\MediaPicker;
+use FilamentCurator\Forms\Components\MediaPicker;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;

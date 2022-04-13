@@ -2,7 +2,7 @@
 
 namespace Trov\Forms\Components;
 
-use Trov\Forms\Fields\MediaPicker;
+use FilamentCurator\Forms\Components\MediaPicker;
 use Filament\Forms\Components\Section;
 
 class FeaturedImage

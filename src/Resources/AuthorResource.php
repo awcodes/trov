@@ -20,7 +20,9 @@ use Filament\Tables\Columns\ImageColumn;
 use Trov\Resources\AuthorResource\Pages;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
+use Trov\Forms\Components\FixedSidebar;
 use Trov\Resources\AuthorResource\Pages\EditAuthor;
 use Trov\Resources\AuthorResource\Pages\ListAuthors;
 use Trov\Resources\AuthorResource\Pages\CreateAuthor;
@@ -39,7 +41,7 @@ class AuthorResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
+        return FixedSidebar::make()
             ->schema([
                 Card::make()
                     ->schema([
@@ -66,13 +68,7 @@ class AuthorResource extends Resource
                             TextInput::make('pinterest_handle'),
                         ])->columns(2)->columnSpan(['sm' => 2])
                     ])
-                    ->columns([
-                        'lg' => 2,
-                    ])
-                    ->columnSpan([
-                        'lg' => 'full',
-                        'xl' => 2,
-                    ]),
+            ], [
                 Card::make()
                     ->schema([
                         FileUpload::make('avatar')
@@ -80,16 +76,9 @@ class AuthorResource extends Resource
                             ->image()
                             ->imagePreviewHeight('250')
                             ->maxFiles(1)
-                            ->maxSize(512),
-                    ])
-                    ->columnSpan([
-                        'lg' => 'full',
-                        'xl' => 1
+                            ->maxSize(512)
+                            ->columnSpan('full'),
                     ]),
-            ])
-            ->columns([
-                'lg' => 3,
-                'xl' => null,
             ]);
     }
 

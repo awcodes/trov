@@ -2,14 +2,15 @@
         x-on:expand-concealing-component.window="if ($event.detail.id === $el.id) isCollapsed = false" @endif
     id="{{ $getId() }}"
     {{ $attributes->merge($getExtraAttributes())->class([
-            'bg-white rounded-xl border border-gray-300 filament-forms-section-component overflow-hidden',
+            'bg-white rounded-xl border border-gray-300 filament-forms-section-component',
             'dark:border-gray-600 dark:bg-gray-800' => config('forms.dark_mode'),
         ]) }}
     {{ $getExtraAlpineAttributeBag() }}>
     <div @class([
-        'flex items-center px-4 py-2 bg-gray-200 rtl:space-x-reverse',
+        'flex items-center px-4 py-2 bg-gray-200 rtl:space-x-reverse overflow-hidden rounded-t-xl',
         'dark:bg-gray-900' => config('forms.dark_mode'),
-    ])>
+    ])
+        x-bind:class="{'rounded-b-xl': isCollapsed}">
         <div class="flex-1">
             <h3 class="text-xl font-bold tracking-tight">
                 {{ $getHeading() }}

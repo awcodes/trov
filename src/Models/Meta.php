@@ -2,7 +2,7 @@
 
 namespace Trov\Models;
 
-use Trov\Models\Media;
+use FilamentCurator\Models\Media;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

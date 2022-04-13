@@ -40,7 +40,7 @@ return [
     |--------------------------------------------------------------------------
     | Enable or disable registration.
     */
-    "enable_registration" => true,
+    "enable_registration" => false,
     /*
     |--------------------------------------------------------------------------
     | Path to registration Livewire component.

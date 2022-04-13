@@ -9,15 +9,17 @@ use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
+use Trov\Forms\Components\Panel;
 use Trov\Forms\Fields\DateInput;
 use Trov\Forms\Fields\SlugInput;
-use Trov\Forms\Fields\MediaPicker;
+use FilamentBardEditor\BardEditor;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Trov\Forms\Components\Timestamps;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Trov\Forms\Components\BlockContent;
+use Trov\Forms\Components\FixedSidebar;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\ImageColumn;
@@ -30,8 +32,6 @@ use Trov\Tables\Columns\CustomTitleColumn;
 use Trov\Tables\Columns\FeaturedImageColumn;
 use Filament\Forms\Components\BelongsToSelect;
 use Filament\Forms\Components\SpatieTagsInput;
-use FilamentBardEditor\BardEditor;
-use Trov\Forms\Components\Panel;
 use Trov\Resources\PostResource\Pages\EditPost;
 use Trov\Resources\PostResource\Pages\ListPosts;
 use Trov\Resources\PostResource\Pages\CreatePost;
@@ -55,52 +55,36 @@ class PostResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
+        return FixedSidebar::make()
             ->schema([
-                Group::make()
+                TitleWithSlug::make()->columnSpan('full'),
+                Section::make('Post Content')
                     ->schema([
-                        TitleWithSlug::make(),
-                        Section::make('Post Content')
-                            ->schema([
-                                BlockContent::make('content')
-                            ])
+                        BlockContent::make('content')
                     ])
-                    ->columnSpan([
-                        'lg' => 'full',
-                        'xl' => 2
-                    ]),
-                Group::make()
+            ], [
+                Panel::make('Details')
+                    ->collapsible()
                     ->schema([
-                        Panel::make('Details')
-                            ->collapsible()
-                            ->schema([
-                                Select::make('status')
-                                    ->default('draft')
-                                    ->options(config('trov.publishable.status'))
-                                    ->required()
-                                    ->columnSpan(2),
-                                DateInput::make('published_at')
-                                    ->label('Publish Date')
-                                    ->withoutTime()
-                                    ->columnSpan(2),
-                                BelongsToSelect::make('author_id')
-                                    ->relationship('author', 'name')
-                                    ->required()
-                                    ->columnSpan(2),
-                                SpatieTagsInput::make('tags')
-                                    ->type('postTag')
-                                    ->columnSpan(2),
-                                Timestamps::make()
-                            ]),
-                        Meta::make(),
-                    ])
-                    ->columnSpan([
-                        'lg' => 'full',
-                        'xl' => 1,
+                        Select::make('status')
+                            ->default('draft')
+                            ->options(config('trov.publishable.status'))
+                            ->required()
+                            ->columnSpan(2),
+                        DateInput::make('published_at')
+                            ->label('Publish Date')
+                            ->withoutTime()
+                            ->columnSpan(2),
+                        BelongsToSelect::make('author_id')
+                            ->relationship('author', 'name')
+                            ->required()
+                            ->columnSpan(2),
+                        SpatieTagsInput::make('tags')
+                            ->type('postTag')
+                            ->columnSpan(2),
+                        Timestamps::make()
                     ]),
-            ])
-            ->columns([
-                'lg' => 3,
+                Meta::make(),
             ]);
     }
 
