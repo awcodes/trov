@@ -12,8 +12,8 @@ use Trov\Forms\Blocks\ImageLeft;
 use Trov\Forms\Blocks\ImageRight;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Repeater;
-use Trov\Forms\Components\CustomBuilder;
 
 class AirportBlockContent
 {
@@ -22,6 +22,7 @@ class AirportBlockContent
         return Repeater::make($field)
             ->label('Sections')
             ->createItemButtonLabel('Add Section')
+            ->defaultItems(0)
             ->schema([
                 Toggle::make('full_width')
                     ->default(false)
@@ -41,7 +42,7 @@ class AirportBlockContent
                         'accent' => 'Accent',
                         'gray' => 'Gray',
                     ]),
-                CustomBuilder::make('blocks')
+                Builder::make('blocks')
                     ->label('Blocks')
                     ->createItemButtonLabel('Add Block')
                     ->blocks([

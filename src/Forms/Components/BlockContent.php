@@ -22,6 +22,7 @@ class BlockContent
     {
         return Repeater::make($field)
             ->label('Sections')
+            ->defaultItems(0)
             ->createItemButtonLabel('Add Section')
             ->schema([
                 Toggle::make('full_width')

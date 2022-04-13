@@ -23,6 +23,7 @@ use Trov\Tables\Filters\SoftDeleteFilter;
 use Filament\Forms\Components\Placeholder;
 use Trov\Tables\Columns\CustomTitleColumn;
 use Trov\Forms\Components\AirportBlockContent;
+use Trov\Forms\Components\Panel;
 use Trov\Resources\LandingPageResource\Pages\EditLandingPage;
 use Trov\Resources\LandingPageResource\Pages\ListLandingPages;
 use Trov\Resources\LandingPageResource\Pages\CreateLandingPage;
@@ -57,7 +58,7 @@ class LandingPageResource extends Resource
                     ]),
                 Group::make()
                     ->schema([
-                        Section::make('Details')
+                        Panel::make('Details')
                             ->schema([
                                 Select::make('status')
                                     ->default('draft')
@@ -74,7 +75,7 @@ class LandingPageResource extends Resource
                         'lg' => 'full',
                         'xl' => 1,
                     ]),
-                Section::make('Page Content')
+                Panel::make('Page Content')
                     ->schema([
                         AirportBlockContent::make('content')
                     ])->columnSpan([
