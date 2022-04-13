@@ -5,7 +5,6 @@ namespace Trov;
 use App\Models\User;
 use Trov\Models\Page;
 use Livewire\Livewire;
-use Trov\Models\Media;
 use Filament\Facades\Filament;
 use Trov\Observers\PageObserver;
 use Trov\Observers\UserObserver;
