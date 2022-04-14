@@ -5,6 +5,7 @@ namespace Trov\Resources\PageResource\Pages;
 use Trov\Resources\PageResource;
 use Trov\Traits\HasCustomEditActions;
 use Filament\Resources\Pages\EditRecord;
+use Trov\Traits\HasSoftDeletes;
 
 class EditPage extends EditRecord
 {

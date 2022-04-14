@@ -11,7 +11,7 @@ trait HasMeta
     {
         parent::booted();
 
-        static::deleted(function ($model) {
+        static::forceDeleted(function ($model) {
             $model->meta()->delete();
         });
     }

@@ -2,11 +2,10 @@
 
 namespace Trov\Forms\Components;
 
-use Filament\Resources\Form;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Group;
+use Filament\Resources\Form;
 
-class FixedSidebar
+class Sidebar
 {
     public function __construct(public Form $form)
     {
@@ -24,10 +23,10 @@ class FixedSidebar
     public function schema(array $mainComponents, array $sidebarComponents): Form
     {
         return $this->form->schema([
-            Group::make([
-                Group::make($mainComponents),
-                Group::make($sidebarComponents),
-            ])->columnSpan('col-span-full fixed-sidebar')
+            Grid::make(['sm' => 3])->schema([
+                Grid::make()->schema($mainComponents)->columnSpan(['sm' => 2])->extraAttributes(['style' => 'display:flex;']),
+                Grid::make()->schema($sidebarComponents)->columnSpan(['sm' => 1])->extraAttributes(['style' => 'display:flex;']),
+            ])
         ]);
     }
 }

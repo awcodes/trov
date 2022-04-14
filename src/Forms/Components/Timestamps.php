@@ -17,7 +17,7 @@ class Timestamps
                     ->content(fn (?Model $record): string => $record ? $record->created_at->diffForHumans() : '-')
                     ->columns(1),
                 Placeholder::make('updated_at')
-                    ->label('Last modified at')
+                    ->label('Modified at')
                     ->content(fn (?Model $record): string => $record ? $record->updated_at->diffForHumans() : '-')
                     ->columns(1),
             ])->columnSpan('full')->columns(2);

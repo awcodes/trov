@@ -53,6 +53,8 @@ class PostResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static ?string $recordRouteKeyName = 'id';
+
     public static function form(Form $form): Form
     {
         return FixedSidebar::make()

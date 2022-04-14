@@ -44,6 +44,8 @@ class LandingPageResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
+    protected static ?string $recordRouteKeyName = 'id';
+
     public static function form(Form $form): Form
     {
         return $form

@@ -56,6 +56,8 @@ class FaqResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'question';
 
+    protected static ?string $recordRouteKeyName = 'id';
+
     public static function form(Form $form): Form
     {
         return FixedSidebar::make($form)

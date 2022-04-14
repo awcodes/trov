@@ -3,6 +3,7 @@
 namespace Trov\Traits;
 
 use Filament\Pages\Actions\ButtonAction;
+use Trov\Forms\Components\MultiActionButton;
 
 trait HasCustomEditActions
 {
@@ -10,12 +11,10 @@ trait HasCustomEditActions
     {
         parent::getActions();
 
-        $destroyActions = $this->getDestroyActions();
-
-        return array_merge($destroyActions, [
-            ButtonAction::make('view')->hidden($this->record->deleted_at !== null)->color('secondary')->url($this->record->getPublicUrl())->openUrlInNewTab(),
+        return [MultiActionButton::make('blah')->actions(array_merge([
             ButtonAction::make('save')->action('saveFormFromAction'),
-        ]);
+            ButtonAction::make('view')->hidden($this->record->deleted_at !== null)->color('secondary')->url($this->record->getPublicUrl())->openUrlInNewTab(),
+        ], $this->getDestroyActions()))];
     }
 
     public function saveFormFromAction(): void
