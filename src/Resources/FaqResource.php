@@ -4,20 +4,27 @@ namespace Trov\Resources;
 
 use Trov\Models\Faq;
 use Illuminate\Support\Str;
+use Trov\Forms\Blocks\Hero;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
+use Trov\Forms\Blocks\ImageLeft;
 use Trov\Forms\Components\Panel;
 use Trov\Forms\Fields\SlugInput;
+use Trov\Forms\Blocks\ImageRight;
 use FilamentBardEditor\BardEditor;
+use Trov\Forms\Blocks\Infographic;
 use Filament\Forms\Components\Group;
+use Trov\Forms\Components\Separator;
 use Filament\Forms\Components\Select;
 use Trov\Forms\Components\Timestamps;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
+use Trov\Forms\Components\FixedSidebar;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\BadgeColumn;
 use Trov\Forms\Components\TitleWithSlug;
@@ -27,7 +34,6 @@ use Trov\Tables\Filters\SoftDeleteFilter;
 use Filament\Forms\Components\Placeholder;
 use Trov\Tables\Columns\CustomTitleColumn;
 use Filament\Forms\Components\Builder\Block;
-use Filament\Forms\Components\Repeater;
 use FilamentBardEditor\Components\TestBlock;
 use Trov\Resources\FaqResource\Pages\EditFaq;
 use Filament\Forms\Components\SpatieTagsInput;
@@ -35,8 +41,6 @@ use Trov\Resources\FaqResource\Pages\ListFaqs;
 use Trov\Resources\FaqResource\Pages\CreateFaq;
 use Trov\Resources\RelationManagers\LinkSetsRelationManager;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
-use Trov\Forms\Components\FixedSidebar;
-use Trov\Forms\Components\Separator;
 
 class FaqResource extends Resource
 {
@@ -68,19 +72,11 @@ class FaqResource extends Resource
                         BardEditor::make('answer')
                             ->excludes(['blockquote', 'subscript'])
                             ->blocks([
-                                Block::make('infographic')
-                                    ->schema([
-                                        TextInput::make('name')->required(),
-                                        Textarea::make('transcript'),
-                                    ]),
-                                Block::make('social_media')
-                                    ->schema([
-                                        TextInput::make('facebook'),
-                                        TextInput::make('twitter'),
-                                        TextInput::make('instagram'),
-                                        TextInput::make('linkedin'),
-                                    ]),
-                            ]),
+                                Hero::make(),
+                                Infographic::make(),
+                                ImageLeft::make(),
+                                ImageRight::make(),
+                            ])
                     ]),
             ], [
                 Panel::make('Details')
