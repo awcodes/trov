@@ -5,7 +5,7 @@ namespace Trov\Forms\Blocks;
 use FilamentCurator\Forms\Components\MediaPicker;
 use Trov\Forms\Components\BlockHeading;
 use Filament\Forms\Components\Builder\Block;
-use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
+use FilamentTipTapEditor\TipTapEditor;
 
 class ImageLeft
 {
@@ -19,11 +19,10 @@ class ImageLeft
                 MediaPicker::make('image')
                     ->label('Image')
                     ->columnSpan(1),
-                TinyEditor::make('content')
+                TipTapEditor::make('content')
                     ->label('Rich Text')
                     ->disableLabel()
-                    ->profile('custom')
-                    ->showMenuBar()
+                    ->profile('simple')
                     ->required()
                     ->columnSpan(2),
             ])->columns(['sm' => 3]);

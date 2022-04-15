@@ -23,7 +23,7 @@ class TrovServiceProvider extends PluginServiceProvider
     {
         $package
             ->name('trov')
-            ->hasConfigFile(['trov', 'filament', 'filament-breezy', 'filament-forms-tinyeditor', 'filament-shield'])
+            ->hasConfigFile(['trov', 'filament', 'filament-breezy', 'filament-shield'])
             ->hasAssets()
             ->hasViews()
             ->hasMigrations([

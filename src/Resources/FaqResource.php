@@ -14,7 +14,6 @@ use Trov\Forms\Blocks\ImageLeft;
 use Trov\Forms\Components\Panel;
 use Trov\Forms\Fields\SlugInput;
 use Trov\Forms\Blocks\ImageRight;
-use FilamentBardEditor\BardEditor;
 use Trov\Forms\Blocks\Infographic;
 use Filament\Forms\Components\Group;
 use Trov\Forms\Components\Separator;
@@ -37,10 +36,10 @@ use Filament\Forms\Components\Builder\Block;
 use FilamentBardEditor\Components\TestBlock;
 use Trov\Resources\FaqResource\Pages\EditFaq;
 use Filament\Forms\Components\SpatieTagsInput;
+use FilamentTipTapEditor\TipTapEditor;
 use Trov\Resources\FaqResource\Pages\ListFaqs;
 use Trov\Resources\FaqResource\Pages\CreateFaq;
 use Trov\Resources\RelationManagers\LinkSetsRelationManager;
-use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 
 class FaqResource extends Resource
 {
@@ -69,14 +68,7 @@ class FaqResource extends Resource
                 TitleWithSlug::make('question')->columnSpan('full'),
                 Section::make('Answer')
                     ->schema([
-                        BardEditor::make('answer')
-                            ->excludes(['blockquote', 'subscript'])
-                            ->blocks([
-                                Hero::make(),
-                                Infographic::make(),
-                                ImageLeft::make(),
-                                ImageRight::make(),
-                            ])
+                        TipTapEditor::make('answer')->profile('simple')
                     ]),
             ], [
                 Panel::make('Details')

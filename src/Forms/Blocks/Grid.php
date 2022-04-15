@@ -6,7 +6,7 @@ use FilamentCurator\Forms\Components\MediaPicker;
 use Filament\Forms\Components\Repeater;
 use Trov\Forms\Components\BlockHeading;
 use Filament\Forms\Components\Builder\Block;
-use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
+use FilamentTipTapEditor\TipTapEditor;
 
 class Grid
 {
@@ -19,11 +19,10 @@ class Grid
                     ->createItemButtonLabel('Add Column')
                     ->schema([
                         MediaPicker::make('image'),
-                        TinyEditor::make('content')
+                        TipTapEditor::make('content')
                             ->label('Rich Text')
                             ->disableLabel()
-                            ->profile('custom')
-                            ->showMenuBar()
+                            ->profile('simple')
                             ->required(),
                     ])
                     ->maxItems(4)

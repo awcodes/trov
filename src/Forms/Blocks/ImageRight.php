@@ -5,7 +5,7 @@ namespace Trov\Forms\Blocks;
 use FilamentCurator\Forms\Components\MediaPicker;
 use Trov\Forms\Components\BlockHeading;
 use Filament\Forms\Components\Builder\Block;
-use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
+use FilamentTipTapEditor\TipTapEditor;
 
 class ImageRight
 {
@@ -16,11 +16,10 @@ class ImageRight
             ->schema([
                 BlockHeading::make('Image on Right Block')
                     ->columnSpan('full'),
-                TinyEditor::make('content')
+                TipTapEditor::make('content')
                     ->label('Rich Text')
                     ->disableLabel()
-                    ->profile('custom')
-                    ->showMenuBar()
+                    ->profile('simple')
                     ->required()
                     ->columnSpan(2),
                 MediaPicker::make('image')

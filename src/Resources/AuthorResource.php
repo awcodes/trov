@@ -21,7 +21,7 @@ use Trov\Resources\AuthorResource\Pages;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
-use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
+use FilamentTipTapEditor\TipTapEditor;
 use Trov\Forms\Components\FixedSidebar;
 use Trov\Resources\AuthorResource\Pages\EditAuthor;
 use Trov\Resources\AuthorResource\Pages\ListAuthors;
@@ -56,7 +56,7 @@ class AuthorResource extends Resource
                         TextInput::make('slug')
                             ->required()
                             ->unique(Author::class, 'slug', fn ($record) => $record),
-                        TinyEditor::make('bio')
+                        TipTapEditor::make('bio')
                             ->profile('barebone')
                             ->columnSpan(['sm' => 2]),
                         Group::make()->schema([
