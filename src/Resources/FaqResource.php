@@ -11,34 +11,32 @@ use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
 use Trov\Forms\Blocks\ImageLeft;
-use Trov\Forms\Components\Panel;
-use Trov\Forms\Fields\SlugInput;
 use Trov\Forms\Blocks\ImageRight;
 use Trov\Forms\Blocks\Infographic;
+use TrovComponents\Filament\Panel;
 use Filament\Forms\Components\Group;
-use Trov\Forms\Components\Separator;
+use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
-use Trov\Forms\Components\Timestamps;
 use Filament\Forms\Components\Section;
+use FilamentTipTapEditor\TipTapEditor;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
-use Trov\Forms\Components\FixedSidebar;
+use TrovComponents\Forms\TitleWithSlug;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\BadgeColumn;
-use Trov\Forms\Components\TitleWithSlug;
 use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Filters\SelectFilter;
-use Trov\Tables\Filters\SoftDeleteFilter;
+use TrovComponents\Filament\FixedSidebar;
 use Filament\Forms\Components\Placeholder;
-use Trov\Tables\Columns\CustomTitleColumn;
 use Filament\Forms\Components\Builder\Block;
 use FilamentBardEditor\Components\TestBlock;
 use Trov\Resources\FaqResource\Pages\EditFaq;
 use Filament\Forms\Components\SpatieTagsInput;
-use FilamentTipTapEditor\TipTapEditor;
 use Trov\Resources\FaqResource\Pages\ListFaqs;
 use Trov\Resources\FaqResource\Pages\CreateFaq;
+use TrovComponents\Tables\Columns\TitleWithStatus;
+use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use Trov\Resources\RelationManagers\LinkSetsRelationManager;
 
 class FaqResource extends Resource
@@ -65,7 +63,7 @@ class FaqResource extends Resource
     {
         return FixedSidebar::make($form)
             ->schema([
-                TitleWithSlug::make('question')->columnSpan('full'),
+                TitleWithSlug::make('question', 'slug', '/faqs/')->columnSpan('full'),
                 Section::make('Answer')
                     ->schema([
                         TipTapEditor::make('answer')->profile('simple')
@@ -92,7 +90,7 @@ class FaqResource extends Resource
     {
         return $table
             ->columns([
-                CustomTitleColumn::make('question')
+                TitleWithStatus::make('question')
                     ->searchable()
                     ->sortable(),
                 BadgeColumn::make('status')->enum(config('trov.publishable.status'))->colors(config('trov.publishable.colors')),

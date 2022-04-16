@@ -3,7 +3,7 @@
 namespace Trov\Traits;
 
 use Filament\Pages\Actions\ButtonAction;
-use Trov\Forms\Components\MultiActionButton;
+use TrovComponents\Filament\MultiActionButton;
 
 trait HasCustomEditActions
 {

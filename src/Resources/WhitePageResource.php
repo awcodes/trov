@@ -3,29 +3,25 @@
 namespace Trov\Resources;
 
 use Trov\Models\WhitePage;
-use Illuminate\Support\Str;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
-use Trov\Forms\Components\Panel;
-use Trov\Forms\Fields\SlugInput;
-use Filament\Forms\Components\Group;
+use TrovComponents\Filament\Panel;
+use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
-use Trov\Forms\Components\Timestamps;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Trov\Forms\Components\BlockContent;
-use Trov\Forms\Components\FixedSidebar;
-use Filament\Forms\Components\TextInput;
+use TrovComponents\Forms\TitleWithSlug;
 use Filament\Tables\Columns\BadgeColumn;
-use Trov\Forms\Components\TitleWithSlug;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
-use Trov\Tables\Filters\SoftDeleteFilter;
-use Trov\Tables\Columns\CustomTitleColumn;
+use TrovComponents\Filament\FixedSidebar;
 use Filament\Forms\Components\BelongsToSelect;
+use TrovComponents\Tables\Columns\TitleWithStatus;
+use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use Trov\Resources\WhitePageResource\Pages\EditWhitePage;
 use Trov\Resources\WhitePageResource\Pages\ListWhitePages;
 use Trov\Resources\WhitePageResource\Pages\CreateWhitePage;
@@ -53,7 +49,7 @@ class WhitePageResource extends Resource
     {
         return FixedSidebar::make()
             ->schema([
-                TitleWithSlug::make()->columnSpan('full'),
+                TitleWithSlug::make('title', 'slug', fn (?Model $record) => $record->type ?? '/')->columnSpan('full'),
                 Section::make('Page Content')
                     ->schema([
                         BlockContent::make('content')
@@ -89,7 +85,7 @@ class WhitePageResource extends Resource
     {
         return $table
             ->columns([
-                CustomTitleColumn::make('title')
+                TitleWithStatus::make('title')
                     ->searchable()
                     ->sortable(),
                 BadgeColumn::make('status')->enum(config('trov.publishable.status'))->colors(config('trov.publishable.colors')),

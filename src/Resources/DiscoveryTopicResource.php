@@ -9,26 +9,25 @@ use Trov\Forms\Components\Meta;
 use Trov\Models\DiscoveryTopic;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
-use Trov\Forms\Components\Panel;
-use Trov\Forms\Fields\SlugInput;
-use FilamentCurator\Forms\Components\MediaPicker;
+use TrovComponents\Filament\Panel;
 use Filament\Forms\Components\Group;
+use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
-use Trov\Forms\Components\Timestamps;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Trov\Forms\Components\BlockContent;
-use Trov\Forms\Components\FixedSidebar;
+use TrovComponents\Forms\TitleWithSlug;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\BadgeColumn;
 use Trov\Forms\Components\FeaturedImage;
-use Trov\Forms\Components\TitleWithSlug;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
-use Trov\Tables\Filters\SoftDeleteFilter;
+use TrovComponents\Filament\FixedSidebar;
 use Filament\Forms\Components\Placeholder;
-use Trov\Tables\Columns\CustomTitleColumn;
 use Trov\Tables\Columns\FeaturedImageColumn;
+use FilamentCurator\Forms\Components\MediaPicker;
+use TrovComponents\Tables\Columns\TitleWithStatus;
+use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use Trov\Resources\RelationManagers\LinkSetsRelationManager;
 use Trov\Resources\DiscoveryTopicResource\Pages\EditDiscoveryTopic;
 use Trov\Resources\DiscoveryTopicResource\Pages\ListDiscoveryTopics;
@@ -56,7 +55,7 @@ class DiscoveryTopicResource extends Resource
     {
         return FixedSidebar::make()
             ->schema([
-                TitleWithSlug::make()->columnSpan('full'),
+                TitleWithSlug::make('title', 'slug', '/discover/topics/')->columnSpan('full'),
                 FeaturedImage::make(),
                 Section::make('Page Content')
                     ->schema([
@@ -85,7 +84,7 @@ class DiscoveryTopicResource extends Resource
         return $table
             ->columns([
                 FeaturedImageColumn::make('featured_image')->label('Thumb'),
-                CustomTitleColumn::make('title')
+                TitleWithStatus::make('title')
                     ->searchable()
                     ->sortable(),
                 BadgeColumn::make('status')->enum(config('trov.publishable.status'))->colors(config('trov.publishable.colors')),

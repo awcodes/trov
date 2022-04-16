@@ -8,29 +8,24 @@ use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
-use Trov\Forms\Components\Panel;
-use Trov\Forms\Fields\BardEditor;
-use Illuminate\Support\HtmlString;
-use Filament\Forms\Components\Group;
+use TrovComponents\Filament\Panel;
+use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use Trov\Forms\Components\Timestamps;
 use Filament\Forms\Components\Section;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Trov\Forms\Components\BlockContent;
-use Trov\Forms\Components\FixedSidebar;
+use TrovComponents\Forms\TitleWithSlug;
 use Filament\Tables\Columns\BadgeColumn;
-use Trov\Forms\Components\TitleWithSlug;
 use Filament\Tables\Filters\SelectFilter;
-use Trov\Tables\Filters\SoftDeleteFilter;
-use Filament\Forms\Components\Placeholder;
-use Trov\Tables\Columns\CustomTitleColumn;
+use TrovComponents\Filament\FixedSidebar;
 use Trov\Tables\Columns\FeaturedImageColumn;
 use Trov\Resources\PageResource\Pages\EditPage;
 use Trov\Resources\PageResource\Pages\ListPages;
 use Trov\Resources\PageResource\Pages\CreatePage;
+use TrovComponents\Tables\Columns\TitleWithStatus;
+use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use Trov\Resources\RelationManagers\LinkSetsRelationManager;
 
 class PageResource extends Resource
@@ -53,7 +48,7 @@ class PageResource extends Resource
     {
         return FixedSidebar::make()
             ->schema([
-                TitleWithSlug::make()->columnSpan('full'),
+                TitleWithSlug::make('title', 'slug', '/')->columnSpan('full'),
                 Section::make('Page Content')
                     ->schema([
                         BlockContent::make('content')
@@ -94,7 +89,7 @@ class PageResource extends Resource
             ->columns([
                 FeaturedImageColumn::make('featured_image')
                     ->label('Thumb'),
-                CustomTitleColumn::make('title')
+                TitleWithStatus::make('title')
                     ->extraAttributes(['class' => 'w-full'])
                     ->searchable()
                     ->sortable(),

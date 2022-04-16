@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Hash;
 use Trov\Resources\UserResource\Pages;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
-use Trov\Forms\Fields\PasswordGenerator;
 use Filament\Tables\Filters\SelectFilter;
 use Trov\Resources\UserResource\Pages\EditUser;
 use Trov\Resources\UserResource\Pages\ListUsers;
 use Trov\Resources\UserResource\Pages\CreateUser;
+use TrovComponents\Forms\Fields\PasswordGenerator;
 use Filament\Forms\Components\BelongsToManyCheckboxList;
 
 class UserResource extends Resource

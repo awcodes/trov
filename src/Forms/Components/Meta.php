@@ -4,13 +4,13 @@ namespace Trov\Forms\Components;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Trov\Forms\Components\Panel;
-use FilamentCurator\Forms\Components\MediaPicker;
+use TrovComponents\Filament\Panel;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
+use FilamentCurator\Forms\Components\MediaPicker;
 
 class Meta
 {

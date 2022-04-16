@@ -2,28 +2,23 @@
 
 namespace Trov\Resources;
 
-use Illuminate\Support\Str;
 use Filament\Resources\Form;
 use Trov\Models\LandingPage;
 use Filament\Resources\Table;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
-use Trov\Forms\Fields\SlugInput;
+use TrovComponents\Filament\Panel;
 use Filament\Forms\Components\Group;
+use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use Trov\Forms\Components\Timestamps;
-use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
+use TrovComponents\Forms\TitleWithSlug;
 use Filament\Tables\Columns\BadgeColumn;
-use Trov\Forms\Components\TitleWithSlug;
 use Filament\Tables\Filters\SelectFilter;
-use Trov\Tables\Filters\SoftDeleteFilter;
-use Filament\Forms\Components\Placeholder;
-use Trov\Tables\Columns\CustomTitleColumn;
 use Trov\Forms\Components\AirportBlockContent;
-use Trov\Forms\Components\Panel;
+use TrovComponents\Tables\Columns\TitleWithStatus;
+use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use Trov\Resources\LandingPageResource\Pages\EditLandingPage;
 use Trov\Resources\LandingPageResource\Pages\ListLandingPages;
 use Trov\Resources\LandingPageResource\Pages\CreateLandingPage;
@@ -52,7 +47,7 @@ class LandingPageResource extends Resource
             ->schema([
                 Group::make()
                     ->schema([
-                        TitleWithSlug::make(),
+                        TitleWithSlug::make('title', 'slug', '/loans/'),
                     ])
                     ->columnSpan([
                         'lg' => 'full',
@@ -94,7 +89,7 @@ class LandingPageResource extends Resource
     {
         return $table
             ->columns([
-                CustomTitleColumn::make('title')
+                TitleWithStatus::make('title')
                     ->searchable()
                     ->sortable(),
                 BadgeColumn::make('status')->enum(config('trov.publishable.status'))->colors(config('trov.publishable.colors')),
