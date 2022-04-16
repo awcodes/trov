@@ -2,7 +2,7 @@
 
 A Laravel / Filament starter kit for CMS functionality on websites.
 
-Please star these awesome repos and/or sponsors all of these peoples hard work:
+Please star these awesome repos and/or sponsors all of these people's hard work:
 
 - [Filament](https://github.com/laravel-filament/filament)
 - [Filament Breezy](https://github.com/jeffgreco13/filament-breezy)
@@ -19,13 +19,12 @@ Please star these awesome repos and/or sponsors all of these peoples hard work:
 composer require awcodes/trov
 ```
 
-2. Publish config files and assets
+2. (optional) Publish config files
 
 ```bash
 php artisan vendor:publish --tag="filament-config"
 php artisan vendor:publish --tag="filament-breezy-config"
 php artisan vendor:publish --tag="filament-shield-config"
-php artisan vendor:publish --tag="filament-forms-tinyeditor-config"
 ```
 
 3. Publish migrations
@@ -36,25 +35,7 @@ php artisan vendor:publish --provider="Spatie\Tags\TagsServiceProvider" --tag="t
 php artisan migrate
 ```
 
-4. Update `filament.php` config file with:
-
-```php
-'auth' => [
-    'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
-    'pages' => [
-        'login' => \JeffGreco13\FilamentBreezy\Http\Livewire\Auth\Login::class,
-    ],
-],
-```
-
-Optionally, Update `filament-breezy.php` config file with:
-
-```php
-"password_rules" => [\Illuminate\Validation\Rules\Password::min(8)->letters()->numbers()->mixedCase()],
-"enable_registration" => false,
-```
-
-5. Update `App\Models\User.php` model with:
+4. Update `App\Models\User.php` model with:
 
 ```php
 use Filament\Models\Contracts\FilamentUser;
@@ -72,17 +53,16 @@ class User extends Authenticatable implements FilamentUser
 }
 ```
 
-6. Update `filament-shield.php` config file where appropriate, then initialize Shield with:
+5. Update `filament-shield.php` config file where appropriate, then initialize Shield with:
 
 ```bash
 php artisan shield:install
 ```
 
-7. Publish Assets
+6. Publish Assets
 
 ```bash
 php artisan vendor:publish --tag="trov-assets"
-php artisan vendor:publish --tag="filament-forms-tinyeditor-assets"
 ```
 
 ## License
