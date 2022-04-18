@@ -17,30 +17,6 @@ button[disabled] {
   top: 50%;
 }
 
-.filament-forms-builder-component .block-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  text-orientation: mixed;
-  writing-mode: vertical-lr;
-  background-color: theme("colors.gray.200");
-  font-size: 10px;
-  text-align: center;
-  text-transform: uppercase;
-  border-radius: 0.5rem 0 0 0.5rem;
-  overflow: hidden;
-  padding-left: 2px;
-  padding-right: 2px;
-}
-
-.dark .filament-forms-builder-component .block-title {
-  background-color: theme("colors.gray.900");
-  font-smoothing: antialiased;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .fixed-sidebar > .grid {
   grid-template-columns: repeat(1fr);
 }

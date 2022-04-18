@@ -3,7 +3,6 @@
 namespace Trov\Forms\Blocks;
 
 use FilamentCurator\Forms\Components\MediaPicker;
-use Trov\Forms\Components\BlockHeading;
 use Filament\Forms\Components\Builder\Block;
 use FilamentTipTapEditor\TipTapEditor;
 
@@ -14,8 +13,6 @@ class ImageRight
         return Block::make($field)
             ->label('Image with Text on Left')
             ->schema([
-                BlockHeading::make('Image on Right Block')
-                    ->columnSpan('full'),
                 TipTapEditor::make('content')
                     ->label('Rich Text')
                     ->disableLabel()

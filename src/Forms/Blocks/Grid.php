@@ -4,7 +4,6 @@ namespace Trov\Forms\Blocks;
 
 use FilamentCurator\Forms\Components\MediaPicker;
 use Filament\Forms\Components\Repeater;
-use Trov\Forms\Components\BlockHeading;
 use Filament\Forms\Components\Builder\Block;
 use FilamentTipTapEditor\TipTapEditor;
 
@@ -14,7 +13,6 @@ class Grid
     {
         return Block::make($field)
             ->schema([
-                BlockHeading::make('Grid Block'),
                 Repeater::make('columns')
                     ->createItemButtonLabel('Add Column')
                     ->schema([

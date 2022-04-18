@@ -46,6 +46,7 @@ class BlockContent
                 Builder::make('blocks')
                     ->label('Blocks')
                     ->createItemButtonLabel('Add Block')
+                    ->showBlockLabels()
                     ->blocks([
                         RichText::make(),
                         Grid::make(),

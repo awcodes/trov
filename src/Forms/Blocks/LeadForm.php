@@ -3,7 +3,6 @@
 namespace Trov\Forms\Blocks;
 
 use Filament\Forms\Components\Select;
-use Trov\Forms\Components\BlockHeading;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\MultiSelect;
 use Filament\Forms\Components\Builder\Block;
@@ -14,7 +13,6 @@ class LeadForm
     {
         return Block::make($field)
             ->schema([
-                BlockHeading::make('Lead Form Block'),
                 MultiSelect::make('products')
                     ->options([
                         'car-title-loan' => 'Car Title Secured Loan',
