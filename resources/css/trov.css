@@ -11,6 +11,18 @@ button[disabled] {
   opacity: 0.5;
 }
 
+.filament-sidebar {
+  @apply !w-64;
+}
+
+.filament-main {
+  @apply lg:!pl-64 rtl:lg:!pr-64;
+}
+
+.filament-main.lg\:pl-\[5\.4rem\] {
+  @apply lg:!pl-[5.4rem] rtl:lg:!pr-[5.4rem];
+}
+
 .filepond--root[data-style-panel-aspect-ratio] .filepond--drop-label {
   transform: translateY(-50%) !important;
   position: absolute;

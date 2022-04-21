@@ -8,12 +8,12 @@ use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
+use TrovComponents\Enums\Status;
 use TrovComponents\Filament\Panel;
 use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
-use Trov\Forms\Components\BlockContent;
 use TrovComponents\Forms\TitleWithSlug;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -22,6 +22,7 @@ use TrovComponents\Forms\Fields\DateInput;
 use Trov\Tables\Columns\FeaturedImageColumn;
 use Filament\Forms\Components\BelongsToSelect;
 use Filament\Forms\Components\SpatieTagsInput;
+use Trov\Forms\Components\PageBuilder;
 use Trov\Resources\PostResource\Pages\EditPost;
 use Trov\Resources\PostResource\Pages\ListPosts;
 use Trov\Resources\PostResource\Pages\CreatePost;
@@ -54,15 +55,15 @@ class PostResource extends Resource
                 TitleWithSlug::make('title', 'slug', '/posts/')->columnSpan('full'),
                 Section::make('Post Content')
                     ->schema([
-                        BlockContent::make('content')
+                        PageBuilder::make('content')
                     ])
             ], [
                 Panel::make('Details')
                     ->collapsible()
                     ->schema([
                         Select::make('status')
-                            ->default('draft')
-                            ->options(config('trov.publishable.status'))
+                            ->default('Draft')
+                            ->options(Status::class)
                             ->required()
                             ->columnSpan(2),
                         DateInput::make('published_at')
@@ -90,7 +91,6 @@ class PostResource extends Resource
                 TitleWithStatus::make('title')
                     ->searchable()
                     ->sortable(),
-                BadgeColumn::make('status')->enum(config('trov.publishable.status'))->colors(config('trov.publishable.colors')),
                 BadgeColumn::make('meta.indexable')
                     ->label('SEO')
                     ->enum([
@@ -104,7 +104,7 @@ class PostResource extends Resource
                 TextColumn::make('published_at')->label('Published At')->date()->sortable(),
             ])
             ->filters([
-                SelectFilter::make('status')->options(config('trov.publishable.status')),
+                SelectFilter::make('status')->options(Status::class),
                 SelectFilter::make('author_id')->label('Author')->relationship('author', 'name'),
                 SoftDeleteFilter::make(),
             ])->defaultSort('published_at', 'desc');
@@ -112,9 +112,7 @@ class PostResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            LinkSetsRelationManager::class,
-        ];
+        return array_merge([], config('trov.features.link_sets.active') ? [LinkSetsRelationManager::class] : []);
     }
 
     public static function getPages(): array

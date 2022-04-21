@@ -9,13 +9,13 @@ use Trov\Forms\Components\Meta;
 use Trov\Models\DiscoveryTopic;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
+use TrovComponents\Enums\Status;
 use TrovComponents\Filament\Panel;
 use Filament\Forms\Components\Group;
 use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
-use Trov\Forms\Components\BlockContent;
 use TrovComponents\Forms\TitleWithSlug;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\BadgeColumn;
@@ -26,6 +26,7 @@ use TrovComponents\Filament\FixedSidebar;
 use Filament\Forms\Components\Placeholder;
 use Trov\Tables\Columns\FeaturedImageColumn;
 use FilamentCurator\Forms\Components\MediaPicker;
+use Trov\Forms\Components\PageBuilder;
 use TrovComponents\Tables\Columns\TitleWithStatus;
 use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use Trov\Resources\RelationManagers\LinkSetsRelationManager;
@@ -59,15 +60,15 @@ class DiscoveryTopicResource extends Resource
                 FeaturedImage::make(),
                 Section::make('Page Content')
                     ->schema([
-                        BlockContent::make('content')
+                        PageBuilder::make('content')
                     ])
             ], [
                 Panel::make('Details')
                     ->collapsible()
                     ->schema([
                         Select::make('status')
-                            ->default('draft')
-                            ->options(config('trov.publishable.status'))
+                            ->default('Draft')
+                            ->options(Status::class)
                             ->required()
                             ->columnSpan(2),
                         DatePicker::make('published_at')
@@ -87,7 +88,6 @@ class DiscoveryTopicResource extends Resource
                 TitleWithStatus::make('title')
                     ->searchable()
                     ->sortable(),
-                BadgeColumn::make('status')->enum(config('trov.publishable.status'))->colors(config('trov.publishable.colors')),
                 BadgeColumn::make('meta.indexable')
                     ->label('SEO')
                     ->enum([
@@ -101,16 +101,14 @@ class DiscoveryTopicResource extends Resource
                 TextColumn::make('published_at')->label('Published At')->date()->sortable(),
             ])
             ->filters([
-                SelectFilter::make('status')->options(config('trov.publishable.status')),
+                SelectFilter::make('status')->options(Status::class),
                 SoftDeleteFilter::make(),
             ])->defaultSort('published_at', 'desc');
     }
 
     public static function getRelations(): array
     {
-        return [
-            LinkSetsRelationManager::class,
-        ];
+        return array_merge([], config('trov.features.link_sets.active') ? [LinkSetsRelationManager::class] : []);
     }
 
     public static function getPages(): array

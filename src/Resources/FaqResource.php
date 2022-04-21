@@ -11,6 +11,7 @@ use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
 use Trov\Forms\Blocks\ImageLeft;
+use TrovComponents\Enums\Status;
 use Trov\Forms\Blocks\ImageRight;
 use Trov\Forms\Blocks\Infographic;
 use TrovComponents\Filament\Panel;
@@ -64,17 +65,14 @@ class FaqResource extends Resource
         return FixedSidebar::make($form)
             ->schema([
                 TitleWithSlug::make('question', 'slug', '/faqs/')->columnSpan('full'),
-                Section::make('Answer')
-                    ->schema([
-                        TipTapEditor::make('answer')->profile('simple')
-                    ]),
+                TipTapEditor::make('answer')->profile('simple')
             ], [
                 Panel::make('Details')
                     ->collapsible()
                     ->schema([
                         Select::make('status')
-                            ->default('draft')
-                            ->options(config('trov.publishable.status'))
+                            ->default('Draft')
+                            ->options(Status::class)
                             ->required()
                             ->columnSpan(2),
                         SpatieTagsInput::make('tags')
@@ -93,7 +91,6 @@ class FaqResource extends Resource
                 TitleWithStatus::make('question')
                     ->searchable()
                     ->sortable(),
-                BadgeColumn::make('status')->enum(config('trov.publishable.status'))->colors(config('trov.publishable.colors')),
                 BadgeColumn::make('meta.indexable')
                     ->label('SEO')
                     ->enum([
@@ -107,16 +104,14 @@ class FaqResource extends Resource
                 TextColumn::make('updated_at')->label('Last Updated')->date()->sortable(),
             ])
             ->filters([
-                SelectFilter::make('status')->options(config('trov.publishable.status')),
+                SelectFilter::make('status')->options(Status::class),
                 SoftDeleteFilter::make(),
             ])->defaultSort('question', 'asc');
     }
 
     public static function getRelations(): array
     {
-        return [
-            LinkSetsRelationManager::class,
-        ];
+        return array_merge([], config('trov.features.link_sets.active') ? [LinkSetsRelationManager::class] : []);
     }
 
     public static function getPages(): array

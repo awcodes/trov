@@ -3,16 +3,26 @@
 namespace Trov\Resources;
 
 use Trov\Models\WhitePage;
+use Trov\Forms\Blocks\Grid;
+use Trov\Forms\Blocks\Hero;
 use Filament\Resources\Form;
+use Trov\Forms\Blocks\Image;
 use Filament\Resources\Table;
+use Trov\Forms\Blocks\RichText;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
+use Trov\Forms\Blocks\ImageLeft;
+use TrovComponents\Enums\Status;
+use Trov\Forms\Blocks\ImageRight;
+use Trov\Forms\Blocks\Infographic;
 use TrovComponents\Filament\Panel;
 use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Trov\Forms\Components\BlockContent;
 use TrovComponents\Forms\TitleWithSlug;
 use Filament\Tables\Columns\BadgeColumn;
@@ -49,18 +59,15 @@ class WhitePageResource extends Resource
     {
         return FixedSidebar::make()
             ->schema([
-                TitleWithSlug::make('title', 'slug', fn (?Model $record) => $record->type ?? '/')->columnSpan('full'),
-                Section::make('Page Content')
-                    ->schema([
-                        BlockContent::make('content')
-                    ])
+                TitleWithSlug::make('title', 'slug', fn (?Model $record) => "/{$record->type}/" ?? '/')->columnSpan('full'),
+                BlockContent::make('content')
             ], [
                 Panel::make('Details')
                     ->collapsible()
                     ->schema([
                         Select::make('status')
-                            ->default('draft')
-                            ->options(config('trov.publishable.status'))
+                            ->default('Draft')
+                            ->options(Status::class)
                             ->required()
                             ->columnSpan(2),
                         Select::make('type')
@@ -88,7 +95,6 @@ class WhitePageResource extends Resource
                 TitleWithStatus::make('title')
                     ->searchable()
                     ->sortable(),
-                BadgeColumn::make('status')->enum(config('trov.publishable.status'))->colors(config('trov.publishable.colors')),
                 BadgeColumn::make('meta.indexable')
                     ->label('SEO')
                     ->enum([
@@ -103,7 +109,7 @@ class WhitePageResource extends Resource
                 TextColumn::make('published_at')->label('Published At')->date()->sortable(),
             ])
             ->filters([
-                SelectFilter::make('status')->options(config('trov.publishable.status')),
+                SelectFilter::make('status')->options(Status::class),
                 SelectFilter::make('type')->options(self::ARTICLE_TYPES),
                 SoftDeleteFilter::make(),
             ])->defaultSort('published_at', 'desc');
@@ -111,9 +117,7 @@ class WhitePageResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            LinkSetsRelationManager::class,
-        ];
+        return array_merge([], config('trov.features.link_sets.active') ? [LinkSetsRelationManager::class] : []);
     }
 
     public static function getPages(): array

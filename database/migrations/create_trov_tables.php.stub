@@ -29,7 +29,7 @@ class CreateTrovTables extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('status')->default('draft');
+            $table->string('status')->default('Draft');
             $table->longText('content')->nullable();
             $table->boolean('has_chat')->default(true);
             $table->string('layout')->default('default');
@@ -60,7 +60,7 @@ class CreateTrovTables extends Migration
                 $table->id();
                 $table->string('title');
                 $table->string('slug')->unique();
-                $table->string('status')->default('draft');
+                $table->string('status')->default('Draft');
                 $table->foreignId('discovery_topic_id');
                 $table->foreignId('author_id');
                 $table->longText('content')->nullable();
@@ -73,7 +73,7 @@ class CreateTrovTables extends Migration
                 $table->id();
                 $table->string('title');
                 $table->string('slug')->unique();
-                $table->string('status')->default('draft');
+                $table->string('status')->default('Draft');
                 $table->longText('content')->nullable();
                 $table->date('published_at')->nullable();
                 $table->softDeletes();
@@ -86,7 +86,7 @@ class CreateTrovTables extends Migration
                 $table->id();
                 $table->string('question');
                 $table->string('slug')->unique();
-                $table->string('status')->default('draft');
+                $table->string('status')->default('Draft');
                 $table->longText('answer')->nullable();
                 $table->softDeletes();
                 $table->timestamps();
@@ -98,7 +98,7 @@ class CreateTrovTables extends Migration
                 $table->id();
                 $table->string('title');
                 $table->string('slug')->unique();
-                $table->string('status')->default('draft');
+                $table->string('status')->default('Draft');
                 $table->longText('content')->nullable();
                 $table->boolean('has_chat')->default(true);
                 $table->softDeletes();
@@ -122,7 +122,7 @@ class CreateTrovTables extends Migration
                 $table->id();
                 $table->string('title');
                 $table->string('slug')->unique();
-                $table->string('status')->default('draft');
+                $table->string('status')->default('Draft');
                 $table->foreignId('author_id');
                 $table->longText('content')->nullable();
                 $table->date('published_at')->nullable();
@@ -136,7 +136,7 @@ class CreateTrovTables extends Migration
                 $table->id();
                 $table->string('title');
                 $table->string('slug')->unique();
-                $table->string('status')->default('draft');
+                $table->string('status')->default('Draft');
                 $table->foreignId('author_id');
                 $table->string('type')->default('article');
                 $table->longText('content')->nullable();

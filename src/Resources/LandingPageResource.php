@@ -7,6 +7,7 @@ use Trov\Models\LandingPage;
 use Filament\Resources\Table;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
+use TrovComponents\Enums\Status;
 use TrovComponents\Filament\Panel;
 use Filament\Forms\Components\Group;
 use TrovComponents\Forms\Timestamps;
@@ -58,8 +59,8 @@ class LandingPageResource extends Resource
                         Panel::make('Details')
                             ->schema([
                                 Select::make('status')
-                                    ->default('draft')
-                                    ->options(config('trov.publishable.status'))
+                                    ->default('Draft')
+                                    ->options(Status::class)
                                     ->required()
                                     ->columnSpan(2),
                                 Toggle::make('has_chat')
@@ -92,7 +93,6 @@ class LandingPageResource extends Resource
                 TitleWithStatus::make('title')
                     ->searchable()
                     ->sortable(),
-                BadgeColumn::make('status')->enum(config('trov.publishable.status'))->colors(config('trov.publishable.colors')),
                 BadgeColumn::make('meta.indexable')
                     ->label('SEO')
                     ->enum([
@@ -106,7 +106,7 @@ class LandingPageResource extends Resource
                 TextColumn::make('updated_at')->label('Last Updated')->date()->sortable(),
             ])
             ->filters([
-                SelectFilter::make('status')->options(config('trov.publishable.status')),
+                SelectFilter::make('status')->options(Status::class),
                 SoftDeleteFilter::make(),
             ])->defaultSort('title', 'asc');
     }

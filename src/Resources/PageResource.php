@@ -8,6 +8,7 @@ use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
+use TrovComponents\Enums\Status;
 use TrovComponents\Filament\Panel;
 use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
@@ -15,10 +16,10 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-use Trov\Forms\Components\BlockContent;
 use TrovComponents\Forms\TitleWithSlug;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Trov\Forms\Components\PageBuilder;
 use TrovComponents\Filament\FixedSidebar;
 use Trov\Tables\Columns\FeaturedImageColumn;
 use Trov\Resources\PageResource\Pages\EditPage;
@@ -51,7 +52,7 @@ class PageResource extends Resource
                 TitleWithSlug::make('title', 'slug', '/')->columnSpan('full'),
                 Section::make('Page Content')
                     ->schema([
-                        BlockContent::make('content')
+                        PageBuilder::make('content')
                     ])
             ], [
                 Panel::make('Details')
@@ -59,8 +60,8 @@ class PageResource extends Resource
                     ->schema([
                         Select::make('status')
                             ->hidden(fn ($get) => $get('front_page') ?: false)
-                            ->default('draft')
-                            ->options(config('trov.publishable.status'))
+                            ->default('Draft')
+                            ->options(Status::class)
                             ->required()
                             ->columnSpan('full'),
                         Select::make('layout')
@@ -93,9 +94,6 @@ class PageResource extends Resource
                     ->extraAttributes(['class' => 'w-full'])
                     ->searchable()
                     ->sortable(),
-                BadgeColumn::make('status')
-                    ->enum(config('trov.publishable.status'))
-                    ->colors(config('trov.publishable.colors')),
                 BadgeColumn::make('meta.indexable')
                     ->label('SEO')
                     ->enum([
@@ -112,14 +110,14 @@ class PageResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                SelectFilter::make('status')->options(config('trov.publishable.status')),
+                SelectFilter::make('status')->options(Status::class),
                 SoftDeleteFilter::make(),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [LinkSetsRelationManager::class,];
+        return array_merge([], config('trov.features.link_sets.active') ? [LinkSetsRelationManager::class] : []);
     }
 
     public static function getPages(): array

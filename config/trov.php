@@ -46,19 +46,6 @@ return [
             ],
         ],
     ],
-    'publishable' => [
-        'status' => [
-            'draft' => 'Draft',
-            'review' => 'In Review',
-            'published' => 'Published',
-        ],
-        'colors' => [
-            'primary',
-            'danger' => 'draft',
-            'warning' => 'review',
-            'success' => 'published'
-        ],
-    ],
     'linkable_sets_sections' => [
         'Types of Services' => 'Types of Services',
         'How to Get Cash' => 'How to Get Cash',
