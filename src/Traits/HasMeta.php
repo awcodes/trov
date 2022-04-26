@@ -3,7 +3,7 @@
 namespace Trov\Traits;
 
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Trov\Models\Meta;
+use App\Models\Meta;
 
 trait HasMeta
 {

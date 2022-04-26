@@ -3,7 +3,7 @@
 namespace Trov;
 
 use App\Models\User;
-use Trov\Models\Page;
+use App\Models\Page;
 use Livewire\Livewire;
 use Filament\Facades\Filament;
 use Trov\Observers\PageObserver;
@@ -24,6 +24,7 @@ class TrovServiceProvider extends PluginServiceProvider
             ->hasAssets()
             ->hasViews()
             ->hasCommands([
+                Commands\InstallTrov::class,
                 Commands\EjectTrovResources::class,
                 Commands\EjectTrovModels::class,
             ])
@@ -53,21 +54,5 @@ class TrovServiceProvider extends PluginServiceProvider
 
         User::observe(UserObserver::class);
         Page::observe(PageObserver::class);
-    }
-
-    protected function getResources(): array
-    {
-        $resources = [
-            Resources\UserResource::class,
-            Resources\PageResource::class,
-            Resources\AuthorResource::class,
-            Resources\PostResource::class,
-        ];
-
-        if (!File::exists(app_path('Filament/Resources/Trov/UserResource.php'))) {
-            return $resources;
-        }
-
-        return $this->resources;
     }
 }

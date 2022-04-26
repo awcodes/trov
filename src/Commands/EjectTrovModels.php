@@ -21,10 +21,18 @@ class EjectTrovModels extends Command
 
     public function handle(): int
     {
-        $baseModelsPath = app_path('models');
-        $pageModelsPath = app_path('models');
-        $postModelsPath = app_path('models');
-        $authorModelsPath = app_path('models');
+        $baseModelsPath = app_path((string) Str::of('Models')->replace('\\', '/'),);
+        $pageModelsPath = app_path((string) Str::of('Models\\Page.php')->replace('\\', '/'),);
+        $postModelsPath = app_path((string) Str::of('Models\\Post.php')->replace('\\', '/'),);
+        $authorModelsPath = app_path((string) Str::of('Models\\Author.php')->replace('\\', '/'),);
+        $metaModelsPath = app_path((string) Str::of('Models\\Meta.php')->replace('\\', '/'),);
+
+        if ($this->checkForCollision([$metaModelsPath])) {
+            $confirmed = $this->confirm('Meta Model already exists. Overwrite?', true);
+            if (!$confirmed) {
+                return self::INVALID;
+            }
+        }
 
         if ($this->checkForCollision([$pageModelsPath])) {
             $confirmed = $this->confirm('Page Model already exists. Overwrite?', true);

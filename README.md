@@ -2,7 +2,7 @@
 
 A Laravel / Filament starter kit for CMS functionality on websites.
 
-Please star these awesome repos and/or sponsors all of these people's hard work:
+Please star these awesome repos and/or sponsor all of these people's hard work:
 
 - [Filament](https://github.com/laravel-filament/filament)
 - [Filament Breezy](https://github.com/jeffgreco13/filament-breezy)

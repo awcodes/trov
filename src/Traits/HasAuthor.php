@@ -2,7 +2,7 @@
 
 namespace Trov\Traits;
 
-use Trov\Models\Author;
+use App\Models\Author;
 
 trait HasAuthor
 {
