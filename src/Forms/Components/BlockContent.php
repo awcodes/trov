@@ -22,7 +22,7 @@ class BlockContent
             ->createItemButtonLabel('Add Block')
             ->showBlockLabels()
             ->blocks([
-                RichText::make(),
+                RichText::make('simple'),
                 Grid::make(),
                 Hero::make(),
                 Image::make(),

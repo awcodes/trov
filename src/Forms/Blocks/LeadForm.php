@@ -9,9 +9,9 @@ use Filament\Forms\Components\Builder\Block;
 
 class LeadForm
 {
-    public static function make(string $field = 'lead-form'): Block
+    public static function make(): Block
     {
-        return Block::make($field)
+        return Block::make('lead-form')
             ->schema([
                 MultiSelect::make('products')
                     ->options([

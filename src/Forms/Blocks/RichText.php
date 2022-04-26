@@ -3,15 +3,17 @@
 namespace Trov\Forms\Blocks;
 
 use Filament\Forms\Components\Builder\Block;
-use FilamentTipTapEditor\TipTapEditor;
+use FilamentTiptapEditor\TiptapEditor;
 
 class RichText
 {
-    public static function make(string $field = 'rich-text'): Block
+    public static function make(?string $profile = 'default'): Block
     {
-        return Block::make($field)
+        return Block::make('rich-text')
             ->schema([
-                TipTapEditor::make('content')
+                TiptapEditor::make('content')
+                    ->disableLabel()
+                    ->profile($profile)
                     ->required(),
             ]);
     }

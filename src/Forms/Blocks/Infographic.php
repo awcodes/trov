@@ -9,9 +9,9 @@ use Filament\Forms\Components\Builder\Block;
 
 class Infographic
 {
-    public static function make(string $field = 'infographic'): Block
+    public static function make(): Block
     {
-        return Block::make($field)
+        return Block::make('infographic')
             ->schema([
                 MediaPicker::make('image')
                     ->label('Image'),

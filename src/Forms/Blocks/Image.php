@@ -7,9 +7,9 @@ use Filament\Forms\Components\Builder\Block;
 
 class Image
 {
-    public static function make(string $field = 'image'): Block
+    public static function make(): Block
     {
-        return Block::make($field)
+        return Block::make('Image')
             ->schema([
                 MediaPicker::make('image')
                     ->label('Image'),

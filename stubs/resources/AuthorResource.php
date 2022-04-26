@@ -1,11 +1,11 @@
 <?php
 
-namespace Trov\Resources;
+namespace App\Filament\Resources\Trov;
 
 use Filament\Forms;
 use Filament\Tables;
 use Livewire\Component;
-use Trov\Models\Author;
+use App\Models\Author;
 use Illuminate\Support\Str;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
@@ -19,13 +19,13 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
-use Trov\Resources\AuthorResource\Pages;
+use App\Filament\Resources\Trov\AuthorResource\Pages;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use TrovComponents\Filament\FixedSidebar;
-use Trov\Resources\AuthorResource\Pages\EditAuthor;
-use Trov\Resources\AuthorResource\Pages\ListAuthors;
-use Trov\Resources\AuthorResource\Pages\CreateAuthor;
+use App\Filament\Resources\Trov\AuthorResource\Pages\EditAuthor;
+use App\Filament\Resources\Trov\AuthorResource\Pages\ListAuthors;
+use App\Filament\Resources\Trov\AuthorResource\Pages\CreateAuthor;
 
 class AuthorResource extends Resource
 {

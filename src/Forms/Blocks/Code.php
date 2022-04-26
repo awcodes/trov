@@ -7,9 +7,9 @@ use SebastiaanKloos\FilamentCodeEditor\Components\CodeEditor;
 
 class Code
 {
-    public static function make(string $field = 'code'): Block
+    public static function make(): Block
     {
-        return Block::make($field)
+        return Block::make('code')
             ->schema([
                 CodeEditor::make('content')
                     ->required(),

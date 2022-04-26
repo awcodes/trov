@@ -8,12 +8,9 @@ use Livewire\Livewire;
 use Filament\Facades\Filament;
 use Trov\Observers\PageObserver;
 use Trov\Observers\UserObserver;
-use Trov\Observers\MediaObserver;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\File;
-use Filament\Navigation\UserMenuItem;
 use Spatie\LaravelPackageTools\Package;
-use Trov\Commands\RegenerateThumbnails;
 
 class TrovServiceProvider extends PluginServiceProvider
 {
@@ -26,6 +23,10 @@ class TrovServiceProvider extends PluginServiceProvider
             ->hasConfigFile(['trov', 'filament', 'filament-breezy', 'filament-shield'])
             ->hasAssets()
             ->hasViews()
+            ->hasCommands([
+                Commands\EjectTrovResources::class,
+                Commands\EjectTrovModels::class,
+            ])
             ->hasMigrations([
                 'create_trov_tables',
             ]);
@@ -46,10 +47,9 @@ class TrovServiceProvider extends PluginServiceProvider
             Filament::registerTheme(asset('vendor/trov/trov.css'));
         });
 
+        Livewire::component('framework-overview', Widgets\FrameworkOverview::class);
         Livewire::component('pages-overview', Widgets\PagesOverview::class);
         Livewire::component('posts-overview', Widgets\PostsOverview::class);
-        Livewire::component('faqs-overview', Widgets\FaqsOverview::class);
-        Livewire::component('framework-overview', Widgets\FrameworkOverview::class);
 
         User::observe(UserObserver::class);
         Page::observe(PageObserver::class);
@@ -57,21 +57,17 @@ class TrovServiceProvider extends PluginServiceProvider
 
     protected function getResources(): array
     {
-        $core = [
+        $resources = [
             Resources\UserResource::class,
             Resources\PageResource::class,
+            Resources\AuthorResource::class,
+            Resources\PostResource::class,
         ];
 
-        $features = [];
-
-        foreach (config('trov.features') as $feature => $data) {
-            if ($data['active'] && $data['resources']) {
-                foreach ($data['resources'] as $class) {
-                    $features[] = $class;
-                }
-            }
+        if (!File::exists(app_path('Filament/Resources/Trov/UserResource.php'))) {
+            return $resources;
         }
 
-        return array_merge($core, $features);
+        return $this->resources;
     }
 }

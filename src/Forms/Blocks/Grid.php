@@ -5,19 +5,19 @@ namespace Trov\Forms\Blocks;
 use FilamentCurator\Forms\Components\MediaPicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Builder\Block;
-use FilamentTipTapEditor\TipTapEditor;
+use FilamentTiptapEditor\TiptapEditor;
 
 class Grid
 {
-    public static function make(string $field = 'grid'): Block
+    public static function make(): Block
     {
-        return Block::make($field)
+        return Block::make('grid')
             ->schema([
                 Repeater::make('columns')
                     ->createItemButtonLabel('Add Column')
                     ->schema([
                         MediaPicker::make('image'),
-                        TipTapEditor::make('content')
+                        TiptapEditor::make('content')
                             ->label('Rich Text')
                             ->disableLabel()
                             ->profile('simple')

@@ -1,8 +1,8 @@
 <?php
 
-namespace Trov\Resources;
+namespace App\Filament\Resources\Trov;
 
-use Trov\Models\Page;
+use App\Models\Page;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
@@ -14,17 +14,17 @@ use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
-use Trov\Forms\Components\PageBuilder;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use TrovComponents\Forms\TitleWithSlug;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Trov\Forms\Components\PageBuilder;
 use TrovComponents\Filament\FixedSidebar;
 use Trov\Tables\Columns\FeaturedImageColumn;
-use Trov\Resources\PageResource\Pages\EditPage;
-use Trov\Resources\PageResource\Pages\ListPages;
-use Trov\Resources\PageResource\Pages\CreatePage;
+use App\Filament\Resources\Trov\PageResource\Pages\EditPage;
+use App\Filament\Resources\Trov\PageResource\Pages\ListPages;
+use App\Filament\Resources\Trov\PageResource\Pages\CreatePage;
 use TrovComponents\Tables\Columns\TitleWithStatus;
 use TrovComponents\Tables\Filters\SoftDeleteFilter;
 
@@ -93,15 +93,15 @@ class PageResource extends Resource
                     ->extraAttributes(['class' => 'w-full'])
                     ->searchable()
                     ->sortable(),
-                IconColumn::make('meta.indexable')
-                    ->label('Indexed')
-                    ->options([
-                        'heroicon-o-check' => true,
-                        'heroicon-o-minus' => false,
+                BadgeColumn::make('meta.indexable')
+                    ->label('SEO')
+                    ->enum([
+                        true => 'Index',
+                        false => '—',
                     ])
                     ->colors([
                         'success' => true,
-                        'danger' => false,
+                        'secondary' => false,
                     ]),
                 TextColumn::make('updated_at')
                     ->label('Last Updated')

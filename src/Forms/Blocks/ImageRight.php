@@ -4,16 +4,16 @@ namespace Trov\Forms\Blocks;
 
 use FilamentCurator\Forms\Components\MediaPicker;
 use Filament\Forms\Components\Builder\Block;
-use FilamentTipTapEditor\TipTapEditor;
+use FilamentTiptapEditor\TiptapEditor;
 
 class ImageRight
 {
-    public static function make(string $field = 'image-right'): Block
+    public static function make(): Block
     {
-        return Block::make($field)
+        return Block::make('image-right')
             ->label('Image with Text on Left')
             ->schema([
-                TipTapEditor::make('content')
+                TiptapEditor::make('content')
                     ->label('Rich Text')
                     ->disableLabel()
                     ->profile('simple')

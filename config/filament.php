@@ -144,7 +144,7 @@ return [
         'register' => [
             Trov\Widgets\PagesOverview::class,
             Trov\Widgets\PostsOverview::class,
-            Trov\Widgets\FaqsOverview::class,
+            Trov\Faqs\Widgets\FaqsOverview::class,
             Trov\Widgets\FrameworkOverview::class,
         ],
     ],

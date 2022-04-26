@@ -1,26 +1,29 @@
 <?php
 
-namespace Trov\Models;
+namespace App\Models;
 
+use Spatie\Tags\HasTags;
 use Trov\Traits\HasMeta;
-use Trov\Linkables\Traits\HasLinkSet;
+use Trov\Traits\HasAuthor;
 use Trov\Traits\IsSluggable;
-use Trov\Traits\HasPublishedScope;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Trov\Traits\HasFeaturedImage;
+use Trov\Traits\HasPublishedScope;
+use Trov\Linkables\Traits\HasLinkSet;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Page extends Model
+class Post extends Model
 {
-    use HasFactory;
     use HasPublishedScope;
     use IsSluggable;
+    use HasFactory;
+    use HasTags;
     use HasMeta;
-    use HasLinkSet;
+    use HasAuthor;
     use SoftDeletes;
     use HasFeaturedImage;
+    use HasLinkSet;
 
     /**
      * The attributes that are mass assignable.
@@ -31,11 +34,9 @@ class Page extends Model
         'title',
         'slug',
         'status',
+        'author_id',
         'content',
-        'has_chat',
-        'layout',
-        'front_page',
-        'deleted_at',
+        'published_at',
     ];
 
     /**
@@ -44,27 +45,23 @@ class Page extends Model
      * @var array
      */
     protected $casts = [
-        'has_chat' => 'boolean',
+        'id' => 'integer',
+        'indexable' => 'boolean',
+        'published_at' => 'date',
         'content' => 'array',
-        'front_page' => 'boolean',
     ];
 
     protected $with = [
         'meta',
     ];
 
-    public function scopeIsHomePage($query)
-    {
-        return $query->where('front_page', true)->first();
-    }
-
     public function getBasePath()
     {
-        return '/';
+        return '/posts';
     }
 
     public function getPublicUrl()
     {
-        return url()->to($this->getBasePath() . $this->slug . '/');
+        return url()->to($this->getBasePath() . '/' . $this->slug . '/');
     }
 }

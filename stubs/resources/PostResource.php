@@ -1,8 +1,8 @@
 <?php
 
-namespace Trov\Resources;
+namespace App\Filament\Resources\Trov;
 
-use Trov\Models\Post;
+use App\Models\Post;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
@@ -13,19 +13,19 @@ use TrovComponents\Filament\Panel;
 use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
-use Trov\Forms\Components\PageBuilder;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use TrovComponents\Forms\TitleWithSlug;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\SelectFilter;
 use TrovComponents\Filament\FixedSidebar;
 use TrovComponents\Forms\Fields\DateInput;
 use Trov\Tables\Columns\FeaturedImageColumn;
 use Filament\Forms\Components\BelongsToSelect;
 use Filament\Forms\Components\SpatieTagsInput;
-use Trov\Resources\PostResource\Pages\EditPost;
-use Trov\Resources\PostResource\Pages\ListPosts;
-use Trov\Resources\PostResource\Pages\CreatePost;
+use Trov\Forms\Components\PageBuilder;
+use App\Filament\Resources\Trov\PostResource\Pages\EditPost;
+use App\Filament\Resources\Trov\PostResource\Pages\ListPosts;
+use App\Filament\Resources\Trov\PostResource\Pages\CreatePost;
 use TrovComponents\Tables\Columns\TitleWithStatus;
 use TrovComponents\Tables\Filters\SoftDeleteFilter;
 
@@ -90,15 +90,15 @@ class PostResource extends Resource
                 TitleWithStatus::make('title')
                     ->searchable()
                     ->sortable(),
-                IconColumn::make('meta.indexable')
-                    ->label('Indexed')
-                    ->options([
-                        'heroicon-o-check' => true,
-                        'heroicon-o-minus' => false,
+                BadgeColumn::make('meta.indexable')
+                    ->label('SEO')
+                    ->enum([
+                        true => 'Index',
+                        false => '—',
                     ])
                     ->colors([
                         'success' => true,
-                        'danger' => false,
+                        'secondary' => false,
                     ]),
                 TextColumn::make('published_at')->label('Published At')->date()->sortable(),
             ])

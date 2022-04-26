@@ -6,7 +6,7 @@ use Trov\Models\Author;
 use Spatie\Tags\HasTags;
 use Trov\Traits\HasMeta;
 use Trov\Traits\HasAuthor;
-use Trov\Traits\HasLinkSet;
+use Trov\Linkables\Traits\HasLinkSet;
 use Trov\Traits\IsSluggable;
 use Trov\Traits\HasFeaturedImage;
 use Trov\Traits\HasPublishedScope;

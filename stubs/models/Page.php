@@ -1,16 +1,16 @@
 <?php
 
-namespace Trov\Models;
+namespace App\Models;
 
 use Trov\Traits\HasMeta;
-use Trov\Linkables\Traits\HasLinkSet;
 use Trov\Traits\IsSluggable;
 use Trov\Traits\HasPublishedScope;
+use Trov\Traits\HasFeaturedImage;
+use Trov\Linkables\Traits\HasLinkSet;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Trov\Traits\HasFeaturedImage;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Page extends Model
 {

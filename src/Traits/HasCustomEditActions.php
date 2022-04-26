@@ -82,6 +82,15 @@ trait HasCustomEditActions
             ];
         }
 
-        return [parent::getDeleteAction()];
+        return [
+            ButtonAction::make('delete')
+                ->label('Trash')
+                ->requiresConfirmation()
+                ->modalHeading(__('filament::resources/pages/edit-record.actions.delete.modal.heading', ['label' => $this->getRecordTitle() ?? static::getResource()::getLabel()]))
+                ->modalSubheading(__('filament::resources/pages/edit-record.actions.delete.modal.subheading'))
+                ->modalButton(__('filament::resources/pages/edit-record.actions.delete.modal.buttons.delete.label'))
+                ->action('delete')
+                ->color('danger')
+        ];
     }
 }
