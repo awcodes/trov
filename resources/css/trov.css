@@ -12,7 +12,7 @@ button[disabled] {
 }
 
 .filament-sidebar {
-  @apply !w-64;
+  @apply !w-64 shadow-2xl md:shadow-none;
 }
 
 .filament-main {
@@ -21,6 +21,15 @@ button[disabled] {
 
 .filament-main.lg\:pl-\[5\.4rem\] {
   @apply lg:!pl-[5.4rem] rtl:lg:!pr-[5.4rem];
+}
+
+.filament-forms-repeater-component > button,
+.filament-forms-builder-component > div > button {
+  @apply text-success-800 bg-success-50 border-success-300 hover:bg-success-200 focus:ring-success-600 focus:text-success-600 focus:bg-success-50 focus:border-success-600 dark:text-success-800 dark:bg-success-100 dark:border-success-300 dark:hover:bg-success-200 dark:focus:ring-success-600 dark:focus:text-success-600 dark:focus:bg-success-50 dark:focus:border-success-600;
+}
+
+.filament-forms-section-component .filament-forms-repeater-component > ul > li {
+  @apply bg-gray-50 dark:bg-gray-900;
 }
 
 .filepond--root[data-style-panel-aspect-ratio] .filepond--drop-label {
