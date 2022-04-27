@@ -14,19 +14,19 @@ use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
+use Trov\Forms\Components\PageBuilder;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use TrovComponents\Forms\TitleWithSlug;
-use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Trov\Forms\Components\PageBuilder;
 use TrovComponents\Filament\FixedSidebar;
 use Trov\Tables\Columns\FeaturedImageColumn;
+use TrovComponents\Tables\Columns\TitleWithStatus;
+use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use App\Filament\Resources\Trov\PageResource\Pages\EditPage;
 use App\Filament\Resources\Trov\PageResource\Pages\ListPages;
 use App\Filament\Resources\Trov\PageResource\Pages\CreatePage;
-use TrovComponents\Tables\Columns\TitleWithStatus;
-use TrovComponents\Tables\Filters\SoftDeleteFilter;
 
 class PageResource extends Resource
 {
@@ -93,15 +93,15 @@ class PageResource extends Resource
                     ->extraAttributes(['class' => 'w-full'])
                     ->searchable()
                     ->sortable(),
-                BadgeColumn::make('meta.indexable')
-                    ->label('SEO')
-                    ->enum([
-                        true => 'Index',
-                        false => '—',
+                IconColumn::make('meta.indexable')
+                    ->label('Indexed')
+                    ->options([
+                        'heroicon-o-check' => true,
+                        'heroicon-o-minus' => false,
                     ])
                     ->colors([
                         'success' => true,
-                        'secondary' => false,
+                        'danger' => false,
                     ]),
                 TextColumn::make('updated_at')
                     ->label('Last Updated')
