@@ -44,10 +44,6 @@ class TrovServiceProvider extends PluginServiceProvider
     {
         parent::boot();
 
-        Filament::serving(function () {
-            Filament::registerTheme(asset('vendor/trov/trov.css'));
-        });
-
         Livewire::component('framework-overview', Widgets\FrameworkOverview::class);
         Livewire::component('pages-overview', Widgets\PagesOverview::class);
         Livewire::component('posts-overview', Widgets\PostsOverview::class);
