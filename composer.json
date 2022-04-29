@@ -26,7 +26,8 @@
         "sebastiaankloos/filament-code-editor": "^1.0",
         "spatie/laravel-package-tools": "^1.9.2",
         "spatie/laravel-sluggable": "^3.3",
-        "spatie/laravel-tags": "^4.3"
+        "spatie/laravel-tags": "^4.3",
+        "awcodes/trov-components": "^0.1.0"
     },
     "autoload": {
         "psr-4": {
