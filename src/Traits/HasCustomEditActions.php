@@ -17,11 +17,6 @@ trait HasCustomEditActions
         ], $this->getDestroyActions());
     }
 
-    public function hasMultiActionButton()
-    {
-        return property_exists($this, 'hasMultiActionButton') ? $this->hasMultiActionButton : false;
-    }
-
     public function restore(): void
     {
         abort_unless(static::getResource()::canDelete($this->record), 403);

@@ -12,9 +12,4 @@ trait HasCustomCreateActions
             [$this->getCancelFormAction()],
         );
     }
-
-    public function hasMultiActionButton()
-    {
-        return property_exists($this, 'hasMultiActionButton') ? $this->hasMultiActionButton : false;
-    }
 }
