@@ -19,23 +19,13 @@ Please star these awesome repos and/or sponsor all of these people's hard work:
 composer require awcodes/trov
 ```
 
-2. (optional) Publish config files
+2. Install Trov
 
 ```bash
-php artisan vendor:publish --tag="filament-config"
-php artisan vendor:publish --tag="filament-breezy-config"
-php artisan vendor:publish --tag="filament-shield-config"
+php artisan trov:install
 ```
 
-3. Publish migrations
-
-```bash
-php artisan vendor:publish --tag="trov-migrations"
-php artisan vendor:publish --provider="Spatie\Tags\TagsServiceProvider" --tag="tags-migrations"
-php artisan migrate
-```
-
-4. Update `App\Models\User.php` model with:
+3. Update `App\Models\User.php` model with:
 
 ```php
 use Filament\Models\Contracts\FilamentUser;
@@ -53,16 +43,10 @@ class User extends Authenticatable implements FilamentUser
 }
 ```
 
-5. Update `filament-shield.php` config file where appropriate, then initialize Shield with:
+4. Update `filament-shield.php` config file where appropriate, then initialize Shield with:
 
 ```bash
 php artisan shield:install
-```
-
-6. Publish Assets
-
-```bash
-php artisan vendor:publish --tag="trov-assets"
 ```
 
 ## License
