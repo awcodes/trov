@@ -2,8 +2,8 @@
 
 namespace Trov\Traits;
 
+use Illuminate\Support\Arr;
 use Filament\Pages\Actions\ButtonAction;
-use TrovComponents\Filament\MultiActionButton;
 
 trait HasCustomEditActions
 {
@@ -11,20 +11,15 @@ trait HasCustomEditActions
     {
         parent::getActions();
 
-        // return array_merge([
-        //     ButtonAction::make('save')->action('saveFormFromAction'),
-        //     ButtonAction::make('view')->hidden($this->record->deleted_at !== null)->color('secondary')->url($this->record->getPublicUrl())->openUrlInNewTab(),
-        // ], $this->getDestroyActions());
-
-        return [MultiActionButton::make('blah')->actions(array_merge([
-            ButtonAction::make('save')->action('saveFormFromAction'),
+        return array_merge([
+            ButtonAction::make('save')->action('save'),
             ButtonAction::make('view')->hidden($this->record->deleted_at !== null)->color('secondary')->url($this->record->getPublicUrl())->openUrlInNewTab(),
-        ], $this->getDestroyActions()))];
+        ], $this->getDestroyActions());
     }
 
-    public function saveFormFromAction(): void
+    public function hasMultiActionButton()
     {
-        $this->save();
+        return property_exists($this, 'hasMultiActionButton') ? $this->hasMultiActionButton : false;
     }
 
     public function restore(): void
