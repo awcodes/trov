@@ -2,7 +2,7 @@
 
 namespace Trov\Observers;
 
-use Trov\Models\Page;
+use App\Models\Page;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,7 +11,7 @@ class PageObserver
     /**
      * Handle the Page "creating" event.
      *
-     * @param  \Trov\Models\Page  $page
+     * @param  \App\Models\Page  $page
      * @return void
      */
     public function creating(Page $page)
@@ -32,7 +32,7 @@ class PageObserver
     /**
      * Handle the Page "updating" event.
      *
-     * @param  \Trov\Models\Page  $page
+     * @param  \App\Models\Page  $page
      * @return void
      */
     public function updating(Page $page)

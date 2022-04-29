@@ -11,15 +11,15 @@ trait HasCustomEditActions
     {
         parent::getActions();
 
-        return array_merge([
-            ButtonAction::make('save')->action('saveFormFromAction'),
-            ButtonAction::make('view')->hidden($this->record->deleted_at !== null)->color('secondary')->url($this->record->getPublicUrl())->openUrlInNewTab(),
-        ], $this->getDestroyActions());
-
-        // return [MultiActionButton::make('blah')->actions(array_merge([
+        // return array_merge([
         //     ButtonAction::make('save')->action('saveFormFromAction'),
         //     ButtonAction::make('view')->hidden($this->record->deleted_at !== null)->color('secondary')->url($this->record->getPublicUrl())->openUrlInNewTab(),
-        // ], $this->getDestroyActions()))];
+        // ], $this->getDestroyActions());
+
+        return [MultiActionButton::make('blah')->actions(array_merge([
+            ButtonAction::make('save')->action('saveFormFromAction'),
+            ButtonAction::make('view')->hidden($this->record->deleted_at !== null)->color('secondary')->url($this->record->getPublicUrl())->openUrlInNewTab(),
+        ], $this->getDestroyActions()))];
     }
 
     public function saveFormFromAction(): void
