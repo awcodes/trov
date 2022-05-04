@@ -53,6 +53,37 @@ class Page extends Model
         'meta',
     ];
 
+    protected static function booted()
+    {
+        static::creating(function ($page) {
+            if ($page->front_page) {
+                $oldFrontPage = Page::where('front_page', true)->first();
+                if ($oldFrontPage) {
+                    $oldFrontPage->update([
+                        'front_page' => false
+                    ]);
+                }
+
+                $page->status = 'published';
+                $page->layout = 'full';
+            }
+        });
+
+        static::updating(function ($page) {
+            if ($page->front_page) {
+                $oldFrontPage = Page::where('front_page', true)->first();
+                if ($oldFrontPage) {
+                    $oldFrontPage->update([
+                        'front_page' => false
+                    ]);
+                }
+
+                $page->status = 'published';
+                $page->layout = 'full';
+            }
+        });
+    }
+
     public function scopeIsHomePage($query)
     {
         return $query->where('front_page', true)->first();

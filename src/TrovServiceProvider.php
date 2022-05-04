@@ -51,6 +51,5 @@ class TrovServiceProvider extends PluginServiceProvider
         Livewire::component('posts-overview', Widgets\PostsOverview::class);
 
         User::observe(UserObserver::class);
-        Page::observe(PageObserver::class);
     }
 }
