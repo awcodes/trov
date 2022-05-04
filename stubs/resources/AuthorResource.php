@@ -72,7 +72,7 @@ class AuthorResource extends Resource
                 Card::make()
                     ->schema([
                         FileUpload::make('avatar')
-                            ->afterStateHydrated(fn ($component) => $component->state([]))
+                            ->directory('avatars')
                             ->image()
                             ->imagePreviewHeight('250')
                             ->maxFiles(1)

@@ -18,7 +18,7 @@ class Author extends Model
     {
         static::deleting(function ($author) {
             if ($author->avatar) {
-                Storage::disk('avatars')->delete($author->avatar);
+                Storage::delete("avatars/{$author->avatar}");
             }
         });
     }
@@ -45,12 +45,12 @@ class Author extends Model
         'name',
         'slug',
         'bio',
-        'facebook',
-        'twitter',
-        'instagram',
-        'linkedin',
-        'youtube',
-        'pinterest',
+        'facebook_handle',
+        'twitter_handle',
+        'instagram_handle',
+        'linkedin_handle',
+        'youtube_handle',
+        'pinterest_handle',
         'avatar',
     ];
 
