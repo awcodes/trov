@@ -13,6 +13,7 @@ use Trov\Forms\Blocks\ImageLeft;
 use Trov\Forms\Blocks\ImageRight;
 use Trov\Forms\Blocks\Infographic;
 use Filament\Forms\Components\Builder;
+use Trov\Forms\Blocks\Detail;
 
 class BlockContent
 {
@@ -28,6 +29,7 @@ class BlockContent
                 Image::make(),
                 ImageLeft::make(),
                 ImageRight::make(),
+                Detail::make(),
                 Infographic::make(),
                 Code::make(),
             ]);

@@ -14,6 +14,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Repeater;
+use Trov\Forms\Blocks\Detail;
 
 class AirportBlockContent
 {
@@ -52,6 +53,7 @@ class AirportBlockContent
                         Image::make(),
                         ImageLeft::make(),
                         ImageRight::make(),
+                        Detail::make(),
                         LeadForm::make(),
                     ]),
             ]);
