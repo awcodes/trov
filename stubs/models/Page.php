@@ -17,7 +17,6 @@ class Page extends Model
     use HasPublishedScope;
     use IsSluggable;
     use HasMeta;
-    use HasLinkSet;
     use SoftDeletes;
     use HasFeaturedImage;
 
