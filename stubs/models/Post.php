@@ -8,7 +8,6 @@ use Trov\Traits\HasAuthor;
 use Trov\Traits\IsSluggable;
 use Trov\Traits\HasFeaturedImage;
 use Trov\Traits\HasPublishedScope;
-use Trov\Linkables\Traits\HasLinkSet;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,7 +22,6 @@ class Post extends Model
     use HasAuthor;
     use SoftDeletes;
     use HasFeaturedImage;
-    use HasLinkSet;
 
     /**
      * The attributes that are mass assignable.

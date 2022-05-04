@@ -6,7 +6,6 @@ use Trov\Traits\HasMeta;
 use Trov\Traits\IsSluggable;
 use Trov\Traits\HasPublishedScope;
 use Trov\Traits\HasFeaturedImage;
-use Trov\Linkables\Traits\HasLinkSet;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
