@@ -11,15 +11,16 @@ use Filament\Resources\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Illuminate\Support\Facades\Hash;
-use App\Filament\Resources\Trov\UserResource\Pages;
+use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Filters\SelectFilter;
+use TrovComponents\Forms\Fields\PasswordGenerator;
+use App\Filament\Resources\Trov\UserResource\Pages;
+use Filament\Forms\Components\BelongsToManyCheckboxList;
 use App\Filament\Resources\Trov\UserResource\Pages\EditUser;
 use App\Filament\Resources\Trov\UserResource\Pages\ListUsers;
 use App\Filament\Resources\Trov\UserResource\Pages\CreateUser;
-use TrovComponents\Forms\Fields\PasswordGenerator;
-use Filament\Forms\Components\BelongsToManyCheckboxList;
 
 class UserResource extends Resource
 {
@@ -45,9 +46,10 @@ class UserResource extends Resource
                             ->required()
                             ->email()
                             ->unique(User::class, 'email', fn ($record) => $record),
+                        Toggle::make('reset_password')->reactive()->columnSpan('full'),
                         PasswordGenerator::make('password')
-                            ->visible(function ($livewire) {
-                                return $livewire instanceof CreateUser;
+                            ->visible(function ($get) {
+                                return $get('reset_password') == true;
                             })
                             ->rules(config('filament-breezy.password_rules'))
                             ->required()

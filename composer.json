@@ -40,14 +40,6 @@
             "Trov\\Tests\\": "tests/"
         }
     },
-    "scripts": {
-        "post-root-package-install": [
-            "@php artisan vendor:publish --tag=\"filament-config\"",
-            "@php artisan vendor:publish --tag=\"filament-breezy-config\"",
-            "@php artisan vendor:publish --tag=\"filament-breezy-config\"",
-            "@php artisan vendor:publish --tag=\"filament-shield-config\""
-        ]
-    },
     "extra": {
         "laravel": {
             "providers": [

@@ -14,7 +14,9 @@ use Spatie\LaravelPackageTools\Package;
 
 class TrovServiceProvider extends PluginServiceProvider
 {
-    protected array $resources = [];
+    protected array $styles = [
+        'trov-styles' => __DIR__ . '/../resources/dist/trov.css',
+    ];
 
     public function configurePackage(Package $package): void
     {

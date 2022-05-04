@@ -12,10 +12,9 @@ const mix = require("laravel-mix");
  */
 mix.disableSuccessNotifications();
 
-mix.setPublicPath("./resources/dist")
-    .postCss("./resources/css/trov.css", "trov.css", [
-        require("tailwindcss")("./tailwind.config.js"),
-    ])
-    .options({
-        processCssUrls: false,
-    });
+mix
+  .setPublicPath("./resources/dist")
+  .postCss("./resources/css/trov.css", "trov.css", [require("tailwindcss")("./tailwind.config.js")])
+  .options({
+    processCssUrls: false,
+  });
