@@ -70,7 +70,7 @@ class Page extends Model
         static::updating(function ($page) {
             if ($page->front_page) {
                 $oldFrontPage = Page::where('front_page', true)->first();
-                if ($oldFrontPage) {
+                if ($oldFrontPage && $oldFrontPage->id !== $page->id) {
                     $oldFrontPage->update([
                         'front_page' => false
                     ]);
