@@ -90,7 +90,9 @@ class PageResource extends Resource
                 FeaturedImageColumn::make('featured_image')
                     ->label('Thumb'),
                 TitleWithStatus::make('title')
-                    ->extraAttributes(['class' => 'w-full'])
+                    ->statuses(Status::class)
+                    ->hiddenOn(Status::Published->name)
+                    ->colors(Status::colors())
                     ->searchable()
                     ->sortable(),
                 IconColumn::make('meta.indexable')

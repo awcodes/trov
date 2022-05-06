@@ -88,6 +88,9 @@ class PostResource extends Resource
             ->columns([
                 FeaturedImageColumn::make('featured_image')->label('Thumb'),
                 TitleWithStatus::make('title')
+                    ->statuses(Status::class)
+                    ->hiddenOn(Status::Published->name)
+                    ->colors(Status::colors())
                     ->searchable()
                     ->sortable(),
                 IconColumn::make('meta.indexable')
