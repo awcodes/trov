@@ -21,7 +21,6 @@ class BlockContent
     {
         return Builder::make($field)
             ->createItemButtonLabel('Add Block')
-            ->showBlockLabels()
             ->blocks([
                 RichText::make('simple'),
                 Grid::make(),

@@ -23,7 +23,6 @@ class AirportBlockContent
         return Repeater::make($field)
             ->label('Sections')
             ->createItemButtonLabel('Add Section')
-            ->showBlockLabels()
             ->defaultItems(0)
             ->schema([
                 Toggle::make('full_width')
