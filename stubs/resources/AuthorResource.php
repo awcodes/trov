@@ -78,7 +78,6 @@ class AuthorResource extends Resource
                         FileUpload::make('avatar')
                             ->avatar()
                             ->directory('avatars')
-                            ->maxFiles(1)
                             ->maxSize(512)
                             ->columnSpan('full'),
                     ]),
@@ -90,7 +89,7 @@ class AuthorResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')->sortable()->searchable(),
-                ImageColumn::make('avatar')->rounded()->size(36),
+                ImageColumn::make('avatar_url')->rounded()->size(36),
             ])
             ->filters([
                 //

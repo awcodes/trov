@@ -31,9 +31,9 @@ class Author extends Model
             ->doNotGenerateSlugsOnUpdate();
     }
 
-    public function getAvatarAttribute($value): ?string
+    public function getAvatarUrlAttribute()
     {
-        return $value ? $value : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=FFFFFF&background=111827';
+        return $this->avatar ? $this->avatar : 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=FFFFFF&background=111827';
     }
 
     /**
