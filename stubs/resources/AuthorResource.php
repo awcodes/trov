@@ -4,12 +4,13 @@ namespace App\Filament\Resources\Trov;
 
 use Filament\Forms;
 use Filament\Tables;
-use Livewire\Component;
 use App\Models\Author;
+use Livewire\Component;
 use Illuminate\Support\Str;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
+use TrovComponents\Filament\Panel;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Illuminate\Support\Facades\Route;
@@ -19,10 +20,10 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
-use App\Filament\Resources\Trov\AuthorResource\Pages;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use TrovComponents\Filament\FixedSidebar;
+use App\Filament\Resources\Trov\AuthorResource\Pages;
 use App\Filament\Resources\Trov\AuthorResource\Pages\EditAuthor;
 use App\Filament\Resources\Trov\AuthorResource\Pages\ListAuthors;
 use App\Filament\Resources\Trov\AuthorResource\Pages\CreateAuthor;
@@ -43,7 +44,7 @@ class AuthorResource extends Resource
     {
         return FixedSidebar::make()
             ->schema([
-                Card::make()
+                Panel::make('About')
                     ->schema([
                         TextInput::make('name')
                             ->required()
@@ -59,6 +60,9 @@ class AuthorResource extends Resource
                         TiptapEditor::make('bio')
                             ->profile('barebone')
                             ->columnSpan(['sm' => 2]),
+                    ]),
+                Panel::make('Social')
+                    ->schema([
                         Group::make()->schema([
                             TextInput::make('facebook_handle'),
                             TextInput::make('twitter_handle'),
@@ -69,12 +73,11 @@ class AuthorResource extends Resource
                         ])->columns(2)->columnSpan(['sm' => 2])
                     ])
             ], [
-                Card::make()
+                Panel::make('Avatar')
                     ->schema([
                         FileUpload::make('avatar')
+                            ->avatar()
                             ->directory('avatars')
-                            ->image()
-                            ->imagePreviewHeight('250')
                             ->maxFiles(1)
                             ->maxSize(512)
                             ->columnSpan('full'),

@@ -52,7 +52,7 @@ class PostResource extends Resource
         return FixedSidebar::make()
             ->schema([
                 TitleWithSlug::make('title', 'slug', '/posts/')->columnSpan('full'),
-                Section::make('Post Content')
+                Panel::make('Post Content')
                     ->schema([
                         PageBuilder::make('content')
                     ])

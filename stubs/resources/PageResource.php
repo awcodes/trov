@@ -49,7 +49,7 @@ class PageResource extends Resource
         return FixedSidebar::make()
             ->schema([
                 TitleWithSlug::make('title', 'slug', '/')->columnSpan('full'),
-                Section::make('Page Content')
+                Panel::make('Page Content')
                     ->schema([
                         PageBuilder::make('content')
                     ])
