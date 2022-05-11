@@ -3,7 +3,7 @@
 namespace Trov\Traits;
 
 use Illuminate\Support\Arr;
-use Filament\Pages\Actions\ButtonAction;
+use Filament\Pages\Actions\Action;
 
 trait HasCustomEditActions
 {
@@ -12,8 +12,8 @@ trait HasCustomEditActions
         parent::getActions();
 
         return array_merge([
-            ButtonAction::make('save')->action('save'),
-            ButtonAction::make('view')->hidden($this->record->deleted_at !== null)->color('secondary')->url($this->record->getPublicUrl())->openUrlInNewTab(),
+            Action::make('save')->action('save'),
+            Action::make('view')->hidden($this->record->deleted_at !== null)->color('secondary')->url($this->record->getPublicUrl())->openUrlInNewTab(),
         ], $this->getDestroyActions());
     }
 
@@ -58,7 +58,7 @@ trait HasCustomEditActions
     {
         if ($this->record->deleted_at) {
             return [
-                ButtonAction::make('restore')
+                Action::make('restore')
                     ->label('Restore')
                     ->requiresConfirmation()
                     ->modalHeading('Restore: ' . static::getResource()::getLabel())
@@ -66,7 +66,7 @@ trait HasCustomEditActions
                     ->modalButton('Restore')
                     ->action('restore')
                     ->color('warning'),
-                ButtonAction::make('destroy')
+                Action::make('destroy')
                     ->label('Permenently Delete')
                     ->requiresConfirmation()
                     ->modalHeading('Permenantly Delete: ' . static::getResource()::getLabel())
@@ -78,7 +78,7 @@ trait HasCustomEditActions
         }
 
         return [
-            ButtonAction::make('delete')
+            Action::make('delete')
                 ->label('Trash')
                 ->requiresConfirmation()
                 ->modalHeading(__('filament::resources/pages/edit-record.actions.delete.modal.heading', ['label' => $this->getRecordTitle() ?? static::getResource()::getLabel()]))
