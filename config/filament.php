@@ -141,12 +141,7 @@ return [
     'widgets' => [
         'namespace' => 'App\\Filament\\Widgets',
         'path' => app_path('Filament/Widgets'),
-        'register' => [
-            Trov\Widgets\PagesOverview::class,
-            Trov\Widgets\PostsOverview::class,
-            Trov\Faqs\Widgets\FaqsOverview::class,
-            Trov\Widgets\FrameworkOverview::class,
-        ],
+        'register' => [],
     ],
 
     /*
