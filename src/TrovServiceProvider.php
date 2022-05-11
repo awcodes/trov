@@ -2,13 +2,14 @@
 
 namespace Trov;
 
-use App\Models\User;
 use App\Models\Page;
+use App\Models\User;
 use Livewire\Livewire;
 use Filament\Facades\Filament;
 use Trov\Observers\PageObserver;
 use Trov\Observers\UserObserver;
 use Filament\PluginServiceProvider;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\File;
 use Spatie\LaravelPackageTools\Package;
 
@@ -51,5 +52,10 @@ class TrovServiceProvider extends PluginServiceProvider
         Livewire::component('posts-overview', Widgets\PostsOverview::class);
 
         User::observe(UserObserver::class);
+
+        Filament::registerRenderHook(
+            'sidebar.end',
+            fn (): View => view('trov::components.framework'),
+        );
     }
 }
