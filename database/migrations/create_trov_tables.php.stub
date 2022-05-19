@@ -30,6 +30,7 @@ class CreateTrovTables extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('status')->default('Draft');
+            $table->string('hero')->nullable();
             $table->longText('content')->nullable();
             $table->boolean('has_chat')->default(true);
             $table->string('layout')->default('default');

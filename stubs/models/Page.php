@@ -43,6 +43,7 @@ class Page extends Model
      */
     protected $casts = [
         'has_chat' => 'boolean',
+        'hero' => 'array',
         'content' => 'array',
         'front_page' => 'boolean',
     ];

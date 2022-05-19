@@ -114,6 +114,11 @@ class AuthorResource extends Resource
 
     public static function canDelete(Model $record): bool
     {
+        // $count = $record->posts->count();
+        // if ($count === 0) {
+        //     return true;
+        // }
+
         return false;
     }
 
