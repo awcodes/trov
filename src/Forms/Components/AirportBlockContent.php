@@ -3,7 +3,6 @@
 namespace Trov\Forms\Components;
 
 use Closure;
-use Trov\Forms\Blocks\Hero;
 use Trov\Forms\Blocks\Image;
 use Trov\Forms\Blocks\Heading;
 use Trov\Forms\Blocks\LeadForm;
@@ -48,7 +47,6 @@ class AirportBlockContent
                     ->createItemButtonLabel('Add Block')
                     ->blocks([
                         RichText::make(),
-                        Hero::make(),
                         Image::make(),
                         ImageLeft::make(),
                         ImageRight::make(),

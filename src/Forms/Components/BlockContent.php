@@ -5,7 +5,6 @@ namespace Trov\Forms\Components;
 use Closure;
 use Trov\Forms\Blocks\Code;
 use Trov\Forms\Blocks\Grid;
-use Trov\Forms\Blocks\Hero;
 use Trov\Forms\Blocks\Image;
 use Trov\Forms\Blocks\Heading;
 use Trov\Forms\Blocks\RichText;
@@ -24,7 +23,6 @@ class BlockContent
             ->blocks([
                 RichText::make('simple'),
                 Grid::make(),
-                Hero::make(),
                 Image::make(),
                 ImageLeft::make(),
                 ImageRight::make(),
