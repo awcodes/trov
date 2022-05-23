@@ -9,7 +9,6 @@ use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
 use TrovComponents\Enums\Status;
-use TrovComponents\Filament\Panel;
 use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
@@ -52,12 +51,12 @@ class PostResource extends Resource
         return FixedSidebar::make()
             ->schema([
                 TitleWithSlug::make('title', 'slug', '/posts/')->columnSpan('full'),
-                Panel::make('Post Content')
+                Section::make('Post Content')
                     ->schema([
                         PageBuilder::make('content')
                     ])
             ], [
-                Panel::make('Details')
+                Section::make('Details')
                     ->collapsible()
                     ->schema([
                         Select::make('status')

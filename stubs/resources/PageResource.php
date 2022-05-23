@@ -9,7 +9,6 @@ use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
 use TrovComponents\Enums\Status;
-use TrovComponents\Filament\Panel;
 use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
@@ -50,12 +49,12 @@ class PageResource extends Resource
             ->schema([
                 TitleWithSlug::make('title', 'slug', '/')->columnSpan('full'),
                 Hero::make('hero'),
-                Panel::make('Page Content')
+                Section::make('Page Content')
                     ->schema([
                         PageBuilder::make('content')
                     ])
             ], [
-                Panel::make('Details')
+                Section::make('Details')
                     ->collapsible()
                     ->schema([
                         Select::make('status')

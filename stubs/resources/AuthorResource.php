@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Resources\Resource;
-use TrovComponents\Filament\Panel;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Group;
 use Illuminate\Support\Facades\Route;
@@ -44,7 +43,7 @@ class AuthorResource extends Resource
     {
         return FixedSidebar::make()
             ->schema([
-                Panel::make('About')
+                Section::make('About')
                     ->schema([
                         TextInput::make('name')
                             ->required()
@@ -61,7 +60,7 @@ class AuthorResource extends Resource
                             ->profile('barebone')
                             ->columnSpan(['sm' => 2]),
                     ]),
-                Panel::make('Social')
+                Section::make('Social')
                     ->schema([
                         Group::make()->schema([
                             TextInput::make('facebook_handle'),
@@ -73,7 +72,7 @@ class AuthorResource extends Resource
                         ])->columns(2)->columnSpan(['sm' => 2])
                     ])
             ], [
-                Panel::make('Avatar')
+                Section::make('Avatar')
                     ->schema([
                         FileUpload::make('avatar')
                             ->avatar()
