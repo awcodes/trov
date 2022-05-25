@@ -3,7 +3,7 @@
 namespace Trov\Forms\Components;
 
 use Closure;
-use TrovComponents\Filament\Panel;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
@@ -13,9 +13,9 @@ use FilamentCurator\Forms\Components\MediaPicker;
 
 class Hero
 {
-    public static function make(): Panel
+    public static function make(): Section
     {
-        return Panel::make('Hero')
+        return Section::make('Hero')
             ->schema([
                 Toggle::make('hero.is_video')
                     ->label('Is Video')

@@ -4,8 +4,8 @@ namespace Trov\Forms\Components;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use TrovComponents\Filament\Panel;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Section;
 use TrovComponents\Forms\FieldGroup;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Textarea;
@@ -15,9 +15,9 @@ use FilamentCurator\Forms\Components\MediaPicker;
 
 class Meta
 {
-    public static function make(): Panel
+    public static function make(): Section
     {
-        return Panel::make('SEO')
+        return Section::make('SEO')
             ->collapsible()
             ->schema([
                 FieldGroup::make('meta')
