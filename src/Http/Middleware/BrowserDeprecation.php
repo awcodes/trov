@@ -18,8 +18,8 @@ class BrowserDeprecation
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Browser::isIE() || Browser::isEdge() &&  Browser::browserVersion() < 79) {
-            if (!Route::getCurrentRoute('outdated-browser')) {
+        if (Browser::isIE() || Browser::isEdge() && Browser::browserVersion() < 79) {
+            if (Route::currentRouteName() !== 'outdated-browser') {
                 return redirect()->route('outdated-browser');
             }
         }
