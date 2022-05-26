@@ -47,7 +47,9 @@ class TrovServiceProvider extends PluginServiceProvider
     {
         parent::register();
 
-        require_once __DIR__ . '/Helpers.php';
+        foreach (glob(__DIR__ . '/Helpers/*.php') as $file) {
+            require_once $file;
+        }
     }
 
     public function boot()

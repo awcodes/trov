@@ -22,6 +22,7 @@
         "bezhansalleh/filament-shield": "^1.1",
         "filament/filament": "^2.0",
         "filament/spatie-laravel-tags-plugin": "^2.0",
+        "hisorange/browser-detect": "^4.5",
         "jeffgreco13/filament-breezy": "^1.25",
         "sebastiaankloos/filament-code-editor": "^1.0",
         "spatie/laravel-package-tools": "^1.9.2",
