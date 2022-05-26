@@ -2,58 +2,68 @@
 
 namespace App\Filament\Resources\Trov;
 
-use App\Models\Post;
+use App\Models\Faq;
+use Illuminate\Support\Str;
+use Trov\Forms\Blocks\Hero;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
+use Trov\Forms\Blocks\ImageLeft;
 use TrovComponents\Enums\Status;
+use Trov\Forms\Blocks\ImageRight;
+use Trov\Forms\Blocks\Infographic;
+use Filament\Forms\Components\Group;
 use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
-use App\Forms\Trov\Components\PageBuilder;
+use FilamentTiptapEditor\TiptapEditor;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use TrovComponents\Forms\TitleWithSlug;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Filters\SelectFilter;
 use TrovComponents\Filament\FixedSidebar;
-use TrovComponents\Forms\Fields\DateInput;
-use Filament\Forms\Components\BelongsToSelect;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Builder\Block;
+use FilamentBardEditor\Components\TestBlock;
 use Filament\Forms\Components\SpatieTagsInput;
 use TrovComponents\Tables\Columns\TitleWithStatus;
 use TrovComponents\Tables\Filters\SoftDeleteFilter;
-use App\Filament\Resources\Trov\PostResource\Pages\EditPost;
-use App\Filament\Resources\Trov\PostResource\Pages\ListPosts;
-use App\Filament\Resources\Trov\PostResource\Pages\CreatePost;
+use App\Filament\Resources\Trov\FaqResource\Pages\EditFaq;
+use App\Filament\Resources\Trov\FaqResource\Pages\ListFaqs;
+use App\Filament\Resources\Trov\FaqResource\Pages\CreateFaq;
 
-class PostResource extends Resource
+class FaqResource extends Resource
 {
     use HasSoftDeletes;
 
-    protected static ?string $model = Post::class;
+    protected static ?string $model = Faq::class;
 
-    protected static ?string $label = 'Post';
+    protected static ?string $label = 'FAQ';
+
+    protected static ?string $pluralLabel = 'FAQs';
 
     protected static ?string $navigationGroup = 'Site';
 
-    protected static ?string $navigationLabel = "Blog Posts";
+    protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
 
-    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static ?string $navigationLabel = 'FAQs';
 
-    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?string $recordTitleAttribute = 'question';
 
     protected static ?string $recordRouteKeyName = 'id';
 
     public static function form(Form $form): Form
     {
-        return FixedSidebar::make()
+        return FixedSidebar::make($form)
             ->schema([
-                TitleWithSlug::make('title', 'slug', '/posts/')->columnSpan('full'),
-                Section::make('Post Content')
-                    ->schema([
-                        PageBuilder::make('content')
-                    ])
+                TitleWithSlug::make('question', 'slug', '/faqs/')->columnSpan('full'),
+                TiptapEditor::make('answer')->profile('default')
             ], [
                 Section::make('Details')
                     ->collapsible()
@@ -63,17 +73,9 @@ class PostResource extends Resource
                             ->options(Status::class)
                             ->required()
                             ->columnSpan(2),
-                        DateInput::make('published_at')
-                            ->label('Publish Date')
-                            ->withoutTime()
-                            ->columnSpan(2),
-                        BelongsToSelect::make('author_id')
-                            ->relationship('author', 'name')
-                            ->required()
-                            ->columnSpan(2),
                         SpatieTagsInput::make('tags')
-                            ->type('postTag')
-                            ->columnSpan(2),
+                            ->type('faqTag')
+                            ->columnspan(2),
                         Timestamps::make()
                     ]),
                 Meta::make(),
@@ -84,7 +86,7 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                TitleWithStatus::make('title')
+                TitleWithStatus::make('question')
                     ->statuses(Status::class)
                     ->hiddenOn(Status::Published->name)
                     ->colors(Status::colors())
@@ -100,13 +102,12 @@ class PostResource extends Resource
                         'success' => true,
                         'danger' => false,
                     ]),
-                TextColumn::make('published_at')->label('Published At')->date()->sortable(),
+                TextColumn::make('updated_at')->label('Last Updated')->date()->sortable(),
             ])
             ->filters([
                 SelectFilter::make('status')->options(Status::class),
-                SelectFilter::make('author_id')->label('Author')->relationship('author', 'name'),
                 SoftDeleteFilter::make(),
-            ])->defaultSort('published_at', 'desc');
+            ])->defaultSort('question', 'asc');
     }
 
     public static function getRelations(): array
@@ -117,9 +118,9 @@ class PostResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListPosts::route('/'),
-            'create' => CreatePost::route('/create'),
-            'edit' => EditPost::route('/{record}/edit'),
+            'index' => ListFaqs::route('/'),
+            'create' => CreateFaq::route('/create'),
+            'edit' => EditFaq::route('/{record}/edit'),
         ];
     }
 }
