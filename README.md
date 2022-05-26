@@ -1,5 +1,7 @@
 ## About Trov
 
+:exlamation::exclamation: Do not install this in an existing application unless you know what you are doing.
+
 A Laravel / Filament starter kit for CMS functionality on websites.
 
 Please star these awesome repos and/or sponsor all of these people's hard work:
