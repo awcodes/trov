@@ -2,13 +2,15 @@
 
 namespace App\Filament\Resources\Trov;
 
-use App\Models\Post;
+use Illuminate\Support\Str;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+use App\Models\DiscoveryTopic;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
 use TrovComponents\Enums\Status;
+use Filament\Forms\Components\Group;
 use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
@@ -16,30 +18,32 @@ use App\Forms\Trov\Components\PageBuilder;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use TrovComponents\Forms\TitleWithSlug;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
 use TrovComponents\Filament\FixedSidebar;
-use TrovComponents\Forms\Fields\DateInput;
-use Filament\Forms\Components\BelongsToSelect;
-use Filament\Forms\Components\SpatieTagsInput;
+use Filament\Forms\Components\Placeholder;
+use FilamentCurator\Forms\Components\MediaPicker;
 use TrovComponents\Tables\Columns\TitleWithStatus;
 use TrovComponents\Tables\Filters\SoftDeleteFilter;
-use App\Filament\Resources\Trov\PostResource\Pages\EditPost;
-use App\Filament\Resources\Trov\PostResource\Pages\ListPosts;
-use App\Filament\Resources\Trov\PostResource\Pages\CreatePost;
+use App\Filament\Resources\Trov\DiscoveryTopicResource\Pages\EditDiscoveryTopic;
+use App\Filament\Resources\Trov\DiscoveryTopicResource\Pages\ListDiscoveryTopics;
+use App\Filament\Resources\Trov\DiscoveryTopicResource\Pages\CreateDiscoveryTopic;
 
-class PostResource extends Resource
+class DiscoveryTopicResource extends Resource
 {
     use HasSoftDeletes;
 
-    protected static ?string $model = Post::class;
+    protected static ?string $model = DiscoveryTopic::class;
 
-    protected static ?string $label = 'Post';
+    protected static ?string $label = 'Topic';
 
-    protected static ?string $navigationGroup = 'Site';
+    protected static ?string $navigationLabel = 'Topics';
 
-    protected static ?string $navigationLabel = "Blog Posts";
+    protected static ?string $navigationGroup = 'Discovery Center';
 
-    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
+    protected static ?string $navigationIcon = 'heroicon-o-light-bulb';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -49,8 +53,10 @@ class PostResource extends Resource
     {
         return FixedSidebar::make()
             ->schema([
-                TitleWithSlug::make('title', 'slug', '/posts/')->columnSpan('full'),
-                Section::make('Post Content')
+                TitleWithSlug::make('title', 'slug', '/discover/topics/')->columnSpan('full'),
+                Textarea::make('excerpt')
+                    ->required(),
+                Section::make('Page Content')
                     ->schema([
                         PageBuilder::make('content')
                     ])
@@ -63,16 +69,8 @@ class PostResource extends Resource
                             ->options(Status::class)
                             ->required()
                             ->columnSpan(2),
-                        DateInput::make('published_at')
+                        DatePicker::make('published_at')
                             ->label('Publish Date')
-                            ->withoutTime()
-                            ->columnSpan(2),
-                        BelongsToSelect::make('author_id')
-                            ->relationship('author', 'name')
-                            ->required()
-                            ->columnSpan(2),
-                        SpatieTagsInput::make('tags')
-                            ->type('postTag')
                             ->columnSpan(2),
                         Timestamps::make()
                     ]),
@@ -104,7 +102,6 @@ class PostResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('status')->options(Status::class),
-                SelectFilter::make('author_id')->label('Author')->relationship('author', 'name'),
                 SoftDeleteFilter::make(),
             ])->defaultSort('published_at', 'desc');
     }
@@ -117,9 +114,9 @@ class PostResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListPosts::route('/'),
-            'create' => CreatePost::route('/create'),
-            'edit' => EditPost::route('/{record}/edit'),
+            'index' => ListDiscoveryTopics::route('/'),
+            'create' => CreateDiscoveryTopic::route('/create'),
+            'edit' => EditDiscoveryTopic::route('/{record}/edit'),
         ];
     }
 }

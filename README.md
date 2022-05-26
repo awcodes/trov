@@ -13,19 +13,29 @@ Please star these awesome repos and/or sponsor all of these people's hard work:
 
 ## Installation
 
-1. Install the package via composer
+Install packages via composer
 
 ```bash
-composer require awcodes/trov
+composer require awcodes/trov awcodes/trov-components awcodes/filament-curator awcodes/filament-tiptap-editor
 ```
 
-2. Install Trov
+Install Trov Core
 
 ```bash
 php artisan trov:install
 ```
 
-3. Update `App\Models\User.php` model with:
+Install Modules (optional)
+
+```bash
+php artisan trov:install --module=airport
+php artisan trov:install --module=discoveries
+php artisan trov:install --module=faqs
+php artisan trov:install --module=linkables
+php artisan trov:install --module=whitepages
+```
+
+Update `App\Models\User.php` with:
 
 ```php
 use Filament\Models\Contracts\FilamentUser;
@@ -43,7 +53,7 @@ class User extends Authenticatable implements FilamentUser
 }
 ```
 
-4. Update `filament-shield.php` config file where appropriate, then initialize Shield with:
+Update `filament-shield.php` config file where appropriate, then initialize Shield with:
 
 ```bash
 php artisan shield:install

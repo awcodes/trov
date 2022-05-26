@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Trov;
 use App\Models\Page;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+use Trov\Forms\Components\Hero;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
@@ -13,14 +14,14 @@ use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
-use Trov\Forms\Components\PageBuilder;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
 use TrovComponents\Forms\TitleWithSlug;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Tables\Filters\SelectFilter;
 use TrovComponents\Filament\FixedSidebar;
-use Trov\Tables\Columns\FeaturedImageColumn;
+use App\Forms\Trov\Components\PageBuilder;
 use TrovComponents\Tables\Columns\TitleWithStatus;
 use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use App\Filament\Resources\Trov\PageResource\Pages\EditPage;
@@ -45,50 +46,52 @@ class PageResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return FixedSidebar::make()
-            ->schema([
-                TitleWithSlug::make('title', 'slug', '/')->columnSpan('full'),
-                Hero::make('hero'),
-                Section::make('Page Content')
-                    ->schema([
-                        PageBuilder::make('content')
-                    ])
-            ], [
-                Section::make('Details')
-                    ->collapsible()
-                    ->schema([
-                        Select::make('status')
-                            ->hidden(fn ($get) => $get('front_page') ?: false)
-                            ->default('Draft')
-                            ->options(Status::class)
-                            ->required()
-                            ->columnSpan('full'),
-                        Select::make('layout')
-                            ->hidden(fn ($get) => $get('front_page') ?: false)
-                            ->default('default')
-                            ->options([
-                                'default' => 'Default',
-                                'full' => 'Full Width'
-                            ])
-                            ->required()
-                            ->columnSpan('full'),
-                        Toggle::make('has_chat'),
-                        Toggle::make('front_page')
-                            ->hidden(fn (?Model $record) => $record ? $record->front_page : false)
-                            ->reactive(),
-                        Timestamps::make()
-                    ])
-                    ->columns(2),
-                Meta::make(),
-            ]);
+        return $form->schema([
+            TitleWithSlug::make('title', 'slug', '/')->columnSpan('full'),
+            Section::make('Details')
+                ->collapsible()
+                ->collapsed(fn ($livewire) => $livewire instanceof EditRecord)
+                ->schema([
+                    Select::make('status')
+                        ->hidden(fn ($get) => $get('front_page') ?: false)
+                        ->default('Draft')
+                        ->options(Status::class)
+                        ->required()
+                        ->columnSpan('full'),
+                    Select::make('layout')
+                        ->hidden(fn ($get) => $get('front_page') ?: false)
+                        ->default('default')
+                        ->options([
+                            'default' => 'Default',
+                            'full' => 'Full Width'
+                        ])
+                        ->required()
+                        ->columnSpan('full'),
+                    Toggle::make('has_chat'),
+                    Toggle::make('front_page')
+                        ->hidden(fn (?Model $record) => $record ? $record->front_page : false)
+                        ->reactive(),
+                    Timestamps::make()
+                ])
+                ->columnSpan(['md' => 1]),
+            Meta::make()
+                ->collapsed(fn ($livewire) => $livewire instanceof EditRecord)
+                ->columnSpan(['md' => 1]),
+            Hero::make('hero')
+                ->collapsed(fn ($livewire) => $livewire instanceof EditRecord)
+                ->collapsible(),
+            Section::make('Page Content')
+                ->collapsible()
+                ->schema([
+                    PageBuilder::make('content')
+                ])
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                FeaturedImageColumn::make('featured_image')
-                    ->label('Thumb'),
                 TitleWithStatus::make('title')
                     ->statuses(Status::class)
                     ->hiddenOn(Status::Published->name)

@@ -27,12 +27,19 @@ class TrovServiceProvider extends PluginServiceProvider
             ->hasAssets()
             ->hasViews()
             ->hasCommands([
-                Commands\InstallTrov::class,
-                Commands\EjectTrovResources::class,
-                Commands\EjectTrovModels::class,
+                Commands\Install::class,
+                Commands\InstallCore::class,
+                Commands\InstallFaqs::class,
+                Commands\InstallWhitePages::class,
+                Commands\InstallDiscoveries::class,
+                Commands\InstallLinkables::class,
+                Commands\InstallAirport::class,
             ])
             ->hasMigrations([
-                'create_trov_tables',
+                'create_authors_table',
+                'create_metas_table',
+                'create_pages_table',
+                'create_posts_table',
             ]);
     }
 
@@ -47,15 +54,31 @@ class TrovServiceProvider extends PluginServiceProvider
     {
         parent::boot();
 
-        Livewire::component('framework-overview', Widgets\FrameworkOverview::class);
-        Livewire::component('pages-overview', Widgets\PagesOverview::class);
-        Livewire::component('posts-overview', Widgets\PostsOverview::class);
-
         User::observe(UserObserver::class);
 
         Filament::registerRenderHook(
             'sidebar.end',
             fn (): View => view('trov::components.framework'),
         );
+
+        $this->publishes([
+            __DIR__ . '/../stubs/faqs/database/migrations/' => database_path('migrations')
+        ], 'trov-faqs-migrations');
+
+        $this->publishes([
+            __DIR__ . '/../stubs/whitepages/database/migrations/' => database_path('migrations')
+        ], 'trov-whitepages-migrations');
+
+        $this->publishes([
+            __DIR__ . '/../stubs/discoveries/database/migrations/' => database_path('migrations'),
+        ], 'trov-discoveries-migrations');
+
+        $this->publishes([
+            __DIR__ . '/../stubs/linkables/database/migrations/' => database_path('migrations'),
+        ], 'trov-linkables-migrations');
+
+        $this->publishes([
+            __DIR__ . '/../stubs/airport/database/migrations/' => database_path('migrations'),
+        ], 'trov-airport-migrations');
     }
 }
