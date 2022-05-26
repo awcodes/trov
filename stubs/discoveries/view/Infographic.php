@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Blocks;
+namespace App\View\Components\Trov\Blocks;
 
 use Illuminate\View\Component;
 
