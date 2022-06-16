@@ -12,7 +12,7 @@ trait HasCustomEditActions
     {
         return [
             Actions\Action::make('save')->color('primary')->action('save'),
-            PublicViewAction::make()->record($this->getRecord()),
+            PublicViewAction::make()->record($this->record),
             Actions\DeleteAction::make(),
             Actions\ForceDeleteAction::make(),
             Actions\RestoreAction::make(),

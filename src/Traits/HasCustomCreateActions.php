@@ -3,18 +3,12 @@
 namespace Trov\Traits;
 
 use Filament\Pages\Actions\Action;
+use Filament\Pages\Actions\CreateAction;
 
 trait HasCustomCreateActions
 {
     protected function getActions(): array
     {
-        return array_merge(
-            [Action::make('create')
-                ->label(__('filament::resources/pages/create-record.form.actions.create.label'))
-                ->action('create')
-                ->keyBindings(['mod+s'])],
-            static::canCreateAnother() ? [$this->getCreateAndCreateAnotherFormAction()] : [],
-            [$this->getCancelFormAction()],
-        );
+        return $this->getFormActions();
     }
 }
