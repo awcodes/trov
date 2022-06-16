@@ -15,7 +15,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Filters\SelectFilter;
-use TrovComponents\Forms\Fields\PasswordGenerator;
+use FilamentAddons\Forms\Fields\PasswordGenerator;
 use App\Filament\Resources\Trov\UserResource\Pages;
 use Filament\Forms\Components\BelongsToManyCheckboxList;
 use App\Filament\Resources\Trov\UserResource\Pages\EditUser;

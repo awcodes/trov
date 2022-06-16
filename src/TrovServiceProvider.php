@@ -58,11 +58,6 @@ class TrovServiceProvider extends PluginServiceProvider
 
         User::observe(UserObserver::class);
 
-        Filament::registerRenderHook(
-            'sidebar.end',
-            fn (): View => view('trov::components.framework'),
-        );
-
         $this->publishes([
             __DIR__ . '/../stubs/faqs/database/migrations/' => database_path('migrations')
         ], 'trov-faqs-migrations');

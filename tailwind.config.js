@@ -6,11 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        gray: colors.slate,
         danger: colors.rose,
-        primary: colors.cyan,
-        success: colors.emerald,
-        warning: colors.orange,
+        primary: colors.yellow,
+        success: colors.green,
+        warning: colors.amber,
       },
     },
   },

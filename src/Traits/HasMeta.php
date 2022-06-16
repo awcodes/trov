@@ -7,10 +7,8 @@ use App\Models\Meta;
 
 trait HasMeta
 {
-    protected static function booted()
+    protected static function bootHasMeta()
     {
-        parent::booted();
-
         static::forceDeleted(function ($model) {
             $model->meta()->delete();
         });

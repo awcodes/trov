@@ -7,22 +7,32 @@ use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
-use TrovComponents\Enums\Status;
+use FilamentAddons\Enums\Status;
 use Filament\Forms\Components\Group;
-use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use App\Forms\Trov\Components\PageBuilder;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use TrovComponents\Forms\TitleWithSlug;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
-use TrovComponents\Tables\Columns\TitleWithStatus;
+use App\Forms\Trov\Components\PageBuilder;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\RestoreBulkAction;
+use FilamentAddons\Forms\Components\Timestamps;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use FilamentAddons\Forms\Components\TitleWithSlug;
+use FilamentAddons\Tables\Columns\TitleWithStatus;
+use FilamentAddons\Tables\Actions\PublicViewAction;
 use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use App\Filament\Resources\Trov\RunwayResource\Pages\EditRunway;
 use App\Filament\Resources\Trov\RunwayResource\Pages\ListRunways;
 use App\Filament\Resources\Trov\RunwayResource\Pages\CreateRunway;
-use Filament\Forms\Components\Section;
 
 class RunwayResource extends Resource
 {
@@ -46,42 +56,24 @@ class RunwayResource extends Resource
     {
         return $form
             ->schema([
-                Group::make()
+                TitleWithSlug::make('title', 'slug', '/loans/')->columnSpan('full'),
+                Section::make('Details')
+                    ->collapsible()
+                    ->collapsed(fn ($livewire) => $livewire instanceof EditRecord)
                     ->schema([
-                        TitleWithSlug::make('title', 'slug', '/loans/'),
-                    ])
-                    ->columnSpan([
-                        'lg' => 'full',
-                        'xl' => 2,
-                    ]),
-                Group::make()
-                    ->schema([
-                        Section::make('Details')
-                            ->schema([
-                                Select::make('status')
-                                    ->default('Draft')
-                                    ->options(Status::class)
-                                    ->required()
-                                    ->columnSpan(2),
-                                Toggle::make('has_chat')
-                                    ->columnSpan(2),
-                                Timestamps::make()
-                            ]),
-
-                    ])
-                    ->columnSpan([
-                        'lg' => 'full',
-                        'xl' => 1,
+                        Select::make('status')
+                            ->default('Draft')
+                            ->options(Status::class)
+                            ->required()
+                            ->columnSpan(2),
+                        Toggle::make('has_chat')
+                            ->columnSpan(2),
+                        Timestamps::make()
                     ]),
                 Section::make('Page Content')
                     ->schema([
                         PageBuilder::make('content')
-                    ])->columnSpan([
-                        'xl' => 'full',
-                    ])
-            ])
-            ->columns([
-                'lg' => 3,
+                    ])->columnSpan('full')
             ]);
     }
 
@@ -100,8 +92,21 @@ class RunwayResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('status')->options(Status::class),
-                SoftDeleteFilter::make(),
-            ])->defaultSort('title', 'asc');
+                TrashedFilter::make(),
+            ])
+            ->actions([
+                PublicViewAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
+                RestoreAction::make(),
+                ForceDeleteAction::make(),
+            ])
+            ->bulkActions([
+                DeleteBulkAction::make(),
+                RestoreBulkAction::make(),
+                ForceDeleteBulkAction::make(),
+            ])
+            ->defaultSort('title', 'asc');
     }
 
     public static function getRelations(): array

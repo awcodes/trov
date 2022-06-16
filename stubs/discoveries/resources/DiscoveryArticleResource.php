@@ -9,24 +9,33 @@ use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use App\Models\DiscoveryArticle;
 use Filament\Resources\Resource;
-use TrovComponents\Enums\Status;
+use FilamentAddons\Enums\Status;
 use Filament\Forms\Components\Group;
-use TrovComponents\Forms\Timestamps;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
+use FilamentAddons\Admin\FixedSidebar;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use TrovComponents\Forms\TitleWithSlug;
 use Filament\Forms\Components\TextInput;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
-use TrovComponents\Filament\FixedSidebar;
 use App\Forms\Trov\Components\PageBuilder;
 use Filament\Forms\Components\Placeholder;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Forms\Components\BelongsToSelect;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\RestoreBulkAction;
+use FilamentAddons\Forms\Components\Timestamps;
 use FilamentCurator\Forms\Components\MediaPicker;
-use TrovComponents\Tables\Columns\TitleWithStatus;
-use TrovComponents\Tables\Filters\SoftDeleteFilter;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use FilamentAddons\Forms\Components\TitleWithSlug;
+use FilamentAddons\Tables\Columns\TitleWithStatus;
+use FilamentAddons\Tables\Actions\PublicViewAction;
 use App\Filament\Resources\Trov\DiscoveryArticleResource\Pages\EditDiscoveryArticle;
 use App\Filament\Resources\Trov\DiscoveryArticleResource\Pages\ListDiscoveryArticles;
 use App\Filament\Resources\Trov\DiscoveryArticleResource\Pages\CreateDiscoveryArticle;
@@ -51,37 +60,36 @@ class DiscoveryArticleResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return FixedSidebar::make()
+        return $form
             ->schema([
                 TitleWithSlug::make('title', 'slug', '/discover/')->columnSpan('full'),
-                Section::make('Page Content')
-                    ->schema([
-                        PageBuilder::make('content')
-                    ])
-            ], [
                 Section::make('Details')
                     ->collapsible()
+                    ->collapsed(fn ($livewire) => $livewire instanceof EditRecord)
+                    ->columns(['md' => 2])
                     ->schema([
                         Select::make('status')
                             ->default('Draft')
                             ->options(Status::class)
-                            ->required()
-                            ->columnSpan(2),
+                            ->required(),
                         DatePicker::make('published_at')
                             ->label('Publish Date')
-                            ->withoutSeconds()
-                            ->columnSpan(2),
+                            ->withoutSeconds(),
                         BelongsToSelect::make('discovery_topic_id')
                             ->relationship('topic', 'title')
-                            ->required()
-                            ->columnSpan(2),
+                            ->required(),
                         BelongsToSelect::make('author_id')
                             ->relationship('author', 'name')
-                            ->required()
-                            ->columnSpan(2),
+                            ->required(),
                         Timestamps::make()
                     ]),
-                Meta::make(),
+                Meta::make()
+                    ->collapsed(fn ($livewire) => $livewire instanceof EditRecord),
+                Section::make('Page Content')
+                    ->collapsible()
+                    ->schema([
+                        PageBuilder::make('content')
+                    ]),
             ]);
     }
 
@@ -112,8 +120,21 @@ class DiscoveryArticleResource extends Resource
                 SelectFilter::make('status')->options(Status::class),
                 SelectFilter::make('discovery_topic_id')->label('Topic')->relationship('topic', 'title'),
                 SelectFilter::make('author_id')->label('Author')->relationship('author', 'name'),
-                SoftDeleteFilter::make(),
-            ])->defaultSort('published_at', 'desc');
+                TrashedFilter::make(),
+            ])
+            ->actions([
+                PublicViewAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
+                RestoreAction::make(),
+                ForceDeleteAction::make(),
+            ])
+            ->bulkActions([
+                DeleteBulkAction::make(),
+                RestoreBulkAction::make(),
+                ForceDeleteBulkAction::make(),
+            ])
+            ->defaultSort('published_at', 'desc');
     }
 
     public static function getRelations(): array

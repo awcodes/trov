@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Trov\RunwayResource\Pages;
 
-use Trov\Traits\HasCustomEditActions;
 use App\Filament\Resources\Trov\RunwayResource;
 use Filament\Resources\Pages\EditRecord;
+use Trov\Traits\HasCustomEditActions;
 
 class EditRunway extends EditRecord
 {

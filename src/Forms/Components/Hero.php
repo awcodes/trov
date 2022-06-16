@@ -9,7 +9,7 @@ use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Pages\EditRecord;
-use TrovComponents\Forms\Fields\VideoEmbed;
+use FilamentAddons\Forms\Fields\VideoEmbed;
 use FilamentCurator\Forms\Components\MediaPicker;
 
 class Hero
@@ -23,10 +23,10 @@ class Hero
                     ->reactive(),
                 MediaPicker::make('hero.image')
                     ->label('Image')
-                    ->hidden(fn (Closure $get): bool => $get('hero.is_video')),
+                    ->hidden(fn (Closure $get): bool => $get('hero.is_video') ?: false),
                 VideoEmbed::make('hero.video')
                     ->label('Embed Code')
-                    ->visible(fn (Closure $get): bool => $get('hero.is_video'))
+                    ->visible(fn (Closure $get): bool => $get('hero.is_video') ?: false)
                     ->rows(3)
                     ->reactive(),
                 Textarea::make('hero.cta')

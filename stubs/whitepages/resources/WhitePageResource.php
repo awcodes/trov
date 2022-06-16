@@ -8,20 +8,29 @@ use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
-use TrovComponents\Enums\Status;
-use TrovComponents\Forms\Timestamps;
+use FilamentAddons\Enums\Status;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
-use App\Forms\Trov\Components\PageBuilder;
+use FilamentAddons\Admin\FixedSidebar;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-use TrovComponents\Forms\TitleWithSlug;
 use Filament\Forms\Components\DatePicker;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
-use TrovComponents\Filament\FixedSidebar;
+use App\Forms\Trov\Components\PageBuilder;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Forms\Components\BelongsToSelect;
-use TrovComponents\Tables\Columns\TitleWithStatus;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\RestoreBulkAction;
+use FilamentAddons\Forms\Components\Timestamps;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use FilamentAddons\Forms\Components\TitleWithSlug;
+use FilamentAddons\Tables\Columns\TitleWithStatus;
+use FilamentAddons\Tables\Actions\PublicViewAction;
 use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use App\Filament\Resources\Trov\WhitePageResource\Pages\EditWhitePage;
 use App\Filament\Resources\Trov\WhitePageResource\Pages\ListWhitePages;
@@ -47,34 +56,31 @@ class WhitePageResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return FixedSidebar::make()
+        return $form
             ->schema([
                 TitleWithSlug::make('title', 'slug', fn (?Model $record) => "/{$record->type}/" ?? '/')->columnSpan('full'),
-                PageBuilder::make('content')
-            ], [
                 Section::make('Details')
                     ->collapsible()
+                    ->collapsed(fn ($livewire) => $livewire instanceof EditRecord)
+                    ->columns(['md' => 2])
                     ->schema([
                         Select::make('status')
                             ->default('Draft')
                             ->options(Status::class)
-                            ->required()
-                            ->columnSpan(2),
+                            ->required(),
                         Select::make('type')
                             ->default('article')
                             ->reactive()
-                            ->options(self::ARTICLE_TYPES)->required()
-                            ->columnSpan(2),
+                            ->options(self::ARTICLE_TYPES)->required(),
                         BelongsToSelect::make('author_id')
                             ->relationship('author', 'name')
-                            ->required()
-                            ->columnSpan(2),
+                            ->required(),
                         DatePicker::make('published_at')
-                            ->label('Publish Date')
-                            ->columnSpan(2),
+                            ->label('Publish Date'),
                         Timestamps::make()
                     ]),
                 Meta::make(),
+                PageBuilder::make('content')->columnSpan('full'),
             ]);
     }
 
@@ -104,8 +110,21 @@ class WhitePageResource extends Resource
             ->filters([
                 SelectFilter::make('status')->options(Status::class),
                 SelectFilter::make('type')->options(self::ARTICLE_TYPES),
-                SoftDeleteFilter::make(),
-            ])->defaultSort('published_at', 'desc');
+                TrashedFilter::make(),
+            ])
+            ->actions([
+                PublicViewAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
+                RestoreAction::make(),
+                ForceDeleteAction::make(),
+            ])
+            ->bulkActions([
+                DeleteBulkAction::make(),
+                RestoreBulkAction::make(),
+                ForceDeleteBulkAction::make(),
+            ])
+            ->defaultSort('published_at', 'desc');
     }
 
     public static function getRelations(): array

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Trov\DiscoveryArticleResource\Pages;
 
-use Trov\Traits\HasCustomEditActions;
 use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\Trov\DiscoveryArticleResource;
+use Trov\Traits\HasCustomEditActions;
 
 class EditDiscoveryArticle extends EditRecord
 {

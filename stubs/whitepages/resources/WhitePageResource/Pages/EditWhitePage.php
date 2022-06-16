@@ -3,8 +3,8 @@
 namespace App\Filament\Resources\Trov\WhitePageResource\Pages;
 
 use App\Filament\Resources\Trov\WhitePageResource;
-use Trov\Traits\HasCustomEditActions;
 use Filament\Resources\Pages\EditRecord;
+use Trov\Traits\HasCustomEditActions;
 
 class EditWhitePage extends EditRecord
 {
