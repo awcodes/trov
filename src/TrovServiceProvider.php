@@ -26,6 +26,7 @@ class TrovServiceProvider extends PluginServiceProvider
             ->hasConfigFile(['trov', 'filament', 'filament-breezy', 'filament-shield'])
             ->hasAssets()
             ->hasViews()
+            ->hasRoute("web")
             ->hasCommands([
                 Commands\Install::class,
                 Commands\InstallCore::class,

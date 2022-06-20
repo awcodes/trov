@@ -63,7 +63,7 @@ class Page extends Model
                     ]);
                 }
 
-                $page->status = 'published';
+                $page->status = 'Published';
                 $page->layout = 'full';
             }
         });
@@ -77,7 +77,7 @@ class Page extends Model
                     ]);
                 }
 
-                $page->status = 'published';
+                $page->status = 'Published';
                 $page->layout = 'full';
             }
         });

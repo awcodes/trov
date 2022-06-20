@@ -64,13 +64,13 @@ class PageResource extends Resource
                 ->schema([
                     Group::make([
                         Select::make('status')
-                            ->hidden(fn ($get) => $get('front_page') ?: false)
+                            ->disabled(fn ($get) => $get('front_page') ?: false)
                             ->default('Draft')
                             ->options(Status::class)
                             ->required()
                             ->columnSpan('full'),
                         Select::make('layout')
-                            ->hidden(fn ($get) => $get('front_page') ?: false)
+                            ->disabled(fn ($get) => $get('front_page') ?: false)
                             ->default('default')
                             ->options([
                                 'default' => 'Default',
@@ -83,7 +83,7 @@ class PageResource extends Resource
                         Timestamps::make(),
                         Toggle::make('has_chat'),
                         Toggle::make('front_page')
-                            ->hidden(fn (?Model $record) => $record ? $record->front_page : false)
+                            ->disabled(fn (?Model $record) => $record ? $record->front_page : false)
                             ->reactive(),
                     ])
                 ]),
