@@ -95,6 +95,10 @@ class Page extends Model
 
     public function getPublicUrl()
     {
+        if ($this->front_page) {
+            return url()->to($this->getBasePath());
+        }
+
         return url()->to($this->getBasePath() . $this->slug . '/');
     }
 }

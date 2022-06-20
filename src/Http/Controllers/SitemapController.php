@@ -15,10 +15,17 @@ class SitemapController extends Controller
     {
         $links = Meta::where('indexable', true)->whereRelation('metaable', 'status', 'Published')->get();
 
-        $links->filter(fn ($link) => $link->metaable->front_page == false);
-
         return response()->view('trov::sitemap', [
             'links' => $links
         ])->header('Content-Type', 'text/xml');
+    }
+
+    public function pretty()
+    {
+        $links = Meta::where('indexable', true)->whereRelation('metaable', 'status', 'Published')->get();
+
+        return response()->view('trov::pretty-sitemap', [
+            'links' => $links
+        ]);
     }
 }
