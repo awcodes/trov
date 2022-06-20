@@ -25,6 +25,7 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
@@ -72,18 +73,17 @@ class FaqResource extends Resource
             TitleWithSlug::make('question', 'slug', '/faqs/')->columnSpan('full'),
             Section::make('Details')
                 ->collapsible()
+                ->collapsed(fn ($livewire) => $livewire instanceof EditRecord)
                 ->schema([
                     Select::make('status')
                         ->default('Draft')
                         ->options(Status::class)
-                        ->required()
-                        ->columnSpan(2),
+                        ->required(),
                     SpatieTagsInput::make('tags')
-                        ->type('faqTag')
-                        ->columnspan(2),
+                        ->type('faqTag'),
                     Timestamps::make()
-                ]),
-            Meta::make(),
+                ])->columns(['md' => 2]),
+            Meta::make()->collapsed(fn ($livewire) => $livewire instanceof EditRecord),
             TiptapEditor::make('answer')->profile('default')->columnSpan('full'),
         ]);
     }

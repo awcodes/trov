@@ -9,12 +9,14 @@ use Trov\Forms\Components\Meta;
 use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
 use FilamentAddons\Enums\Status;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use FilamentAddons\Admin\FixedSidebar;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
 use App\Forms\Trov\Components\PageBuilder;
@@ -34,7 +36,6 @@ use FilamentAddons\Tables\Actions\PublicViewAction;
 use App\Filament\Resources\Trov\PostResource\Pages\EditPost;
 use App\Filament\Resources\Trov\PostResource\Pages\ListPosts;
 use App\Filament\Resources\Trov\PostResource\Pages\CreatePost;
-use Filament\Forms\Components\Group;
 
 class PostResource extends Resource
 {
@@ -61,7 +62,6 @@ class PostResource extends Resource
             Section::make('Details')
                 ->collapsible()
                 ->collapsed(fn ($livewire) => $livewire instanceof EditRecord)
-                ->collapsible()
                 ->columns(['md' => 2])
                 ->schema([
                     Group::make([

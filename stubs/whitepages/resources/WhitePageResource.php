@@ -16,6 +16,7 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
@@ -79,7 +80,7 @@ class WhitePageResource extends Resource
                             ->label('Publish Date'),
                         Timestamps::make()
                     ]),
-                Meta::make(),
+                Meta::make()->collapsed(fn ($livewire) => $livewire instanceof EditRecord),
                 PageBuilder::make('content')->columnSpan('full'),
             ]);
     }
