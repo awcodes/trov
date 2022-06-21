@@ -24,7 +24,6 @@ use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Filters\TrashedFilter;
 use FilamentAddons\Forms\Fields\DateInput;
 use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Forms\Components\BelongsToSelect;
 use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\RestoreBulkAction;
@@ -74,7 +73,7 @@ class PostResource extends Resource
                             ->label('Publish Date')
                             ->withoutTime()
                             ->columnSpan(2),
-                        BelongsToSelect::make('author_id')
+                        Select::make('author_id')
                             ->relationship('author', 'name')
                             ->required()
                             ->columnSpan(2),
@@ -124,11 +123,11 @@ class PostResource extends Resource
                 TrashedFilter::make(),
             ])
             ->actions([
-                PublicViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
-                RestoreAction::make(),
-                ForceDeleteAction::make(),
+                PublicViewAction::make()->iconButton(),
+                EditAction::make()->iconButton(),
+                DeleteAction::make()->iconButton(),
+                RestoreAction::make()->iconButton(),
+                ForceDeleteAction::make()->iconButton(),
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),

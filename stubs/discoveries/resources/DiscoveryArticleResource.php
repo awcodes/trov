@@ -27,7 +27,6 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Forms\Components\BelongsToSelect;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use FilamentAddons\Forms\Components\Timestamps;
@@ -75,10 +74,10 @@ class DiscoveryArticleResource extends Resource
                         DatePicker::make('published_at')
                             ->label('Publish Date')
                             ->withoutSeconds(),
-                        BelongsToSelect::make('discovery_topic_id')
+                        Select::make('discovery_topic_id')
                             ->relationship('topic', 'title')
                             ->required(),
-                        BelongsToSelect::make('author_id')
+                        Select::make('author_id')
                             ->relationship('author', 'name')
                             ->required(),
                         Timestamps::make()
@@ -123,11 +122,11 @@ class DiscoveryArticleResource extends Resource
                 TrashedFilter::make(),
             ])
             ->actions([
-                PublicViewAction::make(),
-                EditAction::make(),
-                DeleteAction::make(),
-                RestoreAction::make(),
-                ForceDeleteAction::make(),
+                PublicViewAction::make()->iconButton(),
+                EditAction::make()->iconButton(),
+                DeleteAction::make()->iconButton(),
+                RestoreAction::make()->iconButton(),
+                ForceDeleteAction::make()->iconButton(),
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),

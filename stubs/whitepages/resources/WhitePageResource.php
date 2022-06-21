@@ -24,7 +24,6 @@ use App\Forms\Trov\Components\PageBuilder;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Forms\Components\BelongsToSelect;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use FilamentAddons\Forms\Components\Timestamps;
@@ -73,7 +72,7 @@ class WhitePageResource extends Resource
                             ->default('article')
                             ->reactive()
                             ->options(self::ARTICLE_TYPES)->required(),
-                        BelongsToSelect::make('author_id')
+                        Select::make('author_id')
                             ->relationship('author', 'name')
                             ->required(),
                         DatePicker::make('published_at')
