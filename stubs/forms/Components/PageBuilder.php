@@ -3,13 +3,8 @@
 namespace App\Forms\Trov\Components;
 
 use Closure;
-use App\Forms\Trov\Blocks\Code;
-use App\Forms\Trov\Blocks\Grid;
-use App\Forms\Trov\Blocks\Image;
 use App\Forms\Trov\Blocks\Details;
 use App\Forms\Trov\Blocks\RichText;
-use App\Forms\Trov\Blocks\ImageLeft;
-use App\Forms\Trov\Blocks\ImageRight;
 use App\Forms\Trov\Blocks\Tabs;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
@@ -47,14 +42,9 @@ class PageBuilder
                 Builder::make('blocks')
                     ->createItemButtonLabel('Add Block')
                     ->blocks([
-                        RichText::make('simple'),
-                        Grid::make(),
-                        Image::make(),
-                        ImageLeft::make(),
-                        ImageRight::make(),
+                        RichText::make(),
                         Details::make(),
                         Tabs::make(),
-                        Code::make(),
                     ]),
             ]);
     }
