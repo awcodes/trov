@@ -12,10 +12,15 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Illuminate\Support\Facades\Hash;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\CheckboxList;
+use Filament\Tables\Actions\DeleteBulkAction;
 use FilamentAddons\Forms\Fields\PasswordGenerator;
 use App\Filament\Resources\Trov\UserResource\Pages;
 use App\Filament\Resources\Trov\UserResource\Pages\EditUser;
@@ -38,7 +43,7 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Card::make()
+                Section::make('Details')
                     ->schema([
                         TextInput::make('name')
                             ->required(),
@@ -46,9 +51,19 @@ class UserResource extends Resource
                             ->required()
                             ->email()
                             ->unique(User::class, 'email', fn ($record) => $record),
-                        Toggle::make('reset_password')->reactive()->columnSpan('full'),
+                        Toggle::make('reset_password')
+                            ->reactive()
+                            ->hidden(function ($livewire) {
+                                if ($livewire instanceof CreateUser) {
+                                    return true;
+                                }
+                            })
+                            ->columnSpan('full'),
                         PasswordGenerator::make('password')
-                            ->visible(function ($get) {
+                            ->visible(function ($livewire, $get) {
+                                if ($livewire instanceof CreateUser) {
+                                    return true;
+                                }
                                 return $get('reset_password') == true;
                             })
                             ->rules(config('filament-breezy.password_rules'))
@@ -57,12 +72,23 @@ class UserResource extends Resource
                                 return Hash::make($state);
                             }),
                         CheckboxList::make('roles')
-                            ->helperText('Users with resource specific roles have permission to completely manage a resource. To limit a user\'s access to a specific resource disable that role and assign individual permissions below.')
-                            ->relationship('roles', 'name')
+                            ->relationship('roles', 'name', function(Builder $query) {
+                                if (!auth()->user()->hasRole('super_admin')) {
+                                    return $query->where('name', '<>', 'super_admin');
+                                }
+
+                                return $query;
+                            })
                             ->getOptionLabelFromRecordUsing(function ($record) {
                                 return Str::of($record->name)->headline();
                             })
                             ->columns(4),
+                    ]),
+                Section::make('Permissions')
+                    ->description('Users with roles have permission to completely manage resources based on the permissions set under the Roles Menu. To limit a user\'s access to specific resources disable thier roles and assign them individual permissions below.')
+                    ->collapsible()
+                    ->collapsed()
+                    ->schema([
                         CheckboxList::make('permissions')
                             ->relationship('permissions', 'name')
                             ->getOptionLabelFromRecordUsing(function ($record) {
@@ -88,7 +114,13 @@ class UserResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('roles')->relationship('roles', 'name')
-            ])->defaultSort('name', 'asc');
+            ])
+            ->actions([
+                EditAction::make()->iconButton(),
+                DeleteAction::make()->iconButton(),
+            ])
+            ->bulkActions([])
+            ->defaultSort('name', 'asc');
     }
 
     public static function getRelations(): array
