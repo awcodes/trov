@@ -3,13 +3,19 @@
 namespace Trov\Forms\Components;
 
 use Closure;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ViewField;
 use Filament\Resources\Pages\EditRecord;
-use FilamentAddons\Forms\Fields\VideoEmbed;
+use FilamentAddons\Forms\Components\OEmbed;
 use FilamentCurator\Forms\Components\MediaPicker;
 
 class Hero
@@ -18,17 +24,19 @@ class Hero
     {
         return Section::make('Hero')
             ->schema([
-                Toggle::make('hero.is_video')
-                    ->label('Is Video')
+                Radio::make('hero.type')
+                    ->inline()
+                    ->default('image')
+                    ->options([
+                        'image' => 'Image',
+                        'oembed' => 'oEmbed',
+                    ])
                     ->reactive(),
                 MediaPicker::make('hero.image')
                     ->label('Image')
-                    ->hidden(fn (Closure $get): bool => $get('hero.is_video') ?: false),
-                VideoEmbed::make('hero.video')
-                    ->label('Embed Code')
-                    ->visible(fn (Closure $get): bool => $get('hero.is_video') ?: false)
-                    ->rows(3)
-                    ->reactive(),
+                    ->visible(fn (Closure $get): bool => $get('hero.type') == 'image' ?: false),
+                OEmbed::make('hero.oembed')
+                    ->visible(fn (Closure $get): bool => $get('hero.type') == 'oembed' ?: false),
                 Textarea::make('hero.cta')
                     ->label('Call to Action')
                     ->rows(3),
