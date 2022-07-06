@@ -2,9 +2,10 @@
 
 namespace Trov\Traits;
 
-use Illuminate\Support\Arr;
-use FilamentAddons\Forms\Actions\PublicViewAction;
 use Filament\Pages\Actions;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
+use FilamentAddons\Forms\Actions\PublicViewAction;
 
 trait HasCustomEditActions
 {

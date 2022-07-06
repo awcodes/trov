@@ -30,6 +30,7 @@ class Page extends Model
         'slug',
         'status',
         'content',
+        'hero',
         'has_chat',
         'layout',
         'front_page',

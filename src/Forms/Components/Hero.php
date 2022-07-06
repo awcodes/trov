@@ -3,16 +3,19 @@
 namespace Trov\Forms\Components;
 
 use Closure;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ViewField;
 use Filament\Resources\Pages\EditRecord;
-use FilamentAddons\Forms\Fields\VideoEmbed;
-use FilamentAddons\Forms\Components\VimeoEmbed;
-use FilamentAddons\Forms\Components\YouTubeEmbed;
+use FilamentAddons\Forms\Components\OEmbed;
 use FilamentCurator\Forms\Components\MediaPicker;
 
 class Hero
@@ -26,19 +29,14 @@ class Hero
                     ->default('image')
                     ->options([
                         'image' => 'Image',
-                        'youtube' => 'YouTube',
-                        'vimeo' => 'Vimeo'
+                        'oembed' => 'oEmbed',
                     ])
                     ->reactive(),
                 MediaPicker::make('hero.image')
                     ->label('Image')
                     ->visible(fn (Closure $get): bool => $get('hero.type') == 'image' ?: false),
-                YouTubeEmbed::make('hero.youtube')
-                    ->label('YouTube Embed')
-                    ->visible(fn (Closure $get): bool => $get('hero.type') == 'youtube' ?: false),
-                VimeoEmbed::make('hero.vimeo')
-                    ->label('YouTube Embed')
-                    ->visible(fn (Closure $get): bool => $get('hero.type') == 'vimeo' ?: false),
+                OEmbed::make('hero.oembed')
+                    ->visible(fn (Closure $get): bool => $get('hero.type') == 'oembed' ?: false),
                 Textarea::make('hero.cta')
                     ->label('Call to Action')
                     ->rows(3),
