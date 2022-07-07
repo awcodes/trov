@@ -18,12 +18,19 @@ Please star these awesome repos and/or sponsor all of these people's hard work:
 Install packages via composer
 
 ```bash
-composer require awcodes/trov awcodes/trov-components awcodes/filament-curator awcodes/filament-tiptap-editor
+composer require awcodes/trov awcodes/filament-addons awcodes/filament-curator awcodes/filament-tiptap-editor
 ```
 
-Install Trov Core
+Install optional packages
 
 ```bash
+composer require awcodes/filament-quick-create awcodes/filament-sticky-header awcodes/filament-versions
+```
+
+Install Curator and Trov Core
+
+```bash
+php artisan curator:install
 php artisan trov:install
 ```
 

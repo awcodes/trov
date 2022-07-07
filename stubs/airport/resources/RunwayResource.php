@@ -40,13 +40,13 @@ class RunwayResource extends Resource
 
     protected static ?string $model = Runway::class;
 
-    protected static ?string $label = 'Page';
+    protected static ?string $label = 'Landing Page';
 
     protected static ?string $navigationGroup = 'Airport';
 
     protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
 
-    protected static ?string $navigationLabel = 'Pages';
+    protected static ?string $navigationLabel = 'Landing Pages';
 
     protected static ?string $recordTitleAttribute = 'title';
 
