@@ -58,7 +58,7 @@ class WhitePageResource extends Resource
     {
         return $form
             ->schema([
-                TitleWithSlug::make('title', 'slug', fn (?Model $record) => "/{$record->type}/" ?? '/')->columnSpan('full'),
+                TitleWithSlug::make('title', 'slug', fn (?Model $record) => $record ? "/{$record->type}/" : '/')->columnSpan('full'),
                 Section::make('Details')
                     ->collapsible()
                     ->collapsed(fn ($livewire) => $livewire instanceof EditRecord)
