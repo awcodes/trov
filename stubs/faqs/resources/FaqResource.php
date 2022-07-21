@@ -8,7 +8,6 @@ use Trov\Forms\Blocks\Hero;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
-use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
 use FilamentAddons\Enums\Status;
 use Trov\Forms\Blocks\ImageLeft;
@@ -29,6 +28,7 @@ use Filament\Resources\Pages\EditRecord;
 use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Filters\TrashedFilter;
@@ -43,14 +43,13 @@ use Filament\Tables\Actions\ForceDeleteBulkAction;
 use FilamentAddons\Forms\Components\TitleWithSlug;
 use FilamentAddons\Tables\Columns\TitleWithStatus;
 use FilamentAddons\Tables\Actions\PublicViewAction;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Trov\FaqResource\Pages\EditFaq;
 use App\Filament\Resources\Trov\FaqResource\Pages\ListFaqs;
 use App\Filament\Resources\Trov\FaqResource\Pages\CreateFaq;
 
 class FaqResource extends Resource
 {
-    use HasSoftDeletes;
-
     protected static ?string $model = Faq::class;
 
     protected static ?string $label = 'FAQ';
@@ -141,5 +140,13 @@ class FaqResource extends Resource
             'create' => CreateFaq::route('/create'),
             'edit' => EditFaq::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }

@@ -7,7 +7,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Table;
 use App\Models\DiscoveryTopic;
 use Trov\Forms\Components\Meta;
-use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
 use FilamentAddons\Enums\Status;
 use Filament\Forms\Components\Group;
@@ -23,6 +22,7 @@ use Filament\Resources\Pages\EditRecord;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use App\Forms\Trov\Components\PageBuilder;
 use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Actions\RestoreAction;
@@ -36,14 +36,13 @@ use Filament\Tables\Actions\ForceDeleteBulkAction;
 use FilamentAddons\Forms\Components\TitleWithSlug;
 use FilamentAddons\Tables\Columns\TitleWithStatus;
 use FilamentAddons\Tables\Actions\PublicViewAction;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Trov\DiscoveryTopicResource\Pages\EditDiscoveryTopic;
 use App\Filament\Resources\Trov\DiscoveryTopicResource\Pages\ListDiscoveryTopics;
 use App\Filament\Resources\Trov\DiscoveryTopicResource\Pages\CreateDiscoveryTopic;
 
 class DiscoveryTopicResource extends Resource
 {
-    use HasSoftDeletes;
-
     protected static ?string $model = DiscoveryTopic::class;
 
     protected static ?string $label = 'Topic';
@@ -146,5 +145,13 @@ class DiscoveryTopicResource extends Resource
             'create' => CreateDiscoveryTopic::route('/create'),
             'edit' => EditDiscoveryTopic::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }

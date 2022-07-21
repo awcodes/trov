@@ -2,12 +2,9 @@
 
 namespace Trov;
 
-use App\Models\Page;
 use App\Models\User;
 use Livewire\Livewire;
 use Filament\Facades\Filament;
-use Trov\Observers\PageObserver;
-use Trov\Observers\UserObserver;
 use Filament\PluginServiceProvider;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\File;
@@ -23,7 +20,7 @@ class TrovServiceProvider extends PluginServiceProvider
     {
         $package
             ->name('trov')
-            ->hasConfigFile(['trov', 'filament', 'filament-breezy', 'filament-shield'])
+            ->hasConfigFile(['trov', 'filament'])
             ->hasAssets()
             ->hasViews()
             ->hasRoute("web")
@@ -56,8 +53,6 @@ class TrovServiceProvider extends PluginServiceProvider
     public function boot()
     {
         parent::boot();
-
-        User::observe(UserObserver::class);
 
         $this->publishes([
             __DIR__ . '/../stubs/faqs/database/migrations/' => database_path('migrations')

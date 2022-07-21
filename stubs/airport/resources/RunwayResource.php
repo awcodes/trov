@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Trov;
 use App\Models\Runway;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
-use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
 use FilamentAddons\Enums\Status;
 use Filament\Forms\Components\Group;
@@ -18,6 +17,7 @@ use Filament\Resources\Pages\EditRecord;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use App\Forms\Trov\Components\PageBuilder;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Filters\TrashedFilter;
@@ -29,15 +29,13 @@ use Filament\Tables\Actions\ForceDeleteBulkAction;
 use FilamentAddons\Forms\Components\TitleWithSlug;
 use FilamentAddons\Tables\Columns\TitleWithStatus;
 use FilamentAddons\Tables\Actions\PublicViewAction;
-use TrovComponents\Tables\Filters\SoftDeleteFilter;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Trov\RunwayResource\Pages\EditRunway;
 use App\Filament\Resources\Trov\RunwayResource\Pages\ListRunways;
 use App\Filament\Resources\Trov\RunwayResource\Pages\CreateRunway;
 
 class RunwayResource extends Resource
 {
-    use HasSoftDeletes;
-
     protected static ?string $model = Runway::class;
 
     protected static ?string $label = 'Landing Page';
@@ -121,5 +119,13 @@ class RunwayResource extends Resource
             'create' => CreateRunway::route('/create'),
             'edit' => EditRunway::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }

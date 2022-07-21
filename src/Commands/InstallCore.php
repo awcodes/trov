@@ -164,7 +164,6 @@ class InstallCore extends Command
         $pageResourcePath = app_path((string) Str::of('Filament\\Resources\\Trov\\PageResource.php')->replace('\\', '/'),);
         $postResourcePath = app_path((string) Str::of('Filament\\Resources\\Trov\\PostResource.php')->replace('\\', '/'),);
         $authorResourcePath = app_path((string) Str::of('Filament\\Resources\\Trov\\AuthorResource.php')->replace('\\', '/'),);
-        $userResourcePath = app_path((string) Str::of('Filament\\Resources\\Trov\\UserResource.php')->replace('\\', '/'),);
 
         if ($this->checkForCollision([$pageResourcePath])) {
             $confirmed = $this->confirm('Trov Page Resource already exists. Overwrite?', true);
@@ -182,13 +181,6 @@ class InstallCore extends Command
 
         if ($this->checkForCollision([$authorResourcePath])) {
             $confirmed = $this->confirm('Trov Author Resource already exists. Overwrite?', true);
-            if (!$confirmed) {
-                return self::INVALID;
-            }
-        }
-
-        if ($this->checkForCollision([$userResourcePath])) {
-            $confirmed = $this->confirm('Trov User Resource already exists. Overwrite?', true);
             if (!$confirmed) {
                 return self::INVALID;
             }

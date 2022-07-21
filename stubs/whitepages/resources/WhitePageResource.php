@@ -6,7 +6,6 @@ use App\Models\WhitePage;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
-use Trov\Traits\HasSoftDeletes;
 use Filament\Resources\Resource;
 use FilamentAddons\Enums\Status;
 use Filament\Forms\Components\Select;
@@ -20,6 +19,7 @@ use Filament\Resources\Pages\EditRecord;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use App\Forms\Trov\Components\PageBuilder;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Filters\TrashedFilter;
@@ -31,6 +31,7 @@ use Filament\Tables\Actions\ForceDeleteBulkAction;
 use FilamentAddons\Forms\Components\TitleWithSlug;
 use FilamentAddons\Tables\Columns\TitleWithStatus;
 use FilamentAddons\Tables\Actions\PublicViewAction;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use App\Filament\Resources\Trov\WhitePageResource\Pages\EditWhitePage;
 use App\Filament\Resources\Trov\WhitePageResource\Pages\ListWhitePages;
@@ -38,8 +39,6 @@ use App\Filament\Resources\Trov\WhitePageResource\Pages\CreateWhitePage;
 
 class WhitePageResource extends Resource
 {
-    use HasSoftDeletes;
-
     const ARTICLE_TYPES = ['article' => 'Article', 'resource' => 'Resource'];
 
     protected static ?string $model = WhitePage::class;
@@ -139,5 +138,13 @@ class WhitePageResource extends Resource
             'create' => CreateWhitePage::route('/create'),
             'edit' => EditWhitePage::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }

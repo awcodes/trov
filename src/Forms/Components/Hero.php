@@ -36,6 +36,7 @@ class Hero
                     ->label('Image')
                     ->visible(fn (Closure $get): bool => $get('hero.type') == 'image' ?: false),
                 OEmbed::make('hero.oembed')
+                    ->label('Details')
                     ->visible(fn (Closure $get): bool => $get('hero.type') == 'oembed' ?: false),
                 Textarea::make('hero.cta')
                     ->label('Call to Action')

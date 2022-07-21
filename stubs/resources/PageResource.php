@@ -9,6 +9,7 @@ use Trov\Forms\Components\Hero;
 use Trov\Forms\Components\Meta;
 use Filament\Resources\Resource;
 use FilamentAddons\Enums\Status;
+use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
@@ -19,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use App\Forms\Trov\Components\PageBuilder;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Filters\TrashedFilter;
@@ -30,17 +32,14 @@ use Filament\Tables\Actions\ForceDeleteBulkAction;
 use FilamentAddons\Forms\Components\TitleWithSlug;
 use FilamentAddons\Tables\Columns\TitleWithStatus;
 use FilamentAddons\Tables\Actions\PublicViewAction;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use App\Filament\Resources\Trov\PageResource\Pages\EditPage;
 use App\Filament\Resources\Trov\PageResource\Pages\ListPages;
 use App\Filament\Resources\Trov\PageResource\Pages\CreatePage;
-use Filament\Forms\Components\Group;
-use Trov\Traits\HasSoftDeletes;
 
 class PageResource extends Resource
 {
-    use HasSoftDeletes;
-
     protected static ?string $model = Page::class;
 
     protected static ?string $label = 'Page';
@@ -155,5 +154,13 @@ class PageResource extends Resource
             'create' => CreatePage::route('/create'),
             'edit' => EditPage::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }

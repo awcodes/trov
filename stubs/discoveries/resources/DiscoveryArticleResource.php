@@ -6,7 +6,6 @@ use Illuminate\Support\Str;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Trov\Forms\Components\Meta;
-use Trov\Traits\HasSoftDeletes;
 use App\Models\DiscoveryArticle;
 use Filament\Resources\Resource;
 use FilamentAddons\Enums\Status;
@@ -22,6 +21,7 @@ use Filament\Resources\Pages\EditRecord;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
 use App\Forms\Trov\Components\PageBuilder;
 use Filament\Forms\Components\Placeholder;
 use Filament\Tables\Actions\RestoreAction;
@@ -35,13 +35,13 @@ use Filament\Tables\Actions\ForceDeleteBulkAction;
 use FilamentAddons\Forms\Components\TitleWithSlug;
 use FilamentAddons\Tables\Columns\TitleWithStatus;
 use FilamentAddons\Tables\Actions\PublicViewAction;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Trov\DiscoveryArticleResource\Pages\EditDiscoveryArticle;
 use App\Filament\Resources\Trov\DiscoveryArticleResource\Pages\ListDiscoveryArticles;
 use App\Filament\Resources\Trov\DiscoveryArticleResource\Pages\CreateDiscoveryArticle;
 
 class DiscoveryArticleResource extends Resource
 {
-    use HasSoftDeletes;
 
     protected static ?string $model = DiscoveryArticle::class;
 
@@ -148,5 +148,13 @@ class DiscoveryArticleResource extends Resource
             'create' => CreateDiscoveryArticle::route('/create'),
             'edit' => EditDiscoveryArticle::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
     }
 }
