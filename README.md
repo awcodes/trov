@@ -4,21 +4,12 @@
 
 A Laravel / Filament starter kit for CMS functionality on websites.
 
-Please star these awesome repos and/or sponsor all of these people's hard work:
-
-- [Filament](https://github.com/laravel-filament/filament)
-- [Filament Breezy](https://github.com/jeffgreco13/filament-breezy)
-- [Filament Shield](https://github.com/bezhanSalleh/filament-shield)
-- [Spatie Laravel Package Tools](https://github.com/spatie/laravel-package-tools)
-- [Spatie Laravel Sluggable](https://github.com/spatie/laravel-sluggable)
-- [Spatie Laravel Tags](https://github.com/spatie/laravel-tags)
-
 ## Installation
 
 Install packages via composer
 
 ```bash
-composer require awcodes/trov awcodes/filament-addons awcodes/filament-curator awcodes/filament-tiptap-editor
+composer require awcodes/trov awcodes/filament-addons awcodes/filament-curator awcodes/filament-tiptap-editor awcodes/filament-sentry
 ```
 
 Install optional packages
@@ -27,7 +18,49 @@ Install optional packages
 composer require awcodes/filament-quick-create awcodes/filament-sticky-header awcodes/filament-versions
 ```
 
-Install Curator and Trov Core
+## Setup Filament Breezy
+
+Publish config file. This will publish Sentry's version of Breezy's config with stronger default password rules. You are free to modify this however you see fit.
+
+```bash
+php artisan vendor:publish --tag=filament-sentry-config
+```
+
+## Setup Filament Shield
+Install Shield
+
+```bash
+php artisan vendor:publish --tag=filament-shield-migrations
+php artisan vendor:publish --tag=filament-shield-seeder
+```
+
+Open the `Database\Seeders\ShieldSettingSeeder.php` file and update the $settingKeys as needed.
+
+```bash
+php artisan migrate
+php artisan db:seed --class=ShieldSettingSeeder
+```
+
+Add the Spatie\Permission\Traits\HasRoles trait to your User model(s):
+
+```php
+use Spatie\Permission\Traits\HasRoles;
+use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable implements FilamentUser
+{
+    use HasRoles;
+
+    public function canAccessFilament(): bool
+    {
+        // this can be anything as long as it returns true / false
+        return str_ends_with($this->email, '@domain.com') && $this->getRoleNames()->isNotEmpty();
+    }
+}
+```
+
+## Setup Filament Curator and Trov Core
 
 ```bash
 php artisan curator:install
@@ -42,30 +75,6 @@ php artisan trov:install --module=discoveries
 php artisan trov:install --module=faqs
 php artisan trov:install --module=linkables
 php artisan trov:install --module=whitepages
-```
-
-Update `App\Models\User.php` with:
-
-```php
-use Filament\Models\Contracts\FilamentUser;
-use Spatie\Permission\Traits\HasRoles;
-
-class User extends Authenticatable implements FilamentUser
-{
-    use HasRoles;
-
-    public function canAccessFilament(): bool
-    {
-        // this can be anything as long as it returns true / false
-        return str_ends_with($this->email, '@domain.com') && $this->getRoleNames()->isNotEmpty();
-    }
-}
-```
-
-Update `filament-shield.php` config file where appropriate, then initialize Shield with:
-
-```bash
-php artisan shield:install
 ```
 
 ## License
