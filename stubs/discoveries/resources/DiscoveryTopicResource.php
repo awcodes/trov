@@ -35,7 +35,7 @@ use FilamentCurator\Forms\Components\MediaPicker;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use FilamentAddons\Forms\Components\TitleWithSlug;
 use FilamentAddons\Tables\Columns\TitleWithStatus;
-use FilamentAddons\Tables\Actions\PublicViewAction;
+use FilamentAddons\Tables\Actions\PreviewAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Trov\DiscoveryTopicResource\Pages\EditDiscoveryTopic;
 use App\Filament\Resources\Trov\DiscoveryTopicResource\Pages\ListDiscoveryTopics;
@@ -119,7 +119,7 @@ class DiscoveryTopicResource extends Resource
                 TrashedFilter::make(),
             ])
             ->actions([
-                PublicViewAction::make()->iconButton(),
+                PreviewAction::make()->iconButton(),
                 EditAction::make()->iconButton(),
                 DeleteAction::make()->iconButton(),
                 RestoreAction::make()->iconButton(),

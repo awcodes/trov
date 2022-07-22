@@ -42,7 +42,7 @@ use FilamentAddons\Forms\Components\Timestamps;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use FilamentAddons\Forms\Components\TitleWithSlug;
 use FilamentAddons\Tables\Columns\TitleWithStatus;
-use FilamentAddons\Tables\Actions\PublicViewAction;
+use FilamentAddons\Tables\Actions\PreviewAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Trov\FaqResource\Pages\EditFaq;
 use App\Filament\Resources\Trov\FaqResource\Pages\ListFaqs;
@@ -114,7 +114,7 @@ class FaqResource extends Resource
                 TrashedFilter::make(),
             ])
             ->actions([
-                PublicViewAction::make()->iconButton(),
+                PreviewAction::make()->iconButton(),
                 EditAction::make()->iconButton(),
                 DeleteAction::make()->iconButton(),
                 RestoreAction::make()->iconButton(),

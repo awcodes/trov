@@ -30,9 +30,8 @@ use FilamentAddons\Forms\Components\Timestamps;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use FilamentAddons\Forms\Components\TitleWithSlug;
 use FilamentAddons\Tables\Columns\TitleWithStatus;
-use FilamentAddons\Tables\Actions\PublicViewAction;
+use FilamentAddons\Tables\Actions\PreviewAction;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use TrovComponents\Tables\Filters\SoftDeleteFilter;
 use App\Filament\Resources\Trov\WhitePageResource\Pages\EditWhitePage;
 use App\Filament\Resources\Trov\WhitePageResource\Pages\ListWhitePages;
 use App\Filament\Resources\Trov\WhitePageResource\Pages\CreateWhitePage;
@@ -112,7 +111,7 @@ class WhitePageResource extends Resource
                 TrashedFilter::make(),
             ])
             ->actions([
-                PublicViewAction::make(),
+                PreviewAction::make(),
                 EditAction::make(),
                 DeleteAction::make(),
                 RestoreAction::make(),
