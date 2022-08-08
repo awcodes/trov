@@ -2,7 +2,7 @@
 
 namespace Trov\Traits;
 
-use App\Models\Linkable;
+use Trov\Models\Linkable;
 
 trait HasLinkable
 {

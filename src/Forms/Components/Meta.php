@@ -63,7 +63,7 @@ class Meta
                         ]),
                         MediaPicker::make('og_image')
                             ->label('OG Image')
-                            ->helperText('Leave empty to use default. This will also be used on any resources that utilizes a featured image.')
+                            ->helperText('Leave empty to use default. This will also be used on any resources that utilize a featured image.')
                     ]),
             ]);
     }
