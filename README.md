@@ -27,18 +27,10 @@ php artisan vendor:publish --tag=filament-sentry-config
 ```
 
 ## Setup Filament Shield
-Install Shield
+Publish filament-shield config
 
 ```bash
-php artisan vendor:publish --tag=filament-shield-migrations
-php artisan vendor:publish --tag=filament-shield-seeder
-```
-
-Open the `Database\Seeders\ShieldSettingSeeder.php` file and update the $settingKeys as needed.
-
-```bash
-php artisan migrate
-php artisan db:seed --class=ShieldSettingSeeder
+php artisan vendor:publish --tag=filament-shield-config
 ```
 
 Add the Spatie\Permission\Traits\HasRoles trait to your User model(s):
@@ -58,6 +50,12 @@ class User extends Authenticatable implements FilamentUser
         return str_ends_with($this->email, '@domain.com') && $this->getRoleNames()->isNotEmpty();
     }
 }
+```
+
+Install and follow the prompts
+
+```bash
+php artisan shield:install
 ```
 
 ## Setup Filament Curator and Trov Core
