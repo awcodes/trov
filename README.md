@@ -9,13 +9,13 @@ A Laravel / Filament starter kit for CMS functionality on websites.
 Install packages via composer
 
 ```bash
-composer require awcodes/trov awcodes/filament-addons awcodes/filament-curator awcodes/filament-tiptap-editor awcodes/filament-sentry
+composer require awcodes/trov awcodes/filament-addons awcodes/filament-curator awcodes/filament-tiptap-editor awcodes/filament-sentry awcodes/filament-versions
 ```
 
 Install optional packages
 
 ```bash
-composer require awcodes/filament-quick-create awcodes/filament-sticky-header awcodes/filament-versions
+composer require awcodes/filament-quick-create awcodes/filament-sticky-header
 ```
 
 ## Setup Filament Breezy
